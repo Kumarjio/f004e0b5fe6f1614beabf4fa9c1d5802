@@ -28,8 +28,16 @@
 </script>
 
 <div class="row">
+    <div class="col-sm-12">
+        <div class="page-header">
+            <h1>Manage Email Templates</h1>
+        </div>
+    </div>
+</div
+
+<div class="row">
     <div class="col-lg-12">
-        <form id="edit" method="post" class="form-horizontal" action="<?php echo ADMIN_URL . 'email/edit/' . @$email->id; ?>" enctype="multipart/form-data">
+        <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'email/edit/' . @$email->id; ?>" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">Subject <span class="text-danger">*</span></label>
@@ -56,7 +64,7 @@
                 <label class="col-lg-2 control-label">&nbsp;</label>
                 <div class="col-lg-9">
                     <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="Update">Update</button>
-                    <a href="<?php echo ADMIN_URL . 'email' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="Cancel">Cancel</a>
+                    <a href="<?php echo USER_URL . 'email' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="Cancel">Cancel</a>
                 </div>
             </div>
 

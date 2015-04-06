@@ -18,16 +18,19 @@
         <meta content="" name="description" />
         <meta content="" name="author" />
 
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>summernote/summernote.min.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>iCheck/skins/all.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>chosen/chosen.min.css">
+        <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.css">
+        <link href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css" rel="stylesheet">
+
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>bootstrap/css/bootstrap.min.css" media="screen">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo USER_FONT_URL; ?>style.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>main.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>main-responsive.css">
-        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>iCheck/skins/all.css">
-        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
-        <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
-        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.css">
-
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>custom.css">
         <!--[if IE 7]>
             <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome-ie7.min.css">
@@ -35,13 +38,12 @@
         <link rel="shortcut icon" href="<?php echo USER_IMG_URL; ?>favicon.ico" />
 
         <script src="<?php echo USER_JS_URL; ?>jquery.min.js"></script>
-        <script src="<?php echo USER_JS_URL; ?>jquery-ui-1.10.3.min.js"></script>
         <script src="<?php echo USER_JS_URL; ?>jquery.validate.js"></script>
         
         <script src="<?php echo PLUGIN_URL; ?>datatables/jquery.dataTables.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.js"></script>
 
-        <link href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css" rel="stylesheet">
+        
 
         <script type="text/javascript">
             var http_host_js = '<?php echo USER_URL; ?>';
@@ -70,29 +72,19 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="pages_user_profile.html">
+                                    <a href="<?php echo USER_URL; ?>">
                                         <i class="clip-user-2"></i>
                                         &nbsp;My Profile
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="pages_calendar.html">
-                                        <i class="clip-calendar"></i>
-                                        &nbsp;My Calendar
-                                    </a>
-                                <li>
-                                    <a href="pages_messages.html">
-                                        <i class="clip-bubble-4"></i>
-                                        &nbsp;My Messages (3)
+                                    <a href="<?php echo USER_URL; ?>">
+                                        <i class="clip-key"></i>
+                                        &nbsp;Change Password 
                                     </a>
                                 </li>
-                                <li class="divider"></li>
                                 <li>
-                                    <a href="utility_lock_screen.html"><i class="clip-locked"></i>
-                                        &nbsp;Lock Screen </a>
-                                </li>
-                                <li>
-                                    <a href="login_example1.html">
+                                    <a href="<?php echo USER_URL .'logout'; ?>">
                                         <i class="clip-exit"></i>
                                         &nbsp;Log Out
                                     </a>
@@ -108,58 +100,104 @@
         <div class="main-container">
             <div class="navbar-content">
                 <div class="main-navigation navbar-collapse collapse">
-                    <div class="navigation-toggler">
-                        <i class="clip-chevron-left"></i>
-                        <i class="clip-chevron-right"></i>
-                    </div>
+  
                     <?php
                         $uri_1 = ($this->uri->segment(2) ? $this->uri->segment(2) : 'dashboard');
                         $uri_2 = ($this->uri->segment(2) ? $this->uri->segment(3) ? $this->uri->segment(3) : $this->uri->segment(2) : 'dashboard');
                     ?>
                     <ul class="main-navigation-menu">
                         <li class="<?php echo ($uri_1 == 'dashboard') ? 'active open' : ''; ?>">
-                            <a href="index.html"><i class="clip-home-3"></i>
+                            <a href="<?php echo USER_URL; ?>"><i class="clip-home-3"></i>
                                 <span class="title"> Dashboard </span>
                             </a>
                         </li>
 
-                        <li class="<?php echo ($uri_1 == 'page' || $uri_1 == 'email' || $uri_1 == 'newslettertemplate') ? 'active open' : ''; ?>">
-                            <a href="#">
-                                 <span class="title"> Templates </span><i class="icon-arrow"></i>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="<?php echo ($uri_1 == 'email') ? 'active' : ''; ?>"><a href="<?php echo USER_URL . 'email'; ?>"><i class="fa fa-envelope"></i>Email</a></li>
-                            </ul>
-                        </li>
+                        <?php if (hasPermission('roles', 'viewRole')) { ?>
+                            <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'role'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"> Role </span>
+                                </a>
+                            </li>
+                        <?php } ?>
 
+                        <?php if (hasPermission('emails', 'viewEmail')) { ?>
+                            <li class="<?php echo ($uri_1 == 'email') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'email'; ?>">
+                                    <i class="icon-envelope-alt"></i>
+                                    <span class="title">Email Templates</span></i>
+                                </a>
+                            </li>
+                        <?php } ?>
 
-
-
-                        <li class="<?php echo ($uri_1 == 'system_setting' && ($uri_2 == 'general' || $uri_2 == 'mail')) ? 'active open' : ''; ?>">
-                            <a href="#">
-                                <span class="title"> Settings </span><i class="icon-arrow"></i>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="<?php echo ($uri_2 == 'general') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/general'; ?>"><i class="fa fa-wrench"></i><span class="title">General Setting</span></a></li>
-                                <li class="<?php echo ($uri_2 == 'mail') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/mail'; ?>"><i class="fa fa-wrench"></i><span class="title">Mail Setting</span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <?php if (hasPermission('systemsettings', 'viewSystemSetting')) { ?>
+                            <li class="<?php echo ($uri_1 == 'system_setting' && ($uri_2 == 'general' || $uri_2 == 'mail')) ? 'active open' : ''; ?>">
+                                <a href="#">
+                                    <i class="icon-cog"></i>
+                                    <span class="title"> Settings </span><i class="icon-arrow"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="<?php echo ($uri_2 == 'general') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/general'; ?>"><i class="fa fa-wrench"></i><span class="title">General Setting</span></a></li>
+                                    <li class="<?php echo ($uri_2 == 'mail') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/mail'; ?>"><i class="fa fa-wrench"></i><span class="title">Mail Setting</span></a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                     </ul>
                     <!-- end: MAIN NAVIGATION MENU -->
                 </div>
             </div>
             <div class="main-content">
                 <div class="container">
+                    <?php if ($this->session->flashdata('success') != '') { ?>
+                        <div class="row mar-10">
+                            <div class="auto-close alert alert-success fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <?php echo $this->session->flashdata('success'); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if ($this->session->flashdata('warning') != '') { ?>
+                        <div class="row">
+                            <div class="auto-close alert alert-warning fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <?php echo $this->session->flashdata('warning'); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if ($this->session->flashdata('info') != '') { ?>
+                        <div class="row mar-tp-10">
+                            <div class="auto-close alert alert-info fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <?php echo $this->session->flashdata('info'); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if ($this->session->flashdata('error') != '') { ?>
+                        <div class="row">
+                            <div class="auto-close alert alert-danger fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <?php echo $this->session->flashdata('error'); ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php } ?>
+
                     <?php echo @$content_for_layout; ?>
                 </div>
             </div>
         </div>
         <div class="footer clearfix">
-            <div class="footer-inner">
-                <p><?php echo $this->config->item('copyright_left'); ?></p>
-                <p><?php echo $this->config->item('copyright_right'); ?></p>
-            </div>
+            <p class="col-md-6"><?php echo $this->config->item('copyright_left'); ?></p>
+            <p class="col-md-6 text-right"><?php echo $this->config->item('copyright_right'); ?></p>
             <div class="footer-items">
                 <span class="go-top"><i class="clip-chevron-up"></i></span>
             </div>
@@ -174,10 +212,12 @@
         <script src="<?php echo PLUGIN_URL; ?>bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>blockUI/jquery.blockUI.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>iCheck/jquery.icheck.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>chosen/chosen.jquery.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/jquery.mousewheel.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
         <script src="<?php echo USER_JS_URL; ?>main.js"></script>
-        <!-- end: MAIN JAVASCRIPTS -->
+        <script src="<?php echo USER_JS_URL; ?>custom.js"></script>
         <script>
             jQuery(document).ready(function() {
                 Main.init();

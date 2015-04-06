@@ -21,11 +21,13 @@ class Authentication extends CI_Controller {
     function checkLogin() {
         $array = array('authenticate');
         $path = explode('/', $_SERVER['REQUEST_URI']);
+
         if ($_SERVER['SERVER_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_ADDR'] == '192.168.1.29') {
             $path_admin = $path[2];
         } else {
             $path_admin = $path[2];
         }
+
         if ($path_admin == 'user' && !in_array($this->router->class, $array)) {
             $session = $this->session->userdata('user_session');
             if (empty($session)) {
@@ -39,7 +41,9 @@ class Authentication extends CI_Controller {
 
     private function setAllowedController() {
         $this->allowed_controller = array(
-            'authenticate'
+            'authenticate',
+            'json',
+            'dashboard'
         );
     }
 
@@ -48,14 +52,12 @@ class Authentication extends CI_Controller {
     }
 
     function checkPermission() {
-        if ($this->router->fetch_directory() == "" &&
-                !in_array($this->router->class, $this->allowed_controller) &&
-                !in_array($this->router->method, $this->allowed_for_all)) {
+        if ($this->router->fetch_directory() == "user/" && !in_array($this->router->class, $this->allowed_controller) && !in_array($this->router->method, $this->allowed_for_all)) {
 
-            $session = $this->session->userdata('admin_session');
+            $session = $this->session->userdata('user_session');
             if (isset($session) && !empty($session)) {
                 if (hasPermission($this->router->class, $this->router->method) === false) {
-                    $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+                    $this->session->set_flashdata('error', 'You dont have permission to see it Please contact Administrator');
                     redirect(USER_URL . 'denied', 'refresh');
                 }
             }

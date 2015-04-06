@@ -9,18 +9,20 @@
             "aoColumns": [
                 {"sClass": ""},{"bSortable": false, "sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo ADMIN_URL . "role/getjson"; ?>",
+            "sAjaxSource": "<?php echo USER_URL . 'role/getjson'; ?>",
         });
     });
 
 </script>
 
 <div class="row">
-    <div class="col-md-12 text-right">
-        <a href="<?php echo ADMIN_URL . 'role/add'; ?>" class="btn btn-success"> Add Role</a>
+    <div class="col-sm-12">
+        <div class="page-header">
+            <h1>Roles</h1>
+        </div>
     </div>
-</div>
-<br />
+</div
+
 <div id="mainpanel" class="box-body table-responsive">
     <table class="table table-bordered table-hover" id="list_data">
         <thead class="the-box dark full">

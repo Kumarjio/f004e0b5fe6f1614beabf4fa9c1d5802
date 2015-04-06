@@ -69,7 +69,7 @@ class emails extends CI_Controller
             }
         } else if (isset($data['error'])) {
             $this->session->set_flashdata('file_errors', $data['error']);
-            redirect(ADMIN_URL . 'email/edit/' . $id, 'refresh');
+            redirect(USER_URL . 'email/edit/' . $id, 'refresh');
         }
     }
     
@@ -88,24 +88,5 @@ class emails extends CI_Controller
         $obj->save();
         $this->session->set_flashdata('success', $this->lang->line('attachment_removed'));
         redirect(ADMIN_URL . 'email/edit/' . $id, 'refresh');
-    }
-
-    public function getJsonData() {
-        $this->load->library('datatable');
-        $this->datatable->aColumns = array('subject');
-        $this->datatable->eColumns = array('id');
-        $this->datatable->sIndexColumn = "id";
-        $this->datatable->sTable = " emails";
-        $this->datatable->datatable_process();
-        
-        foreach ($this->datatable->rResult->result_array() as $aRow) {
-            $temp_arr = array();
-            $temp_arr[] = $aRow['subject'];
-            $temp_arr[] = '<a href="' . ADMIN_URL . 'email/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
-            
-            $this->datatable->output['aaData'][] = $temp_arr;
-        }
-        echo json_encode($this->datatable->output);
-        exit();
     }
 }

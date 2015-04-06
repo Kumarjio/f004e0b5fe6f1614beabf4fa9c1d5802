@@ -2,11 +2,12 @@
 
 if (!function_exists('hasPermission')) {
     function hasPermission($controller, $method) {
-        $data = get_instance()->session->userdata('admin_session');
+        $data = get_instance()->session->userdata('user_session');
         if ($data->role == 1) {
             return TRUE;
         } else {
-            $permissions= get_instance()->config->item('admin_session');
+            $permissions= get_instance()->config->item('user_premission');
+
             if (is_array($permissions) && array_key_exists($controller, $permissions) && in_array($method, $permissions[$controller])) {
                 return TRUE;
             } else {
@@ -102,8 +103,15 @@ if (!function_exists('createPermissionArray')) {
                     'deleteRole' => array('name' => 'Delete'),
                 )
             ),
+            'emails' => array(
+                'name' => 'Email Templates',
+                'hasChild' => array(
+                    'viewEmail' => array('name' => 'List'),
+                    'editEmail' => array('name' => 'Edit'),
+                )
+            ),
             'systemsettings' => array(
-                'name' => 'System Setting',
+                'name' => 'Setting',
                 'hasChild' => array(
                     'viewSystemSetting' => array('name' => 'Edit')
                 )

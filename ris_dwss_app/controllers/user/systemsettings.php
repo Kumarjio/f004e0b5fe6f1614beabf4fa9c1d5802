@@ -15,7 +15,7 @@ class systemsettings extends CI_Controller
     public function viewSystemSetting($type = null) {
         if (is_null($type) || is_integer($type)) {
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-            redirect(ADMIN_URL . 'dashboard', 'refresh');
+            redirect(USER_URL . 'dashboard', 'refresh');
         }
         
         $setting = new Systemsetting();
@@ -29,7 +29,7 @@ class systemsettings extends CI_Controller
             case 'update_general':
                 $this->_updateSetting('general');
                 $this->session->set_flashdata('success', 'Data updated successfully');
-                redirect(ADMIN_URL . 'system_setting/general', 'refresh');
+                redirect(USER_URL . 'system_setting/general', 'refresh');
                 break;
             case 'mail':
                 $data['page_h1_title'] = 'Mail Setting';
@@ -38,7 +38,7 @@ class systemsettings extends CI_Controller
             case 'update_mail':
                 $this->_updateSetting('mail');
                 $this->session->set_flashdata('success', 'Data updated successfully');
-                redirect(ADMIN_URL . 'system_setting/mail', 'refresh');
+                redirect(USER_URL . 'system_setting/mail', 'refresh');
                 break;
             case 'login_credential':
                 $data['page_h1_title'] = 'Login Credential';
@@ -47,7 +47,7 @@ class systemsettings extends CI_Controller
             case 'update_login_credential':
                 $this->_updateSetting('login_credential');
                 $this->session->set_flashdata('success', 'Data updated successfully');
-                redirect(ADMIN_URL . 'system_setting/login_credential', 'refresh');
+                redirect(USER_URL . 'system_setting/login_credential', 'refresh');
                 break;
             default:
                 $data['page_h1_title'] = 'General Setting';
@@ -136,7 +136,7 @@ class systemsettings extends CI_Controller
             }
         } else if (isset($data['error'])) {
             $this->session->set_flashdata($sys_key, $data['error']);
-            redirect(ADMIN_URL . 'system_setting/' . $setting->type, 'refresh');
+            redirect(USER_URL . 'system_setting/' . $setting->type, 'refresh');
         }
     }
 }

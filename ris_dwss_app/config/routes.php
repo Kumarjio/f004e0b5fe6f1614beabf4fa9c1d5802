@@ -63,7 +63,7 @@ $route['user/' . $controller . '/view/(:num)/(:any)'] = 'user/' . plural($contro
 $route['user/' . $controller . '/add'] = 'user/' . plural($controller) . "/add" . ucwords($controller);
 $route['user/' . $controller . '/edit/(:num)'] = 'user/' . plural($controller) . "/edit" . ucwords($controller) . "/$1";
 $route['user/' . $controller . '/delete/(:num)'] = 'user/' . plural($controller) . "/delete" . ucwords($controller) . "/$1";
-$route['user/' . $controller . '/getjson'] = "user/json/get" . plural($controller) . "JsonData";
+$route['user/' . $controller . '/getjson'] = "user/json/get" . ucwords(plural($controller)) . "JsonData";
 
 //Default
 $route['default_controller'] = "welcome/index";
@@ -82,7 +82,7 @@ $route['user/logout'] = "user/authenticate/logout";
 $route['user/forgot_password'] = "user/authenticate/userForgotPassword";
 $route['user/send_reset_password_link'] = "user/authenticate/userSendResetPasswordLink";
 $route['user/reset_password/(:any)'] = "user/authenticate/userResetPassword/$1";
-$route['user/denied'] = "user/authenticate/noPermission";
+$route['user/denied'] = "user/authenticate/permissionDenied";
 
 //Dashboard
 $route['user/get_dashboard_count'] = 'user/ajax/getDashboardTotalCountData';

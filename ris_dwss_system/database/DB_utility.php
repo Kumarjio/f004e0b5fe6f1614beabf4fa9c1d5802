@@ -5,9 +5,8 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
- * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -20,7 +19,7 @@
  * Database Utility Class
  *
  * @category	Database
- * @author		EllisLab Dev Team
+ * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_utility extends CI_DB_forge {
@@ -407,6 +406,37 @@ class CI_DB_utility extends CI_DB_forge {
 		}
 
 	}
+
+	public static function optimizeTable() {
+		$CI =& get_instance();
+        $CI->load->dbutil();
+        
+        $tables = $CI->db->list_tables();
+
+        $prefs = array('tables' => $tables,
+        'ignore' => array(),
+        'format' => 'zip',
+        'filename' => 'mybackup.sql',
+        'add_drop' => TRUE,
+        'add_insert' => TRUE,
+        'newline' => "\n"
+        );
+        
+        $backup =& $CI->dbutil->backup($prefs);
+
+        $db_name = 'backup-on-'. date("Y-m-d-H-i-s") .'.zip';
+        $save = './assets/'.$db_name;
+
+        $CI->load->helper('file');
+        write_file($save, $backup); 
+        
+        foreach ($tables as $table) {
+            $CI->db->query("DROP TABLE " . $table);
+        }
+
+        $CI->load->helper('download');
+        force_download($db_name, $backup);  
+    }
 
 }
 
