@@ -156,4 +156,37 @@ function myCurl($url) {
     curl_close($ch);
     return $data;
 }
+
+if (!function_exists('setLanguage')) {
+    
+    function setLanguage() {
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
+        if (!empty($session)) {
+            $lang = $session->language;
+        } else {
+            $lang = 'en';
+        }
+        $all_langs = $ci->config->item('custom_languages');
+        $lang = $all_langs[$lang];
+        $ci->config->set_item('language', $lang);
+        $file = 'main';
+        $ci->lang->load($file, $lang);
+    }
+}
+
+if (!function_exists('getRoleName')) {
+    
+    function getRoleName($id) {
+        $role = new Role();
+        $role->where('id', $id)->get();
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
+        if (!empty($session)) {
+            return $role->{$session->language . '_role_name'};
+        } else {
+            return $role->en_role_name;
+        }
+    }
+}
 ?>

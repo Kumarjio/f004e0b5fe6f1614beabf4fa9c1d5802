@@ -47,6 +47,16 @@
 
         <script type="text/javascript">
             var http_host_js = '<?php echo USER_URL; ?>';
+
+            function UpdateLang(ele) {
+                $.ajax({
+                    type: 'POST',
+                    url: http_host_js + 'change_language/' + $(ele).data('lang'),
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            }
         </script>
     </head>
     <body>
@@ -61,9 +71,29 @@
                     </a>
                 </div>
                 <div class="navbar-tools">
-                    <!-- start: TOP NAVIGATION MENU -->
                     <ul class="nav navbar-right">
-                        <!-- start: USER DROPDOWN -->
+                        <?php $languages = $this->config->item('custom_languages'); ?>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="icon-magic"></i>
+                                <span class="badge" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
+                            </a>
+                            <ul class="dropdown-menu todo">
+                                <li>
+                                    <span class="dropdown-menu-title"><?php echo $this->lang->line('change_language_selection'); ?></span>
+                                </li>
+                                <li>
+                                    <div class="drop-down-wrapper ps-container">
+                                        <ul>
+                                            <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                                                    <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" data-toggle="tooltip" data-original-title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </li>
                         <li class="dropdown current-user">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <img src="<?php echo USER_ASSETS_URL .'user_images/'. $session->profile_pic; ?>" class="circle-img" alt="">
@@ -74,26 +104,24 @@
                                 <li>
                                     <a href="<?php echo USER_URL; ?>">
                                         <i class="clip-user-2"></i>
-                                        &nbsp;My Profile
+                                        &nbsp;<?php echo $this->lang->line('my_profile'); ?>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="<?php echo USER_URL; ?>">
                                         <i class="clip-key"></i>
-                                        &nbsp;Change Password 
+                                        &nbsp;<?php echo $this->lang->line('change_password'); ?>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="<?php echo USER_URL .'logout'; ?>">
                                         <i class="clip-exit"></i>
-                                        &nbsp;Log Out
+                                        &nbsp;<?php echo $this->lang->line('logout'); ?>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <!-- end: USER DROPDOWN -->
                     </ul>
-                    <!-- end: TOP NAVIGATION MENU -->
                 </div>
             </div>
         </div>
@@ -108,14 +136,14 @@
                     <ul class="main-navigation-menu">
                         <li class="<?php echo ($uri_1 == 'dashboard') ? 'active open' : ''; ?>">
                             <a href="<?php echo USER_URL; ?>"><i class="clip-home-3"></i>
-                                <span class="title"> Dashboard </span>
+                                <span class="title"><?php echo $this->lang->line('dashboard'); ?></span>
                             </a>
                         </li>
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'role'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"> Role </span>
+                                    <span class="title"><?php echo $this->lang->line('role'); ?></span>
                                 </a>
                             </li>
                         <?php } ?>
@@ -124,7 +152,7 @@
                             <li class="<?php echo ($uri_1 == 'email') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'email'; ?>">
                                     <i class="icon-envelope-alt"></i>
-                                    <span class="title">Email Templates</span></i>
+                                    <span class="title"><?php echo $this->lang->line('email_templates'); ?></span></i>
                                 </a>
                             </li>
                         <?php } ?>
@@ -133,11 +161,11 @@
                             <li class="<?php echo ($uri_1 == 'system_setting' && ($uri_2 == 'general' || $uri_2 == 'mail')) ? 'active open' : ''; ?>">
                                 <a href="#">
                                     <i class="icon-cog"></i>
-                                    <span class="title"> Settings </span><i class="icon-arrow"></i>
+                                    <span class="title"><?php echo $this->lang->line('setting'); ?></span><i class="icon-arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="<?php echo ($uri_2 == 'general') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/general'; ?>"><i class="fa fa-wrench"></i><span class="title">General Setting</span></a></li>
-                                    <li class="<?php echo ($uri_2 == 'mail') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/mail'; ?>"><i class="fa fa-wrench"></i><span class="title">Mail Setting</span></a></li>
+                                    <li class="<?php echo ($uri_2 == 'general') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/general'; ?>"><i class="fa fa-wrench"></i><span class="title"><?php echo $this->lang->line('genral_setting'); ?></span></a></li>
+                                    <li class="<?php echo ($uri_2 == 'mail') ? 'active' : ''; ?>"><a href="<?php echo USER_URL .'system_setting/mail'; ?>"><i class="fa fa-wrench"></i><span class="title"><?php echo $this->lang->line('mail_setting'); ?></span></a></li>
                                 </ul>
                             </li>
                         <?php } ?>

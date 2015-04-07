@@ -73,17 +73,7 @@ if (!defined('IMG_URL')) {
     define('IMG_URL', ASSETS_URL . 'img/');
 }
 
-$config['company_type_array'] = array(
-  '1' => 'No Site',
-  '2' => 'URL BUT NO SITE',
-  '3' => 'Site Exit But Rework',
-  '4' => 'Perfect Site'
-);
-
-$config['scrap_sites'] = array(
-  '1' => 'Just Dial',
-  '2' => 'Yellow Pages'
-);
+$config['custom_languages'] = array('en' => 'english', 'gu' => 'gujarati');
 
 /*
   |--------------------------------------------------------------------------

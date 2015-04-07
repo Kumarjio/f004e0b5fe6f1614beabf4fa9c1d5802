@@ -73,6 +73,8 @@ $route['404_override'] = '';
 * user SIDE URLS
 */
 
+$route['user/change_language/(:any)'] = "user/ajax/setNewLanguage/$1";
+
 //Authenticate
 $route['user'] = "user/dashboard/index";
 $route['user/dashboard'] = "user/dashboard/index";

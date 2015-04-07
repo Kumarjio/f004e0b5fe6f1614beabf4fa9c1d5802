@@ -26,6 +26,7 @@ class authenticate extends CI_Controller
         $user_data->name = $user->fullname;
         $user_data->profile_pic = $user->profile_pic;
         $user_data->email = $user->email;
+        $user_data->language = 'en';
         $newdata = array('user_session' => $user_data);
         $this->session->set_userdata($newdata);
         
