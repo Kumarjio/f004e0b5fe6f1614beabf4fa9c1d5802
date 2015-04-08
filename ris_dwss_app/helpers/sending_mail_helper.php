@@ -18,7 +18,7 @@ if (!function_exists('send_mail')) {
 
         $ci->load->library('email', $config);
         $ci->email->set_newline("\r\n");
-        $ci->email->from($ci->config->item('smtp_user'), $ci->config->item('app_name'));
+        $ci->email->from($ci->config->item('smtp_user'), $ci->config->item('en_app_name'));
         $ci->email->to($options['tomailid']);
         $ci->email->subject($options['subject']);
         $ci->email->message($options['message']);

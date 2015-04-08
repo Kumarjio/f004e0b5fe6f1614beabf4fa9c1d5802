@@ -1,10 +1,17 @@
+<?php 
+    $session = $this->session->userdata('user_session'); 
+    if(empty($session) || empty($session->language)){
+        $session = new stdclass();
+        $session->language = $this->config->item('default_language');
+    }
+?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
 <!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
 <!--[if !IE]><!-->
 <html lang="en" class="no-js">
     <head>
-        <title><?php echo @$page_title . ' | ' . $this->config->item('app_name'); ?></title>
+        <title><?php echo @$page_title . ' | ' . $this->config->item($session->language . '_app_name'); ?></title>
         <meta charset="utf-8" />
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
@@ -21,9 +28,18 @@
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>iCheck/skins/all.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
+        
+        <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>custom.css">
         <!--[if IE 7]>
             <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome-ie7.min.css">
         <![endif]-->
+
+        <!--[if lt IE 9]>
+            <script src="<?php echo PLUGIN_URL; ?>respond.min.js"></script>
+            <script src="<?php echo PLUGIN_URL; ?>excanvas.min.js"></script>
+        <![endif]-->
+        <script src="<?php echo USER_JS_URL; ?>jquery.min.js"></script>
+        <script src="<?php echo USER_JS_URL; ?>jquery.validate.js"></script>
     </head>
 
     <body class="login example2">
@@ -83,29 +99,9 @@
             <?php echo @$content_for_layout; ?>
             
             <div class="copyright">
-                <p><?php echo $this->config->item('copyright_left'); ?></p>
-                <p><?php echo $this->config->item('copyright_right'); ?></p>
+                <p><?php echo $this->config->item($session->language . '_copyright_left'); ?></p>
+                <p><?php echo $this->config->item($session->language . '_copyright_right'); ?></p>
             </div>
         </div>
-        <!-- start: MAIN JAVASCRIPTS -->
-        <!--[if lt IE 9]>
-        <script src="<?php echo PLUGIN_URL; ?>respond.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>excanvas.min.js"></script>
-        <![endif]-->
-        <script src="<?php echo USER_JS_URL; ?>jquery.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>blockUI/jquery.blockUI.js"></script>
-        <script src="<?php echo USER_JS_URL; ?>main.js"></script>
-        <!-- end: MAIN JAVASCRIPTS -->
-        <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-        <script src="<?php echo PLUGIN_URL; ?>jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="<?php echo USER_JS_URL; ?>login.js"></script>
-        <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-        <script>
-            jQuery(document).ready(function() {
-                Main.init();
-                Login.init();
-            });
-        </script>
     </body>
-    <!-- end: BODY -->
 </html>

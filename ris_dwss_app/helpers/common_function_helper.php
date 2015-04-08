@@ -133,8 +133,7 @@ function str_get_html($str, $lowercase=true, $forceTagsClosed=true, $target_char
 }
 
 // dump html dom tree
-function dump_html_tree($node, $show_attr=true, $deep=0)
-{
+function dump_html_tree($node, $show_attr=true, $deep=0) {
     $node->dump($node);
 }
 
@@ -162,11 +161,13 @@ if (!function_exists('setLanguage')) {
     function setLanguage() {
         $ci = & get_instance();
         $session = $ci->session->userdata('user_session');
+        
         if (!empty($session)) {
             $lang = $session->language;
         } else {
-            $lang = 'en';
+            $lang = $ci->config->item('default_language');
         }
+
         $all_langs = $ci->config->item('custom_languages');
         $lang = $all_langs[$lang];
         $ci->config->set_item('language', $lang);

@@ -12,7 +12,7 @@
 
 
 <div class="box-login">
-    <h3>Sign in to your account</h3>
+    <h3><?php echo $this->lang->line('sign_into_account'); ?></h3>
     <form class="form-login" id="login" action="<?php echo USER_URL .'validate'; ?>" method="post">
         <fieldset>
             <div class="form-group">
@@ -25,12 +25,12 @@
                     <input type="password" class="form-control password" name="password" placeholder="Password">
                     <i class="icon-lock"></i>
                     <a class="forgot" href="<?php echo USER_URL .'forgot_password'; ?>">
-                        I forgot my password
+                        <?php echo $this->lang->line('i_forgot_password'); ?>
                     </a> </span>
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-bricky pull-right">
-                    Login <i class="icon-circle-arrow-right"></i>
+                    <?php echo $this->lang->line('login_button'); ?> <i class="icon-circle-arrow-right"></i>
                 </button>
             </div>
         </fieldset>

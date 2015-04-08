@@ -9,25 +9,22 @@
     });
     //]]>
 </script>
-<div class="form-box mar-tp-10" id="login-box">
-    <div class="header">Forgot Password</div>
-    <form id="forgot_password" action="<?php echo ADMIN_URL .'send_reset_password_link'; ?>" method="post">
-        <div class="body bg-gray">
+<div class="box-login">
+    <h3><?php echo $this->lang->line('forgot_password'); ?></h3>
+    <form class="form-login" id="forgot_password" action="<?php echo USER_URL .'send_reset_password_link'; ?>" method="post">
+        <fieldset>
             <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <input type="email" name="email" class="form-control required" placeholder="Email address"/>
-                </div>
+                <span class="input-icon">
+                    <input type="email" name="email" class="form-control required" placeholder="<?php echo $this->lang->line('email_address'); ?>"/>
+                    <i class="icon-envelope-alt"></i>
+                </span>
             </div>
-        </div>
-        <div class="footer">                                                               
-            <button type="submit" class="btn bg-olive btn-block">Send Mail</button>
-            <p class="text-center"><a href="<?php echo ADMIN_URL; ?>">Back to Login</a></p>    
-        </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-green pull-right">
+                    <?php echo $this->lang->line('send_mail'); ?>&nbsp;<i class="icon-circle-arrow-right"></i>
+                </button>
+                <a class="btn btn-dark-grey" href="<?php echo USER_URL .'login'; ?>"><i class="icon-circle-arrow-left"></i>&nbsp;<?php echo $this->lang->line('back_to_login'); ?></a>
+            </div>
+        </fieldset>
     </form>
-    <div class="margin text-center">
-        <br/>
-    </div>
 </div>

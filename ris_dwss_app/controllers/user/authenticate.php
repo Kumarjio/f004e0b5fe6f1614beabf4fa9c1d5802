@@ -7,7 +7,7 @@ class authenticate extends CI_Controller
     function __construct() {
         parent::__construct();
         $this->layout->setLayout('user/template/layout_login');
-        $this->layout->setField('page_title', 'User Login');
+        $this->layout->setField('page_title', $this->lang->line('login_title'));
     }
     
     public function index() {
@@ -15,6 +15,7 @@ class authenticate extends CI_Controller
         if (!empty($session)) {
             redirect(USER_URL . 'dashboard', 'refresh');
         } else {
+            $this->layout->setField('page_title', $this->lang->line('login_title'));
             $this->layout->view('user/authenticate/login');
         }
     }
@@ -26,7 +27,7 @@ class authenticate extends CI_Controller
         $user_data->name = $user->fullname;
         $user_data->profile_pic = $user->profile_pic;
         $user_data->email = $user->email;
-        $user_data->language = 'en';
+        $user_data->language = $this->config->item('default_language');
         $newdata = array('user_session' => $user_data);
         $this->session->set_userdata($newdata);
         
@@ -69,15 +70,15 @@ class authenticate extends CI_Controller
     }
     
     function userForgotPassword() {
-        $this->layout->setField('page_title', 'Forgot Password');
+        $this->layout->setField('page_title', $this->lang->line('forgot_password'));
         $this->layout->view('user/authenticate/forgot_password');
     }
     
     function userSendResetPasswordLink() {
-        $this->form_validation->set_rules('email', $this->lang->line('email'), 'required');
+        $this->form_validation->set_rules('email', $this->lang->line('email_address'), 'required');
 
         if ($this->form_validation->run() == FALSE){
-            $this->session->set_flashdata('error', 'All fields are compulsory');
+            $this->session->set_flashdata('error', $this->lang->line("all_field_compulsory"));
             redirect(USER_URL .'forgot_password', 'refresh');
         } else {
             $user = new User();
@@ -89,9 +90,10 @@ class authenticate extends CI_Controller
                 $random_string = random_string('alnum', 32);
                 $user->password = $random_string;
                 $user->save();
+
                 $message = $email->message;
                 $message = str_replace('#user_name', $user->fullname, $message);
-                $link = '<a href="' . USER_URL . 'reset_password/' . $random_string . '">Click Here to reset password</a>';
+                $link = '<a href="' . USER_URL . 'reset_password/' . $random_string . '">'. $this->lang->line("click_here_reset_mail") .'</a>';
                 $message = str_replace('#reset_link', $link, $message);
                 
                 $option['tomailid'] = $user->email;
@@ -100,14 +102,14 @@ class authenticate extends CI_Controller
                 if (!is_null($email->attachment)) {
                     $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
                 }
-                
+
                 if (send_mail($option)) {
-                    $this->session->set_flashdata('success', 'Please check the mail address & follow the instruction');
+                    $this->session->set_flashdata('success', $this->lang->line("forgot_email_success"));
                 } else {
-                    $this->session->set_flashdata('error', 'Mail Sending failed, please try again');
+                    $this->session->set_flashdata('error', $this->lang->line("forgot_mail_not_send"));
                 }
             } else {
-                $this->session->set_flashdata('error', 'Email address does not exit');
+                $this->session->set_flashdata('error', $this->lang->line("forgot_email_not_exit"));
             }
             redirect(USER_URL . 'forgot_password', 'refresh');
         }
@@ -115,14 +117,14 @@ class authenticate extends CI_Controller
     
     function userResetPassword($random_string) {
         if ($this->input->post() !== false) {
-            $this->form_validation->set_rules('new_password', 'Password', 'required');
-            $this->form_validation->set_rules('new_cpassword', 'Confirm Password', 'required');
+            $this->form_validation->set_rules('new_password', $this->lang->line("enter_password"), 'required');
+            $this->form_validation->set_rules('new_cpassword', $this->lang->line("re_enter_password"), 'required');
 
             if ($this->form_validation->run() == FALSE){
-                $this->session->set_flashdata('error', 'All fields are compulsory');
+                $this->session->set_flashdata('error', $this->lang->line("all_field_compulsory"));
                 redirect(USER_URL .'reset_password/' . $random_string , 'refresh');
             } else if($this->input->post('new_password') != $this->input->post('new_cpassword')){
-                $this->session->set_flashdata('error', 'Both password does not match');
+                $this->session->set_flashdata('error', $this->lang->line("password_dose_not_match"));
                 redirect(USER_URL .'reset_password/' . $random_string , 'refresh');
             } else {
                 $user = new User();
@@ -130,15 +132,15 @@ class authenticate extends CI_Controller
                 if ($user->result_count() == 1) {
                     $user->password = md5($this->input->post('new_password'));
                     $user->save();
-                    $this->session->set_flashdata('success', 'Password reset successfully');
+                    $this->session->set_flashdata('success', $this->lang->line("password_reset_success"));
                     redirect(USER_URL . 'login', 'refresh');
                 } else {
-                    $this->session->set_flashdata('error', 'Error in reseting the password, please try again.');
+                    $this->session->set_flashdata('error', $this->lang->line("password_reset_error"));
                     redirect(USER_URL . 'reset_password/' . $random_string, 'refresh');
                 }
             }
         } else {
-            $this->layout->setField('page_title', 'Reset Password');
+            $this->layout->setField('page_title', $this->lang->line('reset_password'));
             $data['random_string'] = $random_string;
             $this->layout->view('user/authenticate/reset_password', $data);
         }

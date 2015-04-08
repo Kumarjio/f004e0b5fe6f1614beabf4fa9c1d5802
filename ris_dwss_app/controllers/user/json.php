@@ -27,7 +27,11 @@ class json extends CI_Controller
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['subject'];
-            $temp_arr[] = '<a href="' . USER_URL . 'email/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil"></i></a>';
+            if (hasPermission('emails', 'editEmail')) {
+                $temp_arr[] = '<a href="' . USER_URL . 'email/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-pencil"></i></a>';
+            } else {
+                $temp_arr[] = '';
+            }
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }
