@@ -29,13 +29,16 @@
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>chosen/chosen.min.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.css">
-        <link href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>bootstrap-fileupload/bootstrap-fileupload.min.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>sweet-alert/sweet-alert.css">
 
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>bootstrap/css/bootstrap.min.css" media="screen">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo USER_FONT_URL; ?>style.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>main.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>main-responsive.css">
+        <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>custom.css">
         <!--[if IE 7]>
             <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome-ie7.min.css">
@@ -64,7 +67,7 @@
             }
         </script>
     </head>
-    <body>
+    <body class="tooltips">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -133,7 +136,10 @@
         <div class="main-container">
             <div class="navbar-content">
                 <div class="main-navigation navbar-collapse collapse">
-  
+                    <div class="navigation-toggler">
+                        <i class="clip-chevron-left"></i>
+                        <i class="clip-chevron-right"></i>
+                    </div>
                     <?php
                         $uri_1 = ($this->uri->segment(2) ? $this->uri->segment(2) : 'dashboard');
                         $uri_2 = ($this->uri->segment(2) ? $this->uri->segment(3) ? $this->uri->segment(3) : $this->uri->segment(2) : 'dashboard');
@@ -144,6 +150,14 @@
                                 <span class="title"><?php echo $this->lang->line('dashboard'); ?></span>
                             </a>
                         </li>
+
+                        <?php if (hasPermission('markets', 'viewMarket')) { ?>
+                            <li class="<?php echo ($uri_1 == 'market') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'market'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('markets'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
@@ -249,6 +263,7 @@
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/jquery.mousewheel.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>sweet-alert/sweet-alert.js"></script>
         <script src="<?php echo USER_JS_URL; ?>main.js"></script>
         <script src="<?php echo USER_JS_URL; ?>custom.js"></script>
         <script>

@@ -1,44 +1,42 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class emails extends CI_Controller
-{
+class emails extends CI_Controller {
     
     var $session_data;
     
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Email Templates');
+        $this->layout->setField('page_title', $this->lang->line('email_templates'));
         $this->session_data = $this->session->userdata('user_session');
     }
     
     function viewEmail() {
-        $data['page_h1_title'] = 'List Email Templates';
-        $this->layout->view('user/emails/view', $data);
+        $this->layout->view('user/emails/view');
     }
     
     function editEmail($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
-            
                 $email = new Email();
                 $email->where('id', $id)->get();
                 $email->subject = $this->input->post('subject');
                 $email->message = $this->input->post('message');
                 $email->user_id = $this->session_data->id;
                 $email->save();
-                $this->session->set_flashdata('success', 'Data Updated Successfully');
-                redirect(ADMIN_URL . 'email', 'refresh');
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                redirect(USER_URL . 'email', 'refresh');
             } else {
-                $this->layout->setField('page_title', 'Edit Email Template');
+                $this->layout->setField('page_title', $this->lang->line('edit') .' '. $this->lang->line('email_templates'));
+                
                 $email = new Email();
                 $data['email'] = $email->where('id', $id)->get();
-                $data['page_h1_title'] = 'Edit E-Mail Template';
+                
                 $this->layout->view('user/emails/edit', $data);
             }
         } else {
-            $this->session->set_flashdata('error', 'Error in editing data');
-            redirect(ADMIN_URL . 'email', 'refresh');
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(USER_URL . 'email', 'refresh');
         }
     }
     
@@ -87,6 +85,6 @@ class emails extends CI_Controller
         $obj->attachment = NULL;
         $obj->save();
         $this->session->set_flashdata('success', $this->lang->line('attachment_removed'));
-        redirect(ADMIN_URL . 'email/edit/' . $id, 'refresh');
+        redirect(USER_URL . 'email/edit/' . $id, 'refresh');
     }
 }

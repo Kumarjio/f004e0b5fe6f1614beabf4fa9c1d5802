@@ -19,44 +19,16 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'system_setting/update_general'; ?>" enctype="multipart/form-data">
             <?php foreach ($setting as $value) { ?>
-                <?php if ($value->sys_key == 'login_logo' || $value->sys_key == 'main_logo') { ?>
-
-                    <?php if (!is_null($value->sys_value) && file_exists('assets/img/' . $value->sys_value)) { ?>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label"><?php echo 'Current ', ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">&nbsp;</span></label>
-                            <div class="col-lg-7">
-                                <img src="<?php echo IMG_URL . $value->sys_value; ?>" />
-                            </div>
-                        </div>
-                    <?php } ?>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">&nbsp;</span></label>
-                        <div class="col-lg-7">
-                            <input type="file" name="<?php echo $value->sys_key; ?>" class="form-control">
-                            <?php
-                            if ($this->session->flashdata($value->sys_key)) {
-                                echo '<label class="error">' . $this->session->flashdata($value->sys_key) . '</label>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                <?php } else if ($value->sys_key == 'post_last_wish') { ?>
-                <?php $post_last_wish = explode('_', $value->sys_value);?>                   
+                <?php if ($value->sys_key == 'default_language') { ?>               
                     <div class="form-group">
                         <label for="question" class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="int" min="0" name="post_last_wish_input"  class="form-control required input-sm" value="<?php echo $post_last_wish[0]; ?>"/>
-                                </div>
-                                <div class="col-lg-6">
-                                    <select name="post_last_wish_select" class="form-control input-sm">
-                                        <option value="H" <?php echo (@$post_last_wish[1] == 'H') ? 'selected="selected"' : ''; ?>>Hour(s)</option>
-                                        <option value="D" <?php echo (@$post_last_wish[1] == 'D') ? 'selected="selected"' : ''; ?>>Day(s)</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <?php $languages = $this->config->item('custom_languages'); ?>
+                            <select name="default_language" class="form-control">
+                                <?php foreach ($this->config->item('custom_languages') as $lang_key => $lang_value) { ?>
+                                    <option <?php echo ($value->sys_value == $lang_key) ? 'selected' : ''; ?>><?php echo ucwords($lang_value); ?></option>
+                                <?php } ?>                        
+                            </select>
                         </div>
                     </div>
                 <?php } else { ?>

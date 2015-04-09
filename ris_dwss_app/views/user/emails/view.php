@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h1>Email Templates</h1>
+            <h1><?php echo $this->lang->line('email_templates'); ?></h1>
         </div>
     </div>
 </div
@@ -27,13 +27,13 @@
     <table class="table table-bordered table-hover" id="list_data">
         <thead>
             <tr align="left">
-                <th>Subject</th>
-                <th width="150">Actions</th>
+                <th><?php echo $this->lang->line('email_subject'); ?></th>
+                <th width="150"><?php echo $this->lang->line('actions'); ?></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                 <td colspan="2"><i>Loading...</i></td>
+                 <td colspan="2"><i><?php echo $this->lang->line('datatable_loading'); ?></i></td>
             </tr>
         </tbody>
     </table>
