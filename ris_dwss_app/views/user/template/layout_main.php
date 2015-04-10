@@ -24,6 +24,7 @@
         <meta content="" name="author" />
 
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>summernote/summernote.min.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datepicker/css/datepicker.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>iCheck/skins/all.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>chosen/chosen.min.css">
@@ -159,6 +160,38 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('latestnews', 'viewLatestnews')) { ?>
+                            <li class="<?php echo ($uri_1 == 'latestnews') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'latestnews'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('news'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('tenders', 'viewTender')) { ?>
+                            <li class="<?php echo ($uri_1 == 'tender') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'tender'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('tender'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('bods', 'viewBod')) { ?>
+                            <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('bod'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('stafves', 'viewStaff')) { ?>
+                            <li class="<?php echo ($uri_1 == 'staff') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'staff'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('staff'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'role'; ?>"><i class="icon-asterisk"></i>
@@ -264,6 +297,7 @@
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>sweet-alert/sweet-alert.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>datepicker/bootstrap-datepicker.js"></script>
         <script src="<?php echo USER_JS_URL; ?>main.js"></script>
         <script src="<?php echo USER_JS_URL; ?>custom.js"></script>
         <script>

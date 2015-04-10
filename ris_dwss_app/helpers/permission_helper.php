@@ -103,6 +103,51 @@ if (!function_exists('createPermissionArray')) {
                     'deleteRole' => array('name' => 'Delete'),
                 )
             ),
+            'markets' => array(
+                'name' => 'Market',
+                'hasChild' => array(
+                    'viewMarket' => array('name' => 'List'),
+                    'addMarket' => array('name' => 'Add'),
+                    'editMarket' => array('name' => 'Edit'),
+                    'deleteMarket' => array('name' => 'Delete'),
+                )
+            ),
+            'latestnews' => array(
+                'name' => 'News',
+                'hasChild' => array(
+                    'viewLatestnews' => array('name' => 'List'),
+                    'addLatestnews' => array('name' => 'Add'),
+                    'editLatestnews' => array('name' => 'Edit'),
+                    'deleteLatestnews' => array('name' => 'Delete'),
+                )
+            ),
+            'tenders' => array(
+                'name' => 'Tender',
+                'hasChild' => array(
+                    'viewTender' => array('name' => 'List'),
+                    'addTender' => array('name' => 'Add'),
+                    'editTender' => array('name' => 'Edit'),
+                    'deleteTender' => array('name' => 'Delete'),
+                )
+            ),
+            'bods' => array(
+                'name' => 'Board of Directores',
+                'hasChild' => array(
+                    'viewBod' => array('name' => 'List'),
+                    'addBod' => array('name' => 'Add'),
+                    'editBod' => array('name' => 'Edit'),
+                    'deleteBod' => array('name' => 'Delete'),
+                )
+            ),
+            'stafves' => array(
+                'name' => 'Staff Directory',
+                'hasChild' => array(
+                    'viewStaff' => array('name' => 'List'),
+                    'addStaff' => array('name' => 'Add'),
+                    'editStaff' => array('name' => 'Edit'),
+                    'deleteStaff' => array('name' => 'Delete'),
+                )
+            ),
             'emails' => array(
                 'name' => 'Email Templates',
                 'hasChild' => array(

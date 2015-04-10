@@ -8,7 +8,7 @@ class markets extends CI_Controller
     
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Market Templates');
+        $this->layout->setField('page_title', $this->lang->line('market'));
         $this->session_data = $this->session->userdata('user_session');
     }
     
@@ -97,7 +97,7 @@ class markets extends CI_Controller
             }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
-            redirect(ADMIN_URL . 'market', 'refresh');
+            redirect(USER_URL . 'market', 'refresh');
         }
     }
 

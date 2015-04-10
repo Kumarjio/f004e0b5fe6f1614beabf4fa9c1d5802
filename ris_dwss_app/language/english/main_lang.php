@@ -25,6 +25,9 @@
 	$lang['select_image'] = 'Select Image';
 	$lang['change_image'] = 'Change Image';
 	$lang['remove_image'] = 'Remove Image';
+	$lang['select_file'] = 'Select File';
+	$lang['change_file'] = 'Change File';
+	$lang['remove_file'] = 'Remove File';
 	$lang['compulsory_note'] = 'Mark (*) fields are compulsory';
 	$lang['add_data_success'] = 'Data added successfully';
 	$lang['add_data_error'] = 'Not able to add data';
@@ -37,6 +40,7 @@
 	$lang['do_you_want_to_delete'] = 'Do you Want to Delete the Data?';
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
+	$lang['download'] = 'Download';
 
 //MENU
 	$lang['dashboard'] = 'Dashboard';
@@ -84,6 +88,44 @@
 	$lang['market_name'] = 'Name';
 	$lang['market_image'] = 'Market image';
 	$lang['current_market_image'] = 'Current Market image';
-	
 	$lang['market_status'] = 'Status';
+
+//Newss
+	$lang['news'] = 'News';
+	$lang['news_name'] = 'Title';
+	$lang['news_description'] = 'Description';
+	$lang['news_start_date'] = 'Start Date';
+	$lang['news_end_date'] = 'End Date';
+	$lang['news_status'] = 'Status';
+
+//Tenders
+	$lang['tender'] = 'Tender';
+	$lang['tender_name'] = 'Title';
+	$lang['tender_description'] = 'Description';
+	$lang['tender_file'] = 'Tender File';
+	$lang['current_tender_file'] = 'Current Tender File';
+	$lang['tender_start_date'] = 'Start Date';
+	$lang['tender_end_date'] = 'End Date';
+	$lang['tender_status'] = 'Status';
+
+//BOD
+	$lang['bod'] = 'Board of directors';
+	$lang['bod_name'] = 'Name';
+	$lang['bod_position'] = 'Position';
+	$lang['bod_address'] = 'Address';
+	$lang['bod_number'] = 'Number';
+	$lang['bod_image'] = 'Image';
+	$lang['bod_current_image'] = 'Current Image';
+	$lang['bod_status'] = 'Status';
+
+//BOD
+	$lang['staff'] = 'Staff directory';
+	$lang['staff_name'] = 'Name';
+	$lang['staff_position'] = 'Position';
+	$lang['staff_address'] = 'Address';
+	$lang['staff_number'] = 'Number';
+	$lang['staff_image'] = 'Image';
+	$lang['staff_current_image'] = 'Current Image';
+	$lang['staff_status'] = 'Status';
+	$lang['staff_select_market'] = 'Select Market';
 ?>

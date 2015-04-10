@@ -65,6 +65,7 @@ $route['user/' . $controller . '/edit/(:num)'] = 'user/' . plural($controller) .
 $route['user/' . $controller . '/delete/(:num)'] = 'user/' . plural($controller) . "/delete" . ucwords($controller) . "/$1";
 $route['user/' . $controller . '/getjson'] = "user/json/get" . ucwords(plural($controller)) . "JsonData";
 
+
 //Default
 $route['default_controller'] = "welcome/index";
 $route['404_override'] = '';

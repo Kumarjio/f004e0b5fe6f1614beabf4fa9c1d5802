@@ -19,10 +19,10 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"bSortable": false, "sClass": ""},
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},
                 {"sClass": "text-center"},{"bSortable": false, "sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo USER_URL . 'market/getjson'; ?>",
+            "sAjaxSource": "<?php echo USER_URL . 'news/getjson'; ?>",
         });
     }
 
@@ -47,7 +47,7 @@
                 if (isConfirm) {
                     jQuery.ajax({
                         type: 'POST',
-                        url: http_host_js + 'market/delete/' + current_id,
+                        url: http_host_js + 'latestnews/delete/' + current_id,
                         data: id = current_id,
                         dataType : 'JSON',
                         success: function(data) {
@@ -69,14 +69,14 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('markets'); ?></h1>
+            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('news'); ?></h1>
         </div>
     </div>
 </div>
-<?php if (hasPermission('markets', 'addMarket')) { ?>
+<?php if (hasPermission('latestnews', 'addLatestnews')) { ?>
     <div class="row">
         <div class="col-sm-12">
-                <a class="pull-right btn btn-green" href="<?php echo USER_URL . 'market/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('markets'); ?></a>
+                <a class="pull-right btn btn-green" href="<?php echo USER_URL . 'latestnews/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('news'); ?></a>
         </div>
     </div>
 <?php } ?>
@@ -92,15 +92,16 @@
     <table class="table table-bordered table-hover" id="list_data">
         <thead class="the-box dark full">
             <tr align="left">
-                <th><?php echo $this->lang->line('market_name'); ?></th>
-                <th width="150"><?php echo $this->lang->line('market_image'); ?></th>
+                <th><?php echo $this->lang->line('news_name'); ?></th>
+                <th width="100"><?php echo $this->lang->line('news_start_date'); ?></th>
+                <th width="100"><?php echo $this->lang->line('news_end_date'); ?></th>
                 <th width="100"><?php echo $this->lang->line('status'); ?></th>
                 <th width="100"><?php echo $this->lang->line('actions'); ?></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                <td colspan="5"><i><?php echo $this->lang->line('loading'); ?></i></td>
             </tr>
         </tbody>
     </table>

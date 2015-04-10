@@ -26,7 +26,7 @@
                             <?php $languages = $this->config->item('custom_languages'); ?>
                             <select name="default_language" class="form-control">
                                 <?php foreach ($this->config->item('custom_languages') as $lang_key => $lang_value) { ?>
-                                    <option <?php echo ($value->sys_value == $lang_key) ? 'selected' : ''; ?>><?php echo ucwords($lang_value); ?></option>
+                                    <option value="<?php echo $lang_key; ?>" <?php echo ($value->sys_value == $lang_key) ? 'selected' : ''; ?>><?php echo ucwords($lang_value); ?></option>
                                 <?php } ?>                        
                             </select>
                         </div>
