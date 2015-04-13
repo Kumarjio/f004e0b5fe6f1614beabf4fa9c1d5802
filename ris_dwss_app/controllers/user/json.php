@@ -266,5 +266,76 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getProductcategoriesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS product_category_name', 'productcategories.image');
+        $this->datatable->eColumns = array('Productcategories.id');
+        $this->datatable->sIndexColumn = "Productcategories.id";
+        $this->datatable->sTable = " Productcategories, markets";
+        $this->datatable->myWhere = " WHERE Productcategories.market_id = markets.id";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['market_name'];
+            $temp_arr[] = $aRow['product_category_name'];
+            $temp_arr[] = 0;
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/productcategory_images/' . $aRow['image'] .'" alt="" class="img-thumbnail">';
+
+            $str = '';
+            if (hasPermission('productcategories', 'editProductcategory')) {
+                $str .= '<a href="' . USER_URL . 'productcategory/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('productcategories', 'deleteProductcategory')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getProductsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'products.' .$this->session_data->language . '_name AS product_name', 'products.images');
+        $this->datatable->eColumns = array('products.id');
+        $this->datatable->sIndexColumn = "products.id";
+        $this->datatable->sTable = " products, markets";
+        $this->datatable->myWhere = " WHERE products.market_id = markets.id";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['market_name'];
+            $temp_arr[] = $aRow['product_name'];
+            if(!empty($aRow['images'])){
+                $images = unserialize($aRow['images']);
+                $image = $images[rand(0, count($images))];
+                $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/product_images/'. $image .'" alt="" class="img-thumbnail">';
+            } else {
+                $temp_arr[] = '&nbsp;';
+            }
+
+            $str = '';
+            if (hasPermission('products', 'editProduct')) {
+                $str .= '<a href="' . USER_URL . 'product/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('products', 'deleteProduct')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }

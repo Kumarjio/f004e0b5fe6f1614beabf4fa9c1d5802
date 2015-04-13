@@ -89,6 +89,8 @@ $route['user/denied'] = "user/authenticate/permissionDenied";
 
 //Dashboard
 $route['user/get_dashboard_count'] = 'user/ajax/getDashboardTotalCountData';
+$route['user/profile'] = 'user/dashboard/updateProfile';
+$route['user/password'] = 'user/dashboard/updatePassword';
 
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";

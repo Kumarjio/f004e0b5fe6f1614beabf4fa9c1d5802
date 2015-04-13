@@ -21,16 +21,11 @@ class authenticate extends CI_Controller
     }
     
     private function _setSessionData($user) {
-        $user_data = new stdClass();
-        $user_data->id = $user->id;
-        $user_data->role = $user->role_id;
-        $user_data->name = $user->fullname;
-        $user_data->profile_pic = $user->profile_pic;
-        $user_data->email = $user->email;
-        $user_data->language = $this->config->item('default_language');
-        $newdata = array('user_session' => $user_data);
+        $user->role = $user->role_id;
+        unset($user->role_id);
+        $user->language = $this->config->item('default_language');
+        $newdata = array('user_session' => $user);
         $this->session->set_userdata($newdata);
-        
         return true;
     }
     
@@ -51,7 +46,7 @@ class authenticate extends CI_Controller
                 $this->session->set_flashdata('error', 'Login failed');
                 redirect(USER_URL . 'login', 'refresh');
             } else {
-                $this->_setSessionData($user);
+                $this->_setSessionData($user->stored);
                 redirect(USER_URL . 'dashboard', 'refresh');
             }
         }

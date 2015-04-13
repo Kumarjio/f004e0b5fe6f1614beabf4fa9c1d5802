@@ -148,6 +148,24 @@ if (!function_exists('createPermissionArray')) {
                     'deleteStaff' => array('name' => 'Delete'),
                 )
             ),
+            'productcategories' => array(
+                'name' => 'Product Category',
+                'hasChild' => array(
+                    'viewProductcategory' => array('name' => 'List'),
+                    'addProductcategory' => array('name' => 'Add'),
+                    'editProductcategory' => array('name' => 'Edit'),
+                    'deleteProductcategory' => array('name' => 'Delete'),
+                )
+            ),
+            'products' => array(
+                'name' => 'Product',
+                'hasChild' => array(
+                    'viewProduct' => array('name' => 'List'),
+                    'addProduct' => array('name' => 'Add'),
+                    'editProduct' => array('name' => 'Edit'),
+                    'deleteProduct' => array('name' => 'Delete'),
+                )
+            ),
             'emails' => array(
                 'name' => 'Email Templates',
                 'hasChild' => array(

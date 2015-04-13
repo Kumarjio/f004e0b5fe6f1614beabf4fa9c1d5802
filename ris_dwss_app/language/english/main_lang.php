@@ -41,6 +41,7 @@
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
 	$lang['download'] = 'Download';
+	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
 
 //MENU
 	$lang['dashboard'] = 'Dashboard';
@@ -77,6 +78,23 @@
 	$lang['password_dose_not_match'] = 'Password does not match';
 	$lang['password_reset_error'] = 'Error in reseting the password, please try again.';
 	$lang['password_reset_success'] = 'Password reset successfully';
+
+//User Profile
+	$lang['user_profile'] = 'Manage Profile';
+	$lang['user_fullname'] = 'Name';
+	$lang['user_username'] = 'Username';
+	$lang['user_email'] = 'Email Address';
+	$lang['user_mobile'] = 'Mobile Number';
+	$lang['user_image'] = 'New Avatar';
+	$lang['user_current_image'] = 'Current Avatar';
+
+//User Password
+	$lang['user_password'] = 'Change Password';
+	$lang['user_old_pwd'] = 'Old Password';
+	$lang['user_new_pwd'] = 'New Password';
+	$lang['user_cnew_pwd'] = 'Confirm Password';
+	$lang['old_pwd_not_match'] = 'Old Password does not match';
+	$lang['both_pwd_not_match'] = 'New Password and Confirm Password does not match';
 
 //Email Templates
 	$lang['email_subject'] = 'Subject';
@@ -128,4 +146,21 @@
 	$lang['staff_current_image'] = 'Current Image';
 	$lang['staff_status'] = 'Status';
 	$lang['staff_select_market'] = 'Select Market';
+
+//Prodcut Category
+	$lang['product_category'] = 'Product Category';
+	$lang['product_category_name'] = 'Name';
+	$lang['product_category_description'] = 'Description';
+	$lang['product_category_image'] = 'Image';
+	$lang['product_category_current_image'] = 'Current Image';
+	$lang['product_category_select_market'] = 'Select Market';
+	$lang['product_category_total_product'] = 'Total Products';
+
+//Prodcut
+	$lang['product'] = 'Products';
+	$lang['product_name'] = 'Name';
+	$lang['product_description'] = 'Description';
+	$lang['product_image'] = 'Image';
+	$lang['product_current_image'] = 'Current Image';
+	$lang['product_select_market'] = 'Select Market';
 ?>

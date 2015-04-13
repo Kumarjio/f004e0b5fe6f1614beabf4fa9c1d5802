@@ -105,19 +105,21 @@
                         </li>
                         <li class="dropdown current-user">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <img src="<?php echo USER_ASSETS_URL .'user_images/'. $session->profile_pic; ?>" class="circle-img" alt="">
-                                <span class="username"><?php echo $session->name; ?></span>
+                                <span class="username"><?php echo $session->fullname; ?></span>
                                 <i class="clip-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<?php echo USER_URL; ?>">
+                                    <img src="<?php echo ASSETS_URL .'uploads/user_images/'. $session->profile_pic; ?>" class="userprofile-img" alt="">
+                                </li>
+                                <li>
+                                    <a href="<?php echo USER_URL.'profile'; ?>">
                                         <i class="clip-user-2"></i>
                                         &nbsp;<?php echo $this->lang->line('my_profile'); ?>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo USER_URL; ?>">
+                                    <a href="<?php echo USER_URL .'password'; ?>">
                                         <i class="clip-key"></i>
                                         &nbsp;<?php echo $this->lang->line('change_password'); ?>
                                     </a>
@@ -134,6 +136,7 @@
                 </div>
             </div>
         </div>
+
         <div class="main-container">
             <div class="navbar-content">
                 <div class="main-navigation navbar-collapse collapse">
@@ -191,6 +194,23 @@
                                 </a>
                             </li>
                         <?php } ?>
+
+                        <?php if (hasPermission('productcategories', 'viewProductcategory')) { ?>
+                            <li class="<?php echo ($uri_1 == 'productcategory') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'productcategory'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('product_category'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('product', 'viewProduct')) { ?>
+                            <li class="<?php echo ($uri_1 == 'product') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'product'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('product'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
@@ -275,6 +295,7 @@
                 </div>
             </div>
         </div>
+
         <div class="footer clearfix">
             <p class="col-md-6"><?php echo $this->config->item($session->language . '_copyright_left'); ?></p>
             <p class="col-md-6 text-right"><?php echo $this->config->item($session->language . '_copyright_right'); ?></p>
@@ -282,13 +303,16 @@
                 <span class="go-top"><i class="clip-chevron-up"></i></span>
             </div>
         </div>
+
         <!-- end: FOOTER -->
 
         <!-- start: MAIN JAVASCRIPTS -->
+        
         <!--[if lt IE 9]>
-        <script src="<?php echo PLUGIN_URL; ?>respond.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>excanvas.min.js"></script>
+            <script src="<?php echo PLUGIN_URL; ?>respond.min.js"></script>
+            <script src="<?php echo PLUGIN_URL; ?>excanvas.min.js"></script>
         <![endif]-->
+
         <script src="<?php echo PLUGIN_URL; ?>bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>blockUI/jquery.blockUI.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>iCheck/jquery.icheck.min.js"></script>
@@ -300,6 +324,7 @@
         <script src="<?php echo PLUGIN_URL; ?>datepicker/bootstrap-datepicker.js"></script>
         <script src="<?php echo USER_JS_URL; ?>main.js"></script>
         <script src="<?php echo USER_JS_URL; ?>custom.js"></script>
+
         <script>
             jQuery(document).ready(function() {
                 Main.init();
