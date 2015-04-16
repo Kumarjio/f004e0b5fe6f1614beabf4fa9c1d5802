@@ -92,6 +92,10 @@ $route['user/get_dashboard_count'] = 'user/ajax/getDashboardTotalCountData';
 $route['user/profile'] = 'user/dashboard/updateProfile';
 $route['user/password'] = 'user/dashboard/updatePassword';
 
+//Ajax
+$route['user/get_product_category_by_market/(:num)'] = 'user/ajax/getProductCategoryByMarket/$1';
+
+
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";
 

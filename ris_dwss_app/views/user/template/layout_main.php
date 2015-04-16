@@ -211,6 +211,14 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('productrates', 'viewProductrate')) { ?>
+                            <li class="<?php echo ($uri_1 == 'productrate') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'productrate'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('product_rate'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">

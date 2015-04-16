@@ -54,9 +54,9 @@ class Datatable extends CI_Controller
                     if ($_GET['bSearchable_' . $i] == "true") {
                         if (stripos($this->aColumns[$i], "AS") > 0) {
                             $fiel_explode = explode(" AS ", $this->aColumns[$i]);
-                            $sWhere.= $fiel_explode[0] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                            $sWhere.= "LOWER(" . $fiel_explode[0] . ") LIKE '%" . strtolower(mysql_real_escape_string($_GET['sSearch'])) . "%' OR ";
                         } else {
-                            $sWhere.= $this->aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                            $sWhere.= "LOWER(" . $this->aColumns[$i] . ") LIKE '%" . strtolower(mysql_real_escape_string($_GET['sSearch'])) . "%' OR ";
                         }
                     }
                 }

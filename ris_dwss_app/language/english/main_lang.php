@@ -103,12 +103,12 @@
 
 //Markets
 	$lang['markets'] = 'Market';
-	$lang['market_name'] = 'Name';
+	$lang['market_name'] = 'Market Name';
 	$lang['market_image'] = 'Market image';
 	$lang['current_market_image'] = 'Current Market image';
 	$lang['market_status'] = 'Status';
 
-//Newss
+//News
 	$lang['news'] = 'News';
 	$lang['news_name'] = 'Title';
 	$lang['news_description'] = 'Description';
@@ -136,7 +136,7 @@
 	$lang['bod_current_image'] = 'Current Image';
 	$lang['bod_status'] = 'Status';
 
-//BOD
+//Staff
 	$lang['staff'] = 'Staff directory';
 	$lang['staff_name'] = 'Name';
 	$lang['staff_position'] = 'Position';
@@ -149,18 +149,27 @@
 
 //Prodcut Category
 	$lang['product_category'] = 'Product Category';
-	$lang['product_category_name'] = 'Name';
+	$lang['product_category_name'] = 'Category Name';
 	$lang['product_category_description'] = 'Description';
 	$lang['product_category_image'] = 'Image';
 	$lang['product_category_current_image'] = 'Current Image';
 	$lang['product_category_select_market'] = 'Select Market';
 	$lang['product_category_total_product'] = 'Total Products';
+	$lang['no_product_category_found'] = 'No product category found';
 
 //Prodcut
 	$lang['product'] = 'Products';
-	$lang['product_name'] = 'Name';
+	$lang['product_name'] = 'Product Name';
 	$lang['product_description'] = 'Description';
 	$lang['product_image'] = 'Image';
 	$lang['product_current_image'] = 'Current Image';
 	$lang['product_select_market'] = 'Select Market';
+	$lang['product_select_category'] = 'Select Category';
+
+//Prodcut Rates
+	$lang['product_rate'] = 'Product Rate';
+	$lang['product_rate_min'] = 'Minimun Rate';
+	$lang['product_rate_max'] = 'Maximun Rate';
+	$lang['product_rate_income'] = 'Income';
+	$lang['product_rate_date'] = 'Date';
 ?>

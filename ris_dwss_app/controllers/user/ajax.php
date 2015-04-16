@@ -18,4 +18,21 @@ class ajax extends CI_Controller
         $this->session->set_userdata($newdata);
         echo TRUE;
     }
+
+    function getProductCategoryByMarket($market_id) {
+        $obj_productcategory = new Productcategory();
+        $obj_productcategory->where('market_id', $market_id)->get();
+
+        $option = '';
+        if($obj_productcategory->result_count() > 0){
+            $option = '<option>'. $this->lang->line('product_select_category') .'</option>';
+            foreach ($obj_productcategory as $productcategory) {
+                $option .= '<option value="'. $productcategory->id .'">'.  $productcategory->{$this->session_data->language .'_name'} .'</option>';
+            }
+        } else {
+            $option = '<option>'. $this->lang->line('no_product_category_found') .'</option>';
+        }
+
+        echo $option;
+    }
 }

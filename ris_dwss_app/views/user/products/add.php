@@ -14,6 +14,18 @@
                     }
                 }
             });
+
+        jQuery('#market_id').change(function(){
+            jQuery.ajax({
+                type: 'GET',
+                url: '<?php echo USER_URL ."get_product_category_by_market/"; ?>' + $('#market_id').val(),
+                success: function(data){
+                    jQuery('#productcategory_id').empty();
+                    jQuery('#productcategory_id').append(data);
+                    jQuery("#productcategory_id").trigger("chosen:updated");
+                }
+            });
+        });
         });
     //]]>
 </script>
@@ -46,10 +58,21 @@
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('product_select_market'); ?><span class="text-danger">*</span></label>
                 <div class="col-lg-9">
-                    <select name="market_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('product_select_market'); ?>">
+                    <select name="market_id" id="market_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('product_select_market'); ?>">
+                    <option value=""></option>
                         <?php foreach ($markets as $market) { ?>
                             <option value="<?php echo $market->id; ?>"><?php echo ucwords($market->{$session->language.'_name'}); ?></option>
                         <?php } ?>                        
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('product_select_category'); ?><span class="text-danger">*</span></label>
+                <div class="col-lg-9">
+                    <select name="productcategory_id" id="productcategory_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('product_select_category'); ?>">
+                    <option value=""></option>
+                    option
                     </select>
                 </div>
             </div>

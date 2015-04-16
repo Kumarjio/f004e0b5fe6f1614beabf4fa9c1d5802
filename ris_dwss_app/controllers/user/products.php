@@ -21,6 +21,7 @@ class products extends CI_Controller
             $product = new Product();
 
             $product->market_id = $this->input->post('market_id');
+            $product->productcategory_id = $this->input->post('productcategory_id');
             
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 if ($this->input->post($key . '_name') != '') {
@@ -92,23 +93,32 @@ class products extends CI_Controller
                     }
                 }
 
-                if ($_FILES['product_image']['name'] != '') {
+                $images = array();
+                if (!empty($_FILES['product_image'])) {
                     $image = $this->uploadImage('product_image');
                     if (isset($image['error'])) {
                         $this->session->set_flashdata('file_errors', $image['error']);
                         redirect(USER_URL . 'product/add', 'refresh');
-                    } else if (isset($image['upload_data'])) {
-                        
-                        if ($product->image != 'no-category.png' && file_exists('assets/uploads/product_images/' . $product->image)) {
-                            unlink('assets/uploads/product_images/' . $product->image);
+                    } else if (isset($image)) {
+                        $images = unserialize($product->images);
+                        foreach ($images as $image) {
+                            if (file_exists('assets/uploads/product_images/' . $image)) {
+                                unlink('assets/uploads/product_images/' . $image);
+                            }
+
+                            if (file_exists('assets/uploads/product_images/thumb/' . $image)) {
+                                unlink('assets/uploads/product_images/thumb/' . $image);
+                            }
                         }
 
-                        if ($product->image != 'no-category.png' && file_exists('assets/uploads/product_images/thumb/' . $product->image)) {
-                            unlink('assets/uploads/product_images/thumb/' . $product->image);
+                        foreach ($image as $key => $value) {
+                            $images[] = $value['file_name'];
                         }
-
-                        $product->image = $image['upload_data']['file_name'];
                     }
+                }
+                
+                if(!empty($images)){
+                    $product->images = serialize($images);
                 }
 
                 $product->updated_id = $this->session_data->id;

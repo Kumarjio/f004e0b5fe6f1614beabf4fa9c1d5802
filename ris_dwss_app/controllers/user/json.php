@@ -315,7 +315,7 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['product_name'];
             if(!empty($aRow['images'])){
                 $images = unserialize($aRow['images']);
-                $image = $images[rand(0, count($images))];
+                $image = $images[rand(0, count($images) - 1)];
                 $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/product_images/'. $image .'" alt="" class="img-thumbnail">';
             } else {
                 $temp_arr[] = '&nbsp;';
@@ -327,6 +327,42 @@ class json extends CI_Controller
             }
 
             if (hasPermission('products', 'deleteProduct')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getProductratesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name',  'productcategories.' .$this->session_data->language . '_name AS product_category_name', 'products.' .$this->session_data->language . '_name AS product_name', 'productrates.min_rate', 'productrates.max_rate', 'productrates.income', 'productrates.date');
+        $this->datatable->eColumns = array('productrates.id');
+        $this->datatable->sIndexColumn = "productrates.id";
+        $this->datatable->sTable = " productrates, productcategories, products, markets";
+        $this->datatable->myWhere = " WHERE productcategories.id=products.productcategory_id AND products.market_id = markets.id AND products.id=productrates.product_id";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['market_name'];
+            $temp_arr[] = $aRow['product_category_name'];
+            $temp_arr[] = $aRow['product_name'];
+            $temp_arr[] = $aRow['min_rate'];
+            $temp_arr[] = $aRow['max_rate'];
+            $temp_arr[] = $aRow['income'];
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['date']));
+
+            $str = '';
+            if (hasPermission('productrate', 'editProductrate')) {
+                $str .= '<a href="' . USER_URL . 'productrate/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('productrate', 'deleteProductrate')) {
                 $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
             }
 
