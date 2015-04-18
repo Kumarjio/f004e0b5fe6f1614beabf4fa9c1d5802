@@ -35,4 +35,37 @@ class ajax extends CI_Controller
 
         echo $option;
     }
+
+    function getProductByCategoryForRate($category_id){
+        $obj_product = new Product();
+        $obj_product->where('productcategory_id', $category_id)->get();
+
+        $str = '';
+        foreach ($obj_product as $product) {
+            $obj_product_rate = new Productrate();
+            $obj_product_rate->where(array('product_id' => $product->id));
+            $obj_product_rate->order_by('date desc');
+            $obj_product_rate->limit(1);
+            $obj_product_rate->get();
+
+            $str .='<div class="form-group">';
+                $str .='<input type="hidden" name="product_id[]" value="'. $product->id .'"/>';
+                $str .='<label class="col-lg-2 control-label">'. $product->{$this->session_data->language . '_name'} .'<span class="text-danger">&nbsp;</span></label>';
+                $str .='<div class="col-lg-9">';
+                    $str .='<div class="row">';
+                        $str .='<div class="col-lg-4">';
+                            $str .='<input type="text" class="form-control required" name="product_min_rate[]" value="'. $obj_product_rate->min_rate .'" placeholder="Min rate"/>';
+                        $str .='</div>';
+                        $str .='<div class="col-lg-4">';
+                            $str .='<input type="text" class="form-control required"  name="product_max_rate[]" value="'. $obj_product_rate->max_rate .'" placeholder="Max rate"/>';
+                        $str .='</div>';
+                        $str .='<div class="col-lg-4">';
+                            $str .='<input type="text" class="form-control required"  name="product_income[]" value="'. $obj_product_rate->income .'"  placeholder="Income"/>';
+                        $str .='</div>';
+                    $str .='</div>';
+                $str .='</div>';
+            $str .='</div>' ."\n\r";
+        }
+        echo $str;
+    }
 }
