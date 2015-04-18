@@ -219,6 +219,14 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('suppliers', 'viewSupplier')) { ?>
+                            <li class="<?php echo ($uri_1 == 'supplier') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'supplier'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('supplier'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">

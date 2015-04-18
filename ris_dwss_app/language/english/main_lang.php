@@ -43,6 +43,14 @@
 	$lang['download'] = 'Download';
 	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
 
+	$lang['sunday'] = 'Sunday';
+	$lang['monday'] = 'Monday';
+	$lang['tuesday'] = 'Tuesday';
+	$lang['wednessday'] = 'Wednessday';
+	$lang['thursday'] = 'Thursday';
+	$lang['friday'] = 'Friday';
+	$lang['saturday'] = 'Saturday';
+
 //MENU
 	$lang['dashboard'] = 'Dashboard';
 	$lang['role'] = 'Role';
@@ -172,4 +180,32 @@
 	$lang['product_rate_max'] = 'Maximun Rate';
 	$lang['product_rate_income'] = 'Income';
 	$lang['product_rate_date'] = 'Date';
+
+//Supplier
+	$lang['supplier'] = 'Supplier';
+	$lang['supplier_shop_no'] = 'Shop No';
+	$lang['supplier_form_date'] = 'Date';
+	$lang['supplier_form_no'] = 'Form No';
+	$lang['supplier_type'] = 'Supplier Type';	
+	$lang['supplier_name'] = 'Supplier Name';
+	$lang['supplier_mobile'] = 'Mobile';
+	$lang['supplier_email'] = 'Email';
+	$lang['supplier_shop_name'] = 'Shop Name';
+	$lang['supplier_owner_type'] = 'Owner Type';
+	$lang['supplier_working_days'] = 'Working days';
+	$lang['supplier_working_timing'] = 'Working Timing';
+	$lang['supplier_establishment_year'] = 'Establishment year';
+	$lang['supplier_payment_mode'] = 'Payment Mode';
+	$lang['supplier_website'] = 'Website';
+	$lang['supplier_certificates'] = 'Certificates';
+	$lang['supplier_bussiness_type'] = 'Bussiness Types';
+	$lang['supplier_no_employees'] = 'Total Employees';
+	$lang['supplier_sms_requriments'] = 'SMS Requriments';
+	$lang['supplier_amenities'] = 'Amenities';
+
+	$lang['supplier_proprietary'] = 'Proprietary';	
+	$lang['supplier_partnership'] = 'Partnership';
+	$lang['supplier_payment_cash'] = 'Cash';
+	$lang['supplier_payment_check'] = 'Check';
+	$lang['supplier_payment_other'] = 'Other';	
 ?>

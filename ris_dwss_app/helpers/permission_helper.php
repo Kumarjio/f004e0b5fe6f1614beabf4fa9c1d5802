@@ -166,6 +166,24 @@ if (!function_exists('createPermissionArray')) {
                     'deleteProduct' => array('name' => 'Delete'),
                 )
             ),
+            'productrates' => array(
+                'name' => 'Product Rates',
+                'hasChild' => array(
+                    'viewProductrate' => array('name' => 'List'),
+                    'addProductrate' => array('name' => 'Add'),
+                    'editProductrate' => array('name' => 'Edit'),
+                    'deleteProductrate' => array('name' => 'Delete'),
+                )
+            ),
+            'suppliers' => array(
+                'name' => 'Suppliers',
+                'hasChild' => array(
+                    'viewSupplier' => array('name' => 'List'),
+                    'addSupplier' => array('name' => 'Add'),
+                    'editSupplier' => array('name' => 'Edit'),
+                    'deleteSupplier' => array('name' => 'Delete'),
+                )
+            ),
             'emails' => array(
                 'name' => 'Email Templates',
                 'hasChild' => array(

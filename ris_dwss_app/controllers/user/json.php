@@ -373,5 +373,40 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getSuppliersJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('suppliers.' .$this->session_data->language . '_suppplier_name AS supplier_name', 'suppliers.' .$this->session_data->language . '_shop_name AS shop_name', 'suppliers.mobile_no', 'suppliers.suppliertype_id', 'suppliers.supplierbusinesstypes_id', 'suppliers.supplieramenities_id');
+        $this->datatable->eColumns = array('suppliers.id');
+        $this->datatable->sIndexColumn = "suppliers.id";
+        $this->datatable->sTable = " suppliers";
+        $this->datatable->myWhere = " WHERE 1=1";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['supplier_name'];
+            $temp_arr[] = $aRow['shop_name'];
+            $temp_arr[] = $aRow['mobile_no'];
+            $temp_arr[] = $aRow['suppliertype_id'];
+            $temp_arr[] = $aRow['supplierbusinesstypes_id'];
+            $temp_arr[] = $aRow['supplieramenities_id'];
+
+            $str = '';
+            if (hasPermission('productrate', 'editProductrate')) {
+                $str .= '<a href="' . USER_URL . 'productrate/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('productrate', 'deleteProductrate')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }

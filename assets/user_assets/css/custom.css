@@ -82,3 +82,11 @@
     font-size: 12px !important;
     font-weight: normal !important;
 }
+
+.form-horizontal .control-label,
+.form-horizontal .radio,
+.form-horizontal .checkbox,
+.form-horizontal .radio-inline,
+.form-horizontal .checkbox-inline {
+    line-height: 25px;
+}
