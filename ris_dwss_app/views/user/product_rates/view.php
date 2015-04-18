@@ -91,13 +91,13 @@
     <table class="table table-bordered table-hover" id="list_data">
         <thead class="the-box dark full">
             <tr align="left">
-                <th width="150"><?php echo $this->lang->line('market_name'); ?></th>
-                <th><?php echo $this->lang->line('product_category_name'); ?></th>
+                <th width="100"><?php echo $this->lang->line('product_rate_date'); ?></th>
                 <th><?php echo $this->lang->line('product_name'); ?></th>
-                <th width="125"><?php echo $this->lang->line('product_rate_min'); ?></th>
-                <th width="125"><?php echo $this->lang->line('product_rate_max'); ?></th>
-                <th width="125"><?php echo $this->lang->line('product_rate_income'); ?></th>
-                <th width="125"><?php echo $this->lang->line('product_rate_date'); ?></th>
+                <th width="100"><?php echo $this->lang->line('product_rate_min'); ?></th>
+                <th width="100"><?php echo $this->lang->line('product_rate_max'); ?></th>
+                <th width="100"><?php echo $this->lang->line('product_rate_income'); ?></th>
+                <th width="100"><?php echo $this->lang->line('product_category_name'); ?></th>
+                <th width="100"><?php echo $this->lang->line('market_name'); ?></th>
                 <th width="100"><?php echo $this->lang->line('actions'); ?></th>
             </tr>
         </thead>

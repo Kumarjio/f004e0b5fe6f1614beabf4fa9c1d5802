@@ -34,12 +34,17 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('product_select_category'); ?><span class="text-danger">*</span></label>
                 <div class="col-lg-9">
                     <input type="text" value="<?php echo $product_category->{$session->language .'_name'}; ?>" disabled="disabled" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('product_rate_date'); ?><span class="text-danger">*</span></label>
+                <div class="col-lg-9">
+                    <input type="text" value="<?php echo date('d-m-Y', strtotime($productrate->date)); ?>" disabled="disabled" class="form-control">
                 </div>
             </div>
 

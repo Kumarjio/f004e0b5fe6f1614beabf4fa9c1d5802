@@ -340,7 +340,7 @@ class json extends CI_Controller
 
     public function getProductratesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name',  'productcategories.' .$this->session_data->language . '_name AS product_category_name', 'products.' .$this->session_data->language . '_name AS product_name', 'productrates.min_rate', 'productrates.max_rate', 'productrates.income', 'productrates.date');
+        $this->datatable->aColumns = array('productrates.date', 'products.' .$this->session_data->language . '_name AS product_name', 'productrates.min_rate', 'productrates.max_rate', 'productrates.income', 'productcategories.' .$this->session_data->language . '_name AS product_category_name','markets.' .$this->session_data->language . '_name AS market_name');
         $this->datatable->eColumns = array('productrates.id');
         $this->datatable->sIndexColumn = "productrates.id";
         $this->datatable->sTable = " productrates, productcategories, products, markets";
@@ -349,13 +349,13 @@ class json extends CI_Controller
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['market_name'];
-            $temp_arr[] = $aRow['product_category_name'];
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['date']));
             $temp_arr[] = $aRow['product_name'];
             $temp_arr[] = $aRow['min_rate'];
             $temp_arr[] = $aRow['max_rate'];
             $temp_arr[] = $aRow['income'];
-            $temp_arr[] = date('d-m-Y', strtotime($aRow['date']));
+            $temp_arr[] = $aRow['product_category_name'];
+            $temp_arr[] = $aRow['market_name'];
 
             $str = '';
             if (hasPermission('productrate', 'editProductrate')) {
