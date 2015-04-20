@@ -376,18 +376,18 @@ class json extends CI_Controller
 
     public function getSuppliersJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('suppliers.' .$this->session_data->language . '_suppplier_name AS supplier_name', 'suppliers.' .$this->session_data->language . '_shop_name AS shop_name', 'suppliers.mobile_no', 'suppliers.suppliertype_id', 'suppliers.supplierbusinesstypes_id', 'suppliers.supplieramenities_id');
+        $this->datatable->aColumns = array('users.' .$this->session_data->language . '_fullname AS supplier_name', 'suppliers.' .$this->session_data->language . '_shop_name AS shop_name', 'users.mobile', 'suppliers.suppliertype_id', 'suppliers.supplierbusinesstypes_id', 'suppliers.supplieramenities_id');
         $this->datatable->eColumns = array('suppliers.id');
         $this->datatable->sIndexColumn = "suppliers.id";
-        $this->datatable->sTable = " suppliers";
-        $this->datatable->myWhere = " WHERE 1=1";
+        $this->datatable->sTable = " suppliers, users";
+        $this->datatable->myWhere = " WHERE users.id=suppliers.user_id";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['supplier_name'];
             $temp_arr[] = $aRow['shop_name'];
-            $temp_arr[] = $aRow['mobile_no'];
+            $temp_arr[] = $aRow['mobile'];
             $temp_arr[] = $aRow['suppliertype_id'];
             $temp_arr[] = $aRow['supplierbusinesstypes_id'];
             $temp_arr[] = $aRow['supplieramenities_id'];

@@ -105,7 +105,7 @@
                         </li>
                         <li class="dropdown current-user">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="username"><?php echo $session->fullname; ?></span>
+                                <span class="username"><?php echo $session->{$session->language.'_fullname'}; ?></span>
                                 <i class="clip-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">

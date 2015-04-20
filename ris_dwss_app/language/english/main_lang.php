@@ -187,10 +187,8 @@
 	$lang['supplier_form_date'] = 'Date';
 	$lang['supplier_form_no'] = 'Form No';
 	$lang['supplier_type'] = 'Supplier Type';	
-	$lang['supplier_name'] = 'Supplier Name';
-	$lang['supplier_mobile'] = 'Mobile';
-	$lang['supplier_email'] = 'Email';
 	$lang['supplier_shop_name'] = 'Shop Name';
+	$lang['supplier_shop_image'] = 'Shop Image';
 	$lang['supplier_owner_type'] = 'Owner Type';
 	$lang['supplier_working_days'] = 'Working days';
 	$lang['supplier_working_timing'] = 'Working Timing';
@@ -207,5 +205,18 @@
 	$lang['supplier_partnership'] = 'Partnership';
 	$lang['supplier_payment_cash'] = 'Cash';
 	$lang['supplier_payment_check'] = 'Check';
-	$lang['supplier_payment_other'] = 'Other';	
+	$lang['supplier_payment_other'] = 'Other';
+
+	$lang['supplier_name'] = 'Supplier Name';
+	$lang['supplier_supplier_image'] = 'Supplier Image';
+	$lang['supplier_mobile'] = 'Mobile';
+	$lang['supplier_email'] = 'Email';	
+	$lang['supplier_username'] = 'Username';	
+	$lang['supplier_password'] = 'Password';	
+	$lang['supplier_confirm_password'] = 'Confirm Password';	
+
+
+
+
+	
 ?>

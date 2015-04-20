@@ -18,15 +18,29 @@ class suppliers extends CI_Controller
 
     function addSupplier() {
         if ($this->input->post() !== false) {
-            $supplier = new Supplier();
-
+            $user = new User();
             foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_suppplier_name') != '') {
-                    $supplier->{$key . '_suppplier_name'} = $this->input->post($key . '_suppplier_name');
+                if ($this->input->post($key . '_fullname') != '') {
+                    $user->{$key . '_fullname'} = $this->input->post($key . '_fullname');
                 } else {
-                    $supplier->{$key . '_suppplier_name'} = $this->input->post('en_suppplier_name');
+                    $user->{$key . '_fullname'} = $this->input->post('en_fullname');
                 }
             }
+
+            $user->role_id = 2;
+            $user->username = $this->input->post('username');
+            $user->password = md5($this->input->post('password'));
+            $user->mobile = $this->input->post('mobile');
+            $user->email = $this->input->post('email');
+            $user->status = $this->input->post('status');
+            $user->save();
+
+            $supplier = new Supplier();
+            $supplier->user_id = $user->id;
+            $supplier->form_no = $this->input->post('form_no');
+            $supplier->form_date = date('Y-m-d', strtotime($this->input->post('form_date')));
+            $supplier->shop_no = $this->input->post('shop_no'); 
+            $supplier->suppliertype_id = implode(',', $this->input->post('suppliertype_id'));
 
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 if ($this->input->post($key . '_shop_name') != '') {
@@ -35,6 +49,17 @@ class suppliers extends CI_Controller
                     $supplier->{$key . '_shop_name'} = $this->input->post('en_shop_name');
                 }
             }
+
+            $supplier->owner = $this->input->post('owner');
+            $supplier->working_days = implode(',', $this->input->post('working_days'));
+            $supplier->working_time = $this->input->post('working_time');
+            $supplier->estd_year = $this->input->post('estd_year');
+            $supplier->payment = implode(',', $this->input->post('payment'));
+            $supplier->website = $this->input->post('website');
+            $supplier->supplierbusinesstypes_id = implode(',', $this->input->post('supplierbusinesstypes_id'));
+            $supplier->no_employees = $this->input->post('no_employees');
+            $supplier->sms_requriment = $this->input->post('sms_requriment');
+            $supplier->supplieramenities_id = implode(',', $this->input->post('supplieramenities_id'));
 
             $supplier->created_id = $this->session_data->id;
             $supplier->created_datetime = get_current_date_time()->get_date_time_for_db();
@@ -59,6 +84,8 @@ class suppliers extends CI_Controller
             $obj_supplieramenitie = new Supplieramenitie();
             $data['supplieramenities'] = $obj_supplieramenitie->get();
 
+            $obj_supplier = new Supplier();
+            $data['form_no'] = $obj_supplier->autoIncerementNumber();
 
             $this->layout->view('user/suppliers/add', $data);
         }
