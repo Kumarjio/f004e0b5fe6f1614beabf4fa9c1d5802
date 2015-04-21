@@ -189,7 +189,7 @@
                 <div class="col-lg-9">
                     <?php foreach ($supplierbusinesstypes as $supplierbusinesstype_value) { ?>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="<?php echo $supplierbusinesstype_value->id; ?>" name="supplierbusinesstypes_id[]" class="square-grey required">
+                            <input type="checkbox" value="<?php echo $supplierbusinesstype_value->id; ?>" name="supplierbusinesstype_id[]" class="square-grey required">
                             <?php echo $supplierbusinesstype_value->{$session->language.'_name'}; ?>
                         </label>
                     <?php } ?>
@@ -225,7 +225,7 @@
                 <div class="col-lg-9">
                     <?php foreach ($supplieramenities as $supplieramenitie_value) { ?>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="<?php echo $supplieramenitie_value->id; ?>" name="supplieramenities_id[]" class="square-grey">
+                            <input type="checkbox" value="<?php echo $supplieramenitie_value->id; ?>" name="supplieramenity_id[]" class="square-grey">
                             <?php echo $supplieramenitie_value->{$session->language.'_name'}; ?>
                         </label>
                     <?php } ?>

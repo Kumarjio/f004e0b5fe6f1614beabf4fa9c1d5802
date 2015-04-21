@@ -56,10 +56,10 @@ class suppliers extends CI_Controller
             $supplier->estd_year = $this->input->post('estd_year');
             $supplier->payment = implode(',', $this->input->post('payment'));
             $supplier->website = $this->input->post('website');
-            $supplier->supplierbusinesstypes_id = implode(',', $this->input->post('supplierbusinesstypes_id'));
+            $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
             $supplier->no_employees = $this->input->post('no_employees');
             $supplier->sms_requriment = $this->input->post('sms_requriment');
-            $supplier->supplieramenities_id = implode(',', $this->input->post('supplieramenities_id'));
+            $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
 
             $supplier->created_id = $this->session_data->id;
             $supplier->created_datetime = get_current_date_time()->get_date_time_for_db();
@@ -96,44 +96,79 @@ class suppliers extends CI_Controller
             if ($this->input->post() !== false) {
                 $supplier = new Supplier();
                 $supplier->where('id', $id)->get();
+                $supplier->form_no = $this->input->post('form_no');
+                $supplier->form_date = date('Y-m-d', strtotime($this->input->post('form_date')));
+                $supplier->shop_no = $this->input->post('shop_no'); 
+                $supplier->suppliertype_id = implode(',', $this->input->post('suppliertype_id'));
 
                 foreach ($this->config->item('custom_languages') as $key => $value) {
-                    if ($this->input->post($key . '_name') != '') {
-                        $supplier->{$key . '_name'} = $this->input->post($key . '_name');
+                    if ($this->input->post($key . '_shop_name') != '') {
+                        $supplier->{$key . '_shop_name'} = $this->input->post($key . '_shop_name');
                     } else {
-                        $supplier->{$key . '_name'} = $this->input->post('en_name');
+                        $supplier->{$key . '_shop_name'} = $this->input->post('en_shop_name');
                     }
                 }
 
-                if ($_FILES['supplier_image']['name'] != '') {
-                    $image = $this->uploadImage('supplier_image');
-                    if (isset($image['error'])) {
-                        $this->session->set_flashdata('file_errors', $image['error']);
-                        redirect(USER_URL . 'supplier/edit/'. $id, 'refresh');
-                    } else if (isset($image['upload_data'])) {
-                        if ($supplier->image != 'no-avtar.png' && file_exists('assets/uploads/supplier_images/' . $supplier->image)) {
-                            unlink('assets/uploads/supplier_images/' . $supplier->image);
-                        }
+                $supplier->owner = $this->input->post('owner');
+                $supplier->working_days = implode(',', $this->input->post('working_days'));
+                $supplier->working_time = $this->input->post('working_time');
+                $supplier->estd_year = $this->input->post('estd_year');
+                $supplier->payment = implode(',', $this->input->post('payment'));
+                $supplier->website = $this->input->post('website');
+                $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
+                $supplier->no_employees = $this->input->post('no_employees');
+                $supplier->sms_requriment = $this->input->post('sms_requriment');
+                $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
 
-                        if ($supplier->image != 'no-avtar.png' && file_exists('assets/uploads/supplier_images/thumb/' . $supplier->image)) {
-                            unlink('assets/uploads/supplier_images/thumb/' . $supplier->image);
-                        }
-                        $supplier->image = $image['upload_data']['file_name'];
-                    }
-                }
-
-                $supplier->status = $this->input->post('status');
                 $supplier->updated_id = $this->session_data->id;
                 $supplier->update_datetime = get_current_date_time()->get_date_time_for_db();
 
                 $supplier->save();
+
+                $user = new User();
+                $user->where('id', $supplier->user_id)->get();
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    if ($this->input->post($key . '_fullname') != '') {
+                        $user->{$key . '_fullname'} = $this->input->post($key . '_fullname');
+                    } else {
+                        $user->{$key . '_fullname'} = $this->input->post('en_fullname');
+                    }
+                }
+
+                $user->username = $this->input->post('username');
+
+                if($this->input->post('password') != ''){    
+                    $user->password = md5($this->input->post('password'));
+                }
+
+                $user->mobile = $this->input->post('mobile');
+                $user->email = $this->input->post('email');
+                $user->status = $this->input->post('status');
+                $user->save();
+
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(USER_URL . 'supplier', 'refresh');
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('supplier'));
 
+
+                $obj_markert = new Market();
+                $data['markets'] = $obj_markert->where('status',1)->get();
+
+                $obj_suppliertype = new Suppliertype();
+                $data['suppliertypes'] = $obj_suppliertype->get();
+
+                $obj_supplierbusinesstype = new Supplierbusinesstype();
+                $data['supplierbusinesstypes'] = $obj_supplierbusinesstype->get();
+
+                $obj_supplieramenitie = new Supplieramenitie();
+                $data['supplieramenities'] = $obj_supplieramenitie->get();
+
                 $supplier = new Supplier();
                 $data['supplier'] = $supplier->where('id', $id)->get();
+
+                $user = new User();
+                $data['user_details'] = $user->where('id', $supplier->user_id)->get();
 
                 $this->layout->view('user/suppliers/edit', $data);
             }

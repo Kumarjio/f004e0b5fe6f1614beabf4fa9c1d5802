@@ -376,11 +376,19 @@ class json extends CI_Controller
 
     public function getSuppliersJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('users.' .$this->session_data->language . '_fullname AS supplier_name', 'suppliers.' .$this->session_data->language . '_shop_name AS shop_name', 'users.mobile', 'suppliers.suppliertype_id', 'suppliers.supplierbusinesstypes_id', 'suppliers.supplieramenities_id');
+        $this->datatable->aColumns = array(
+            'users.' .$this->session_data->language . '_fullname AS supplier_name',
+            'suppliers.' .$this->session_data->language . '_shop_name AS shop_name',
+            'users.mobile',
+            'GROUP_CONCAT(DISTINCT(suppliertypes.'. $this->session_data->language . '_name)) AS supplier_types',
+            'GROUP_CONCAT(DISTINCT(supplierbusinesstypes.'. $this->session_data->language . '_name)) AS supplierbusiness_types',
+            'GROUP_CONCAT(DISTINCT(supplieramenities.'. $this->session_data->language . '_name)) AS supplieramenities',
+        );
         $this->datatable->eColumns = array('suppliers.id');
         $this->datatable->sIndexColumn = "suppliers.id";
-        $this->datatable->sTable = " suppliers, users";
-        $this->datatable->myWhere = " WHERE users.id=suppliers.user_id";
+        $this->datatable->sTable = " users, suppliertypes, suppliers, supplierbusinesstypes, supplieramenities";
+        $this->datatable->myWhere = " WHERE users.id=suppliers.user_id AND FIND_IN_SET(suppliertypes.id, suppliers.suppliertype_id) AND FIND_IN_SET(supplierbusinesstypes.id, suppliers.supplierbusinesstype_id) AND FIND_IN_SET(supplieramenities.id, suppliers.supplieramenity_id)";
+        $this->datatable->groupBy = " GROUP BY suppliertype_id, supplierbusinesstype_id, supplieramenity_id";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -388,16 +396,16 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['supplier_name'];
             $temp_arr[] = $aRow['shop_name'];
             $temp_arr[] = $aRow['mobile'];
-            $temp_arr[] = $aRow['suppliertype_id'];
-            $temp_arr[] = $aRow['supplierbusinesstypes_id'];
-            $temp_arr[] = $aRow['supplieramenities_id'];
+            $temp_arr[] = $aRow['supplier_types'];
+            $temp_arr[] = $aRow['supplierbusiness_types'];
+            $temp_arr[] = $aRow['supplieramenities'];
 
             $str = '';
-            if (hasPermission('productrate', 'editProductrate')) {
-                $str .= '<a href="' . USER_URL . 'productrate/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            if (hasPermission('suppliers', 'editSupplier')) {
+                $str .= '<a href="' . USER_URL . 'supplier/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
-            if (hasPermission('productrate', 'deleteProductrate')) {
+            if (hasPermission('suppliers', 'deleteSupplier')) {
                 $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
             }
 
