@@ -183,6 +183,7 @@
 
 //Supplier
 	$lang['supplier'] = 'Supplier';
+	$lang['supplier_select_market'] = 'Select Market';
 	$lang['supplier_shop_no'] = 'Shop No';
 	$lang['supplier_form_date'] = 'Date';
 	$lang['supplier_form_no'] = 'Form No';
@@ -200,6 +201,11 @@
 	$lang['supplier_no_employees'] = 'Total Employees';
 	$lang['supplier_sms_requriments'] = 'SMS Requriments';
 	$lang['supplier_amenities'] = 'Amenities';
+	$lang['supplier_shop_image'] = 'Shop Image';
+	$lang['current_supplier_shop_image'] = 'Current Shop Image';
+	$lang['supplier_shop_certificate'] = 'Certiticate';
+	$lang['supplier_shop_certificate_name'] = 'Certiticate Name';
+	$lang['supplier_shop_certificate_file'] = 'Certiticate File';
 
 	$lang['supplier_proprietary'] = 'Proprietary';	
 	$lang['supplier_partnership'] = 'Partnership';
@@ -215,8 +221,8 @@
 	$lang['supplier_password'] = 'Password';	
 	$lang['supplier_confirm_password'] = 'Confirm Password';	
 
-
-
+//Supplier Products
+	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
 
 	
 ?>

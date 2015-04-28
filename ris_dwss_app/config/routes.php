@@ -71,10 +71,8 @@ $route['default_controller'] = "welcome/index";
 $route['404_override'] = '';
 
 /*
-* user SIDE URLS
+* USER SIDE URLS
 */
-
-$route['user/change_language/(:any)'] = "user/ajax/setNewLanguage/$1";
 
 //Authenticate
 $route['user'] = "user/dashboard/index";
@@ -95,7 +93,14 @@ $route['user/password'] = 'user/dashboard/updatePassword';
 //Ajax
 $route['user/get_product_category_by_market/(:num)'] = 'user/ajax/getProductCategoryByMarket/$1';
 $route['user/get_product_by_category_for_rate/(:num)'] = 'user/ajax/getProductByCategoryForRate/$1';
+$route['user/change_language/(:any)'] = "user/ajax/setNewLanguage/$1";
+$route['user/checkusername/(:num)'] = "user/ajax/checkUsernameExit/$1";
+$route['user/checkemail/(:num)'] = "user/ajax/checkEmailExit/$1";
 
+//Supplier Product
+$route['user/supplier/product'] = "user/suppliers/manageProductSupplier";
+$route['user/supplier/product/(:num)'] = "user/suppliers/manageProductSupplier/$1";
+$route['user/supplier/product/delete/(:num)/(:num)'] = "user/suppliers/deleteproductSupplier/$1/$2";
 
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";

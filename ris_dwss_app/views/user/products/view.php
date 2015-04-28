@@ -19,7 +19,7 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},
                 {"sClass": ""},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo USER_URL . 'product/getjson'; ?>",
@@ -93,6 +93,7 @@
         <thead class="the-box dark full">
             <tr align="left">
                 <th width="125"><?php echo $this->lang->line('markets'); ?></th>
+                <th width="125"><?php echo $this->lang->line('product_category'); ?></th>
                 <th><?php echo $this->lang->line('product_name'); ?></th>
                 <th width="150"><?php echo $this->lang->line('product_image'); ?></th>
                 <th width="100"><?php echo $this->lang->line('actions'); ?></th>
@@ -100,7 +101,7 @@
         </thead>
         <tbody>
             <tr>
-                <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                <td colspan="5"><i><?php echo $this->lang->line('loading'); ?></i></td>
             </tr>
         </tbody>
     </table>

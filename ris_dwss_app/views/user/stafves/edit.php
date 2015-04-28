@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('staff_select_market'); ?><span class="text-danger">*</span></label>
                 <div class="col-lg-9">
-                    <select name="market_id" class="form-control">
+                    <select name="market_id" class="form-control chosen-select">
                         <?php foreach ($markets as $market) { ?>
                             <option <?php echo($market->id == $staff->market_id) ? 'selected' : ''; ?> value="<?php echo $market->id; ?>"><?php echo ucwords($market->{$session->language.'_name'}); ?></option>
                         <?php } ?>                        

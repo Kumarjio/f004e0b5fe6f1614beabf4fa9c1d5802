@@ -68,4 +68,51 @@ class ajax extends CI_Controller
         }
         echo $str;
     }
+
+    function checkUsernameExit($id = null) {
+        $user = new User();
+        $user->where('username', $this->input->get('username'))->get();
+        if ($id != '0') {
+            if ($user->result_count() == 1 && $user->id != $id) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if ($user->result_count() == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+    
+    function checkEmailExit($id = null) {
+        $user = new User();
+        $user->where('email', $this->input->get('email'))->get();
+        if ($id != '0') {
+            if ($user->result_count() == 1 && $user->id != $id) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if ($user->result_count() == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+    
+    function checkCurrentPassword() {
+        $user = new User();
+        $user->where(array('id' => $this->session_data->id, 'password' => md5($this->input->get('current_pwd'))));
+        $user->get();
+        if ($user->result_count() == 1) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+    }
 }

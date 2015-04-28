@@ -57,6 +57,17 @@
             </div>
 
             <div class="form-group">
+                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('supplier_select_market'); ?><span class="text-danger">*</span></label>
+                <div class="col-lg-9">
+                    <select name="market_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('product_select_market'); ?>">
+                        <?php foreach ($markets as $market) { ?>
+                            <option value="<?php echo $market->id; ?>" <?php echo($supplier->market_id == $market->id) ? 'selected' : ''; ?>><?php echo ucwords($market->{$session->language.'_name'}); ?></option>
+                        <?php } ?>                        
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('supplier_shop_no'); ?><span class="text-danger">*</span></label>
                 <div class="col-lg-9">
                     <input type="text" name="shop_no" class="form-control required" placeholder="<?php echo $this->lang->line('supplier_shop_no'); ?>" value="<?php echo $supplier->shop_no; ?>">
@@ -228,6 +239,43 @@
                             <?php echo $supplieramenitie_value->{$session->language.'_name'}; ?>
                         </label>
                     <?php } ?>
+                </div>
+            </div>
+
+            <?php if(!empty($supplier->image) && file_exists('assets/uploads/supplier_shop_image/thumb/' . $supplier->image)){ ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('current_supplier_shop_image'); ?>
+                    </label>
+                    <div class="col-lg-9">
+                        <img src="<?php echo ASSETS_URL .'uploads/supplier_shop_image/thumb/' . $supplier->image; ?>" alt="" class="img-thumbnail col-md-3">
+                    </div>
+                </div>
+            <?php } ?>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('supplier_shop_image'); ?>
+                </label>
+                <div class="col-lg-9">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-group">
+                            <div class="form-control uneditable-input">
+                                <i class="icon-file fileupload-exists"></i>
+                                <span class="fileupload-preview"></span>
+                            </div>
+                            <div class="input-group-btn">
+                                <div class="btn btn-light-grey btn-file">
+                                    <span class="fileupload-new"><i class="icon-folder-open-alt"></i> <?php echo $this->lang->line('select_image'); ?></span>
+                                    <span class="fileupload-exists"><i class="icon-folder-open-alt"></i> <?php echo $this->lang->line('change_image'); ?></span>
+                                    <input type="file" class="file-input" name="supplier_shop_image">
+                                </div>
+                                <a href="#" class="btn btn-light-grey fileupload-exists" data-dismiss="fileupload">
+                                    <i class="icon-remove"></i> <?php echo $this->lang->line('remove_image'); ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

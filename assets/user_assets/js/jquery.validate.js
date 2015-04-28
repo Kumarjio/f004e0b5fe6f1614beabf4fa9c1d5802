@@ -294,7 +294,9 @@ $.extend($.validator, {
 		rangelength: $.validator.format(" * Please enter a value between {0} and {1} characters long."),
 		range: $.validator.format(" * Please enter a value between {0} and {1}."),
 		max: $.validator.format(" * Please enter a value less than or equal to {0}."),
-		min: $.validator.format(" * Please enter a value greater than or equal to {0}.")
+		min: $.validator.format(" * Please enter a value greater than or equal to {0}."),
+		nowhitespace: $.validator.format("* Space is not allowed"),
+		passwordpattern: $.validator.format("* Must be at least 6 characters, At least 1 number, 1 lowercase, 1 uppercase letter, 1 special character")
 	},
 
 	autoCreateRanges: false,
@@ -1170,7 +1172,16 @@ $.extend($.validator, {
 				}
 			}, param));
 			return "pending";
-		}
+		}, 
+
+		nowhitespace : function(value, element) {
+        	return this.optional(element) || /^\S+$/i.test(value);
+        },
+
+        passwordpattern : function(value, element) {
+        	pattern = /^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/;
+        	return this.optional(element) || pattern.test(value);
+        },
 
 	}
 

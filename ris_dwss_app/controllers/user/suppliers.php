@@ -36,6 +36,7 @@ class suppliers extends CI_Controller
             $user->save();
 
             $supplier = new Supplier();
+            $supplier->market_id = $this->input->post('market_id');
             $supplier->user_id = $user->id;
             $supplier->form_no = $this->input->post('form_no');
             $supplier->form_date = date('Y-m-d', strtotime($this->input->post('form_date')));
@@ -47,6 +48,16 @@ class suppliers extends CI_Controller
                     $supplier->{$key . '_shop_name'} = $this->input->post($key . '_shop_name');
                 } else {
                     $supplier->{$key . '_shop_name'} = $this->input->post('en_shop_name');
+                }
+            }
+
+            if ($_FILES['supplier_shop_image']['name'] != '') {
+                $image = $this->uploadImage('supplier_shop_image');
+                if (isset($image['error'])) {
+                    $this->session->set_flashdata('file_errors', $image['error']);
+                    redirect(USER_URL . 'supplier/add', 'refresh');
+                } else if (isset($image['upload_data'])) {
+                    $supplier->image = $image['upload_data']['file_name'];
                 }
             }
 
@@ -84,6 +95,9 @@ class suppliers extends CI_Controller
             $obj_supplieramenitie = new Supplieramenitie();
             $data['supplieramenities'] = $obj_supplieramenitie->get();
 
+            $obj_markert = new Market();
+            $data['markets'] = $obj_markert->where('status',1)->get();
+
             $obj_supplier = new Supplier();
             $data['form_no'] = $obj_supplier->autoIncerementNumber();
 
@@ -96,7 +110,7 @@ class suppliers extends CI_Controller
             if ($this->input->post() !== false) {
                 $supplier = new Supplier();
                 $supplier->where('id', $id)->get();
-                $supplier->form_no = $this->input->post('form_no');
+                $supplier->market_id = $this->input->post('market_id');
                 $supplier->form_date = date('Y-m-d', strtotime($this->input->post('form_date')));
                 $supplier->shop_no = $this->input->post('shop_no'); 
                 $supplier->suppliertype_id = implode(',', $this->input->post('suppliertype_id'));
@@ -106,6 +120,25 @@ class suppliers extends CI_Controller
                         $supplier->{$key . '_shop_name'} = $this->input->post($key . '_shop_name');
                     } else {
                         $supplier->{$key . '_shop_name'} = $this->input->post('en_shop_name');
+                    }
+                }
+
+                if ($_FILES['supplier_shop_image']['name'] != '') {
+                    $image = $this->uploadImage('supplier_shop_image');
+                    if (isset($image['error'])) {
+                        $this->session->set_flashdata('file_errors', $image['error']);
+                        redirect(USER_URL . 'supplier/edit/' . $id, 'refresh');
+                    } else if (isset($image['upload_data'])) {
+                        
+                        if ($supplier->image != 'no-image.png' && file_exists('assets/uploads/supplier_shop_image/' . $supplier->image)) {
+                            unlink('assets/uploads/supplier_shop_image/' . $supplier->image);
+                        }
+
+                        if ($supplier->image != 'no-image.png' && file_exists('assets/uploads/supplier_shop_image/thumb/' . $supplier->image)) {
+                            unlink('assets/uploads/supplier_shop_image/thumb/' . $supplier->image);
+                        }
+
+                        $supplier->image = $image['upload_data']['file_name'];
                     }
                 }
 
@@ -167,6 +200,9 @@ class suppliers extends CI_Controller
                 $supplier = new Supplier();
                 $data['supplier'] = $supplier->where('id', $id)->get();
 
+                $obj_markert = new Market();
+                $data['markets'] = $obj_markert->where('status',1)->get();
+
                 $user = new User();
                 $data['user_details'] = $user->where('id', $supplier->user_id)->get();
 
@@ -202,10 +238,10 @@ class suppliers extends CI_Controller
     }
 
     function uploadImage($field) {
-        if ($field == 'supplier_image') {
+        if ($field == 'supplier_shop_image') {
             $this->upload->initialize(
                 array(
-                    'upload_path' => "./assets/uploads/supplier_images",
+                    'upload_path' => "./assets/uploads/supplier_shop_image",
                     'allowed_types' => 'jpg|jpeg|gif|png|bmp',
                     'overwrite' => FALSE,
                     'remove_spaces' => TRUE,
@@ -219,20 +255,167 @@ class suppliers extends CI_Controller
         } else {
             $data = array('upload_data' => $this->upload->data($field));
 
-            if ($field == 'supplier_image' && $data['upload_data']['file_name'] != '') {
+            if ($field == 'supplier_shop_image' && $data['upload_data']['file_name'] != '') {
                 $image = str_replace(' ', '_', $data['upload_data']['file_name']);
                 $this->load->helper('image_manipulation/image_manipulation');
                 include_lib_image_manipulation();
-                $magicianObj = new imageLib('./assets/uploads/supplier_images/' . $image);
+                $magicianObj = new imageLib('./assets/uploads/supplier_shop_image/' . $image);
                 $magicianObj->resizeImage(150, 150, 'exact');
-                $magicianObj->saveImage('./assets/uploads/supplier_images/thumb/' . $image, 100);
+                $magicianObj->saveImage('./assets/uploads/supplier_shop_image/thumb/' . $image, 100);
 
-                $magicianObj = new imageLib('./assets/uploads/supplier_images/' . $image);
-                $magicianObj->resizeImage(400, 400, 'exact');
-                $magicianObj->saveImage('./assets/uploads/supplier_images/' . $image, 100);
+                $magicianObj = new imageLib('./assets/uploads/supplier_shop_image/' . $image);
+                $magicianObj->resizeImage(400, 400, 'landscape');
+                $magicianObj->saveImage('./assets/uploads/supplier_shop_image/' . $image, 100);
             }
         }
         
         return $data;
+    }
+
+    function manageProductSupplier($supplier_id = null){
+        if ($this->input->post() !== false) {
+            if($this->session_data->role == 3) {
+                $supplier_id = $this->session_data->id;
+                $valid = true;
+            } else if($this->session_data->role == 1 || $this->session_data->role == 2) {
+                if(empty($supplier_id)){
+                    $valid = false;
+                } else {
+                    $valid = true;
+                }
+            } else {
+                $valid = false;
+            }
+
+            if($valid){
+                $obj_supplier_product = new Supplierproduct();
+                $obj_supplier_product->where('supplier_id', $supplier_id)->get();
+                $product_ids = $this->input->post('product_ids');
+
+                if($obj_supplier_product->result_count() > 0){
+                    $product_already = array();
+                    $product_remove = array();
+                    $product_add = array();
+
+                    foreach ($obj_supplier_product as $product) {
+                        $product_already[] = $product->product_id;
+                        if(!in_array($product->product_id, $product_ids)){
+                            $product_remove[] = $product->product_id;
+                        }
+                    }
+
+                    foreach ($product_ids as $product) {
+                        if(!in_array($product, $product_already)){
+                            $product_add[] = $product;
+                        }
+                    }
+
+
+
+                    foreach ($product_remove as $remove_product) {
+                        $obj_supplier_product_remove = new Supplierproduct();
+                        $obj_supplier_product_remove->where(array('supplier_id' => $supplier_id, 'product_id' => $remove_product));
+                        $obj_supplier_product_remove->get();
+                        $obj_supplier_product_remove->delete();
+                    }
+                    
+                    foreach ($product_add as $add_product) {
+                        $obj_supplier_product_add = new Supplierproduct();
+                        $obj_supplier_product_add->supplier_id = $supplier_id;
+                        $obj_supplier_product_add->product_id  = $add_product;
+                        $obj_supplier_product_add->created_id = $this->session_data->id;
+                        $obj_supplier_product_add->created_datetime = get_current_date_time()->get_date_time_for_db();
+                        $obj_supplier_product_add->updated_id = $this->session_data->id;
+                        $obj_supplier_product_add->update_datetime = get_current_date_time()->get_date_time_for_db();
+                        $obj_supplier_product_add->save();
+                    }
+
+                } else {
+                    foreach ($product_ids as $product_id) {
+                        $supplier_product = new Supplierproduct();
+
+                        $supplier_product->supplier_id = $supplier_id;
+                        $supplier_product->product_id  = $product_id;
+                        $supplier_product->created_id = $this->session_data->id;
+                        $supplier_product->created_datetime = get_current_date_time()->get_date_time_for_db();
+                        $supplier_product->updated_id = $this->session_data->id;
+                        $supplier_product->update_datetime = get_current_date_time()->get_date_time_for_db();
+                        $supplier_product->save();
+                    }
+                }
+
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                redirect(USER_URL . 'supplier', 'refresh');
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                redirect(USER_URL . 'supplier', 'refresh');
+            }
+        } else {
+            $valid = false;
+            if($this->session_data->role == 3) {
+                $supplier_id = $this->session_data->id;
+                $valid = true;
+            } else if($this->session_data->role == 1 || $this->session_data->role == 2) {
+                if(empty($supplier_id)){
+                    $valid = false;
+                } else {
+                    $valid = true;
+                }
+            } else {
+                $valid = false;
+            }
+
+            if($valid){
+                $obj_supplier = new Supplier();
+                $obj_supplier->where('id', $supplier_id)->get();
+
+                if($obj_supplier->result_count() == 1){
+                    $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('supplier'));
+
+                    $data['supplier_details'] = $obj_supplier->stored;
+
+                    $obj_product_catgory = new Productcategory();
+                    $obj_product_catgory->where('market_id', $obj_supplier->stored->id);
+
+                    $product_data =array();
+                    foreach ($obj_product_catgory->get() as $product_category) {
+                        $products = $product_category->product->get();
+                        $product_data[$product_category->stored->id]['category_id'] = $product_category->stored->id;
+                        $product_data[$product_category->stored->id]['category_name'] = $product_category->stored->{$this->session_data->language.'_name'};
+                        foreach ($products as $product) {
+                            $temp = array();
+                            $temp['id'] = $product->stored->id;
+                            $temp['name'] = $product->stored->{$this->session_data->language.'_name'};
+                            $product_data[$product_category->stored->id]['products'][] = $temp;
+                        }
+                        
+                    }
+
+                    $data['products'] = $product_data;
+
+                    $obj_supplier_product = new Supplierproduct();
+                    $obj_supplier_product->where('supplier_id', $supplier_id)->get();
+                    
+                    $temp = array();
+                    foreach ($obj_supplier_product as $supplier_product) {
+                        $temp[] = $supplier_product->product_id;
+                    }
+
+                    $data['supplier_product'] = $temp;
+
+                    $this->layout->view('user/suppliers/add_product', $data);
+                } else {
+                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    redirect(USER_URL . 'supplier', 'refresh');
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                redirect(USER_URL . 'supplier', 'refresh');
+            }
+        }
+    }
+
+    function deleteProductSupplier($supplier_id, $product_id){
+
     }
 }

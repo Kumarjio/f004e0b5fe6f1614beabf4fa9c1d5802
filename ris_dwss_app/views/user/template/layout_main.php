@@ -25,7 +25,7 @@
 
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>summernote/summernote.min.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datepicker/css/datepicker.css">
-        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>iCheck/skins/all.css">
+        <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>chosen/chosen.min.css">
         <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
@@ -51,8 +51,6 @@
         
         <script src="<?php echo PLUGIN_URL; ?>datatables/jquery.dataTables.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.js"></script>
-
-        
 
         <script type="text/javascript">
             var http_host_js = '<?php echo USER_URL; ?>';

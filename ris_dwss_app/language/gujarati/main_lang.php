@@ -1,28 +1,28 @@
 <?php
 
 //Common
-	$lang['list'] = 'List';
-	$lang['view'] = 'View';
-	$lang['name'] = 'Name';
+	$lang['list'] = 'સૂચિ';
+	$lang['view'] = 'દૃશ્ય';
+	$lang['name'] = 'નામ';
 	$lang['add'] = 'Add';
-	$lang['ok'] = 'Ok';
-	$lang['save'] = 'Save';
-	$lang['edit'] = 'Edit';
-	$lang['update'] = 'Update';
-	$lang['delete'] = 'Delete';
-	$lang['cancel'] = 'Cancel';
-	$lang['back'] = 'Back';
-	$lang['status'] = 'Status';
-	$lang['manage'] = 'Manage';
-	$lang['actions'] = 'Actions';
-	$lang['datatable_loading'] = 'Loading .....';
-	$lang['select'] = 'Select';
-	$lang['selected'] = 'Selected';
-	$lang['no'] = 'No';
-	$lang['yes'] = 'Yes';
-	$lang['active'] = 'Active';
-	$lang['in_active'] = 'In active';
-	$lang['select_image'] = 'Select Image';
+	$lang['ok'] = 'ઉમેરો';
+	$lang['save'] = 'સેવ કરો';
+	$lang['edit'] = 'ફેરફાર કરો';
+	$lang['update'] = 'સુધારો';
+	$lang['delete'] = 'કાઢી નાખો';
+	$lang['cancel'] = 'રદ કરો';
+	$lang['back'] = 'પાછા';
+	$lang['status'] = 'સ્થિતિ';
+	$lang['manage'] = 'મેનેજ';
+	$lang['actions'] = 'ક્રિયાઓ';
+	$lang['datatable_loading'] = 'લોડ કરી રહ્યું છે .....';
+	$lang['select'] = 'પસંદ';
+	$lang['selected'] = 'પસંદ કરેલ';
+	$lang['no'] = 'ના';
+	$lang['yes'] = 'હા';
+	$lang['active'] = 'સક્રિય';
+	$lang['in_active'] = 'સક્રિય માં';
+	$lang['select_image'] = 'પસંદ ઈમેજ';
 	$lang['change_image'] = 'Change Image';
 	$lang['remove_image'] = 'Remove Image';
 	$lang['select_file'] = 'Select File';
@@ -41,6 +41,15 @@
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
 	$lang['download'] = 'Download';
+	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
+
+	$lang['sunday'] = 'Sunday';
+	$lang['monday'] = 'Monday';
+	$lang['tuesday'] = 'Tuesday';
+	$lang['wednessday'] = 'Wednessday';
+	$lang['thursday'] = 'Thursday';
+	$lang['friday'] = 'Friday';
+	$lang['saturday'] = 'Saturday';
 
 //MENU
 	$lang['dashboard'] = 'ડેશબોર્ડ';
@@ -87,6 +96,14 @@
 	$lang['user_image'] = 'New Avatar';
 	$lang['user_current_image'] = 'Current Avatar';
 
+//User Password
+	$lang['user_password'] = 'Change Password';
+	$lang['user_old_pwd'] = 'Old Password';
+	$lang['user_new_pwd'] = 'New Password';
+	$lang['user_cnew_pwd'] = 'Confirm Password';
+	$lang['old_pwd_not_match'] = 'Old Password does not match';
+	$lang['both_pwd_not_match'] = 'New Password and Confirm Password does not match';
+
 //Email Templates
 	$lang['email_subject'] = 'Subject';
 	$lang['email_message'] = 'Message';
@@ -127,7 +144,7 @@
 	$lang['bod_current_image'] = 'Current Image';
 	$lang['bod_status'] = 'Status';
 
-//BOD
+//staff
 	$lang['staff'] = 'Staff directory';
 	$lang['staff_name'] = 'Name';
 	$lang['staff_position'] = 'Position';
@@ -137,4 +154,74 @@
 	$lang['staff_current_image'] = 'Current Image';
 	$lang['staff_status'] = 'Status';
 	$lang['staff_select_market'] = 'Select Market';
+
+//Prodcut Category
+	$lang['product_category'] = 'Product Category';
+	$lang['product_category_name'] = 'Category Name';
+	$lang['product_category_description'] = 'Description';
+	$lang['product_category_image'] = 'Image';
+	$lang['product_category_current_image'] = 'Current Image';
+	$lang['product_category_select_market'] = 'Select Market';
+	$lang['product_category_total_product'] = 'Total Products';
+	$lang['no_product_category_found'] = 'No product category found';
+
+//Prodcut
+	$lang['product'] = 'Products';
+	$lang['product_name'] = 'Product Name';
+	$lang['product_description'] = 'Description';
+	$lang['product_image'] = 'Image';
+	$lang['product_current_image'] = 'Current Image';
+	$lang['product_select_market'] = 'Select Market';
+	$lang['product_select_category'] = 'Select Category';
+
+//Prodcut Rates
+	$lang['product_rate'] = 'Product Rate';
+	$lang['product_rate_min'] = 'Minimun Rate';
+	$lang['product_rate_max'] = 'Maximun Rate';
+	$lang['product_rate_income'] = 'Income';
+	$lang['product_rate_date'] = 'Date';
+
+//Supplier
+	$lang['supplier'] = 'Supplier';
+	$lang['supplier_shop_no'] = 'Shop No';
+	$lang['supplier_form_date'] = 'Date';
+	$lang['supplier_form_no'] = 'Form No';
+	$lang['supplier_type'] = 'Supplier Type';	
+	$lang['supplier_shop_name'] = 'Shop Name';
+	$lang['supplier_shop_image'] = 'Shop Image';
+	$lang['supplier_owner_type'] = 'Owner Type';
+	$lang['supplier_working_days'] = 'Working days';
+	$lang['supplier_working_timing'] = 'Working Timing';
+	$lang['supplier_establishment_year'] = 'Establishment year';
+	$lang['supplier_payment_mode'] = 'Payment Mode';
+	$lang['supplier_website'] = 'Website';
+	$lang['supplier_certificates'] = 'Certificates';
+	$lang['supplier_bussiness_type'] = 'Bussiness Types';
+	$lang['supplier_no_employees'] = 'Total Employees';
+	$lang['supplier_sms_requriments'] = 'SMS Requriments';
+	$lang['supplier_amenities'] = 'Amenities';
+	$lang['supplier_shop_image'] = 'Shop Image';
+	$lang['current_supplier_shop_image'] = 'Current Shop Image';
+	$lang['supplier_shop_certificate'] = 'Certiticate';
+	$lang['supplier_shop_certificate_name'] = 'Certiticate Name';
+	$lang['supplier_shop_certificate_file'] = 'Certiticate File';
+
+	$lang['supplier_proprietary'] = 'Proprietary';	
+	$lang['supplier_partnership'] = 'Partnership';
+	$lang['supplier_payment_cash'] = 'Cash';
+	$lang['supplier_payment_check'] = 'Check';
+	$lang['supplier_payment_other'] = 'Other';
+
+	$lang['supplier_name'] = 'Supplier Name';
+	$lang['supplier_supplier_image'] = 'Supplier Image';
+	$lang['supplier_mobile'] = 'Mobile';
+	$lang['supplier_email'] = 'Email';	
+	$lang['supplier_username'] = 'Username';	
+	$lang['supplier_password'] = 'Password';	
+	$lang['supplier_confirm_password'] = 'Confirm Password';	
+
+//Supplier Products
+	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
+
+	
 ?>

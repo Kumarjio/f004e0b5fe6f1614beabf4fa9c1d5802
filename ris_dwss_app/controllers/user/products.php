@@ -100,14 +100,14 @@ class products extends CI_Controller
                         $this->session->set_flashdata('file_errors', $image['error']);
                         redirect(USER_URL . 'product/add', 'refresh');
                     } else if (isset($image)) {
-                        $images = unserialize($product->images);
-                        foreach ($images as $image) {
-                            if (file_exists('assets/uploads/product_images/' . $image)) {
-                                unlink('assets/uploads/product_images/' . $image);
+                        $tmp_images = unserialize($product->images);
+                        foreach ($tmp_images as $tmp_image) {
+                            if (file_exists('assets/uploads/product_images/' . $tmp_image)) {
+                                unlink('assets/uploads/product_images/' . $tmp_image);
                             }
 
-                            if (file_exists('assets/uploads/product_images/thumb/' . $image)) {
-                                unlink('assets/uploads/product_images/thumb/' . $image);
+                            if (file_exists('assets/uploads/product_images/thumb/' . $tmp_image)) {
+                                unlink('assets/uploads/product_images/thumb/' . $tmp_image);
                             }
                         }
 

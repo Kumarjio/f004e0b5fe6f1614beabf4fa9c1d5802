@@ -76,7 +76,7 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow[$this->session_data->language . '_name'];
 
-            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/market_images/' . $aRow['image'] .'" alt="" class="img-thumbnail">';
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/market_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
 
             if($aRow['status'] == 0){
                 $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
@@ -201,7 +201,7 @@ class json extends CI_Controller
             $temp_arr[] = $aRow[$this->session_data->language . '_number'];
             $temp_arr[] = $aRow[$this->session_data->language . '_position'];
 
-            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/bod_images/' . $aRow['image'] .'" alt="" class="img-thumbnail">';
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/bod_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
 
             if($aRow['status'] == 0){
                 $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
@@ -242,7 +242,7 @@ class json extends CI_Controller
             $temp_arr[] = $aRow[$this->session_data->language . '_number'];
             $temp_arr[] = $aRow[$this->session_data->language . '_position'];
 
-            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/staff_images/' . $aRow['image'] .'" alt="" class="img-thumbnail">';
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/staff_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
 
             if($aRow['status'] == 0){
                 $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
@@ -269,19 +269,19 @@ class json extends CI_Controller
 
     public function getProductcategoriesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS product_category_name', 'productcategories.image');
-        $this->datatable->eColumns = array('Productcategories.id');
-        $this->datatable->sIndexColumn = "Productcategories.id";
-        $this->datatable->sTable = " Productcategories, markets";
-        $this->datatable->myWhere = " WHERE Productcategories.market_id = markets.id";
+        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS product_category_name', '(SELECT COUNT(*) FROM products WHERE products.productcategory_id = productcategories.id) AS total_product','productcategories.image');
+        $this->datatable->eColumns = array('productcategories.id');
+        $this->datatable->sIndexColumn = "productcategories.id";
+        $this->datatable->sTable = " productcategories, markets";
+        $this->datatable->myWhere = " WHERE productcategories.market_id = markets.id";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['market_name'];
             $temp_arr[] = $aRow['product_category_name'];
-            $temp_arr[] = 0;
-            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/productcategory_images/' . $aRow['image'] .'" alt="" class="img-thumbnail">';
+            $temp_arr[] = $aRow['total_product'];
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/productcategory_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
 
             $str = '';
             if (hasPermission('productcategories', 'editProductcategory')) {
@@ -302,21 +302,22 @@ class json extends CI_Controller
 
     public function getProductsJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'products.' .$this->session_data->language . '_name AS product_name', 'products.images');
+        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS category_name','products.' .$this->session_data->language . '_name AS product_name', 'products.images');
         $this->datatable->eColumns = array('products.id');
         $this->datatable->sIndexColumn = "products.id";
-        $this->datatable->sTable = " products, markets";
-        $this->datatable->myWhere = " WHERE products.market_id = markets.id";
+        $this->datatable->sTable = " products, markets, productcategories";
+        $this->datatable->myWhere = " WHERE products.market_id = markets.id AND products.productcategory_id = productcategories.id";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['market_name'];
+            $temp_arr[] = $aRow['category_name'];
             $temp_arr[] = $aRow['product_name'];
             if(!empty($aRow['images'])){
                 $images = unserialize($aRow['images']);
                 $image = $images[rand(0, count($images) - 1)];
-                $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/product_images/'. $image .'" alt="" class="img-thumbnail">';
+                $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/product_images/'. $image .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
             } else {
                 $temp_arr[] = '&nbsp;';
             }
@@ -401,8 +402,12 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['supplieramenities'];
 
             $str = '';
+            if (hasPermission('suppliers', 'manageProductSupplier')) {
+                $str .= '<a href="' . USER_URL . 'supplier/product/' . $aRow['id'] . '" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('manage') . ' ' . $this->lang->line('supplier_prodcut') .'"><i class="clip-list-2"></i></a>';
+            }
+
             if (hasPermission('suppliers', 'editSupplier')) {
-                $str .= '<a href="' . USER_URL . 'supplier/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+                $str .= '&nbsp;<a href="' . USER_URL . 'supplier/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
             if (hasPermission('suppliers', 'deleteSupplier')) {
