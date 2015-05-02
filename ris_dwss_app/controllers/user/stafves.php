@@ -13,7 +13,10 @@ class stafves extends CI_Controller
     }
     
     function viewStaff() {
-        $this->layout->view('user/stafves/view');
+        $obj_markert = new Market();
+        $data['markets'] = $obj_markert->where('status',1)->get();
+
+        $this->layout->view('user/stafves/view', $data);
     }
 
     function addStaff() {

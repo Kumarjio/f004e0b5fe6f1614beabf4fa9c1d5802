@@ -1,6 +1,4 @@
-<?php 
-    $session = $this->session->userdata('user_session');
-?>
+<?php $session = $this->session->userdata('user_session'); ?>
 <script type="text/javascript" >
     $(document).ready(function() {
         loadDatatable();
@@ -67,41 +65,48 @@
 </script>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
             <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('markets'); ?></h1>
         </div>
     </div>
+
+    <?php if (hasPermission('markets', 'addMarket')) { ?>
+        <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="page-header text-right">
+                <h1><a class="btn btn-green" href="<?php echo USER_URL . 'market/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('markets'); ?></a></h1>
+            </div>
+        </div>
+    <?php } ?>
 </div>
-<?php if (hasPermission('markets', 'addMarket')) { ?>
-    <div class="row">
-        <div class="col-sm-12">
-                <a class="pull-right btn btn-green" href="<?php echo USER_URL . 'market/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('markets'); ?></a>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="icon-cog"></i> <?php echo $this->lang->line('list'); ?>
+        <div class="panel-tools">
+            <a class="btn btn-xs btn-link panel-collapse collapses" href="#"></a>
+            <a class="btn btn-xs btn-link panel-close" href="#">
+                <i class="icon-remove"></i>
+            </a>
         </div>
     </div>
-<?php } ?>
-
-<div class="row">
-    <div class="col-sm-12">
-        &nbsp;
+    <div class="panel-body"> 
+        <div id="mainpanel" class="box-body table-responsive">
+            <table class="table table-bordered table-hover" id="list_data">
+                <thead class="the-box dark full">
+                    <tr align="left">
+                        <th><?php echo $this->lang->line('market_name'); ?></th>
+                        <th width="150"><?php echo $this->lang->line('market_image'); ?></th>
+                        <th width="100"><?php echo $this->lang->line('status'); ?></th>
+                        <th width="100"><?php echo $this->lang->line('actions'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
-
-<div id="mainpanel" class="box-body table-responsive">
-    <table class="table table-bordered table-hover" id="list_data">
-        <thead class="the-box dark full">
-            <tr align="left">
-                <th><?php echo $this->lang->line('market_name'); ?></th>
-                <th width="150"><?php echo $this->lang->line('market_image'); ?></th>
-                <th width="100"><?php echo $this->lang->line('status'); ?></th>
-                <th width="100"><?php echo $this->lang->line('actions'); ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
-            </tr>
-        </tbody>
-    </table>
 </div>

@@ -12,6 +12,7 @@
 	$lang['delete'] = 'Delete';
 	$lang['cancel'] = 'Cancel';
 	$lang['back'] = 'Back';
+	$lang['filters'] = 'Filter(s)';
 	$lang['status'] = 'Status';
 	$lang['manage'] = 'Manage';
 	$lang['actions'] = 'Actions';
@@ -173,6 +174,8 @@
 	$lang['product_current_image'] = 'Current Image';
 	$lang['product_select_market'] = 'Select Market';
 	$lang['product_select_category'] = 'Select Category';
+	$lang['product_select'] = 'Select Product';
+	$lang['no_product_found'] = 'No product found';
 
 //Prodcut Rates
 	$lang['product_rate'] = 'Product Rate';
@@ -180,9 +183,15 @@
 	$lang['product_rate_max'] = 'Maximun Rate';
 	$lang['product_rate_income'] = 'Income';
 	$lang['product_rate_date'] = 'Date';
+	$lang['product_rate_start_date'] = 'Start Date';
+	$lang['product_rate_end_date'] = 'End Date';
+	$lang['product_rate_export'] = 'Export Data';
+	$lang['product_rate_export_pdf'] = 'PDF';
+	$lang['product_rate_export_excel'] = 'EXCEL';
 
 //Supplier
 	$lang['supplier'] = 'Supplier';
+	$lang['supplier_market'] = 'Market';
 	$lang['supplier_select_market'] = 'Select Market';
 	$lang['supplier_shop_no'] = 'Shop No';
 	$lang['supplier_form_date'] = 'Date';

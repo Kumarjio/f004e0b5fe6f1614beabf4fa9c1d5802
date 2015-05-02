@@ -13,7 +13,10 @@ class productrates extends CI_Controller
     }
     
     function viewProductrate() {
-        $this->layout->view('user/product_rates/view');
+        $obj_markert = new Market();
+        $data['markets'] = $obj_markert->where('status',1)->get();
+
+        $this->layout->view('user/product_rates/view', $data);
     }
 
     function addProductrate() {

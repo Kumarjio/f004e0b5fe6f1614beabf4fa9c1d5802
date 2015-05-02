@@ -93,6 +93,7 @@ $route['user/password'] = 'user/dashboard/updatePassword';
 //Ajax
 $route['user/get_product_category_by_market/(:num)'] = 'user/ajax/getProductCategoryByMarket/$1';
 $route['user/get_product_by_category_for_rate/(:num)'] = 'user/ajax/getProductByCategoryForRate/$1';
+$route['user/get_product_by_category/(:num)'] = 'user/ajax/getProductByCategory/$1';
 $route['user/change_language/(:any)'] = "user/ajax/setNewLanguage/$1";
 $route['user/checkusername/(:num)'] = "user/ajax/checkUsernameExit/$1";
 $route['user/checkemail/(:num)'] = "user/ajax/checkEmailExit/$1";

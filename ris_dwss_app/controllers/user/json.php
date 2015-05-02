@@ -102,11 +102,29 @@ class json extends CI_Controller
     }
 
     public function getNewsJsonData() {
+        $status    = $this->input->get('status');
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+
+        $where = '1=1';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND status=' . $status; 
+        }
+
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name', 'start_date','end_date','status');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " news";
+        $this->datatable->myWhere = " WHERE $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -144,11 +162,29 @@ class json extends CI_Controller
     }
 
     public function getTendersJsonData() {
+        $status    = $this->input->get('status');
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+
+        $where = '1=1';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND status=' . $status; 
+        }
+
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name', 'start_date','end_date','file','status');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " tenders";
+        $this->datatable->myWhere = " WHERE $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -188,11 +224,16 @@ class json extends CI_Controller
     }
 
     public function getBodsJsonData() {
+        $status    = $this->input->get('status');
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name', $this->session_data->language . '_number', $this->session_data->language . '_position', 'image', 'status');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " bods";
+        if($status == '0' || $status == '1'){
+            $this->datatable->myWhere = ' WHERE status=' . $status; 
+        }
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -227,12 +268,24 @@ class json extends CI_Controller
     }
 
     public function getStafvesJsonData() {
+        $status    = $this->input->get('status');
+        $market_id = $this->input->get('market_id');
+
+        $where = '';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND stafves.status=' . $status; 
+        }
+
+        if(!empty($market_id) && strtolower($market_id) != 'null'){
+            $where .= ' AND stafves.market_id =' . $market_id; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'stafves.' .$this->session_data->language . '_name AS staff_name', $this->session_data->language . '_number', $this->session_data->language . '_position', 'stafves.image', 'stafves.status');
         $this->datatable->eColumns = array('stafves.id');
         $this->datatable->sIndexColumn = "stafves.id";
         $this->datatable->sTable = " stafves, markets";
-        $this->datatable->myWhere = " WHERE stafves.market_id = markets.id";
+        $this->datatable->myWhere = " WHERE stafves.market_id = markets.id $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -268,12 +321,19 @@ class json extends CI_Controller
     }
 
     public function getProductcategoriesJsonData() {
+        $market_id = $this->input->get('market_id');
+
+        $where = '';
+        if(!empty($market_id) && strtolower($market_id) != 'null'){
+            $where .= ' AND productcategories.market_id =' . $market_id; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS product_category_name', '(SELECT COUNT(*) FROM products WHERE products.productcategory_id = productcategories.id) AS total_product','productcategories.image');
         $this->datatable->eColumns = array('productcategories.id');
         $this->datatable->sIndexColumn = "productcategories.id";
         $this->datatable->sTable = " productcategories, markets";
-        $this->datatable->myWhere = " WHERE productcategories.market_id = markets.id";
+        $this->datatable->myWhere = " WHERE productcategories.market_id = markets.id $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -301,12 +361,24 @@ class json extends CI_Controller
     }
 
     public function getProductsJsonData() {
+        $market_id = $this->input->get('market_id');
+        $product_category = $this->input->get('product_category');
+
+        $where = '';
+        if(!empty($market_id) && strtolower($market_id) != 'null'){
+            $where .= ' AND products.market_id =' . $market_id; 
+        }
+
+        if(!empty($product_category) && strtolower($product_category) != 'null'){
+            $where .= ' AND products.productcategory_id =' . $product_category; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'productcategories.' .$this->session_data->language . '_name AS category_name','products.' .$this->session_data->language . '_name AS product_name', 'products.images');
         $this->datatable->eColumns = array('products.id');
         $this->datatable->sIndexColumn = "products.id";
         $this->datatable->sTable = " products, markets, productcategories";
-        $this->datatable->myWhere = " WHERE products.market_id = markets.id AND products.productcategory_id = productcategories.id";
+        $this->datatable->myWhere = " WHERE products.market_id = markets.id AND products.productcategory_id = productcategories.id $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -340,12 +412,39 @@ class json extends CI_Controller
     }
 
     public function getProductratesJsonData() {
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+        $market_id = $this->input->get('market_id');
+        $product_category = $this->input->get('product_category');
+        $product_id = $this->input->get('product_id');
+
+        $where = '';
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND productrates.date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND productrates.date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
+        if(!empty($market_id) && strtolower($market_id) != 'null'){
+            $where .= ' AND products.market_id =' . $market_id; 
+        }
+
+        if(!empty($product_category) && strtolower($product_category) != 'null'){
+            $where .= ' AND products.productcategory_id =' . $product_category; 
+        }
+
+        if(!empty($product_id) && strtolower($product_id) != 'null'){
+            $where .= ' AND productrates.product_id =' . $product_id; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('productrates.date', 'products.' .$this->session_data->language . '_name AS product_name', 'productrates.min_rate', 'productrates.max_rate', 'productrates.income', 'productcategories.' .$this->session_data->language . '_name AS product_category_name','markets.' .$this->session_data->language . '_name AS market_name');
         $this->datatable->eColumns = array('productrates.id');
         $this->datatable->sIndexColumn = "productrates.id";
         $this->datatable->sTable = " productrates, productcategories, products, markets";
-        $this->datatable->myWhere = " WHERE productcategories.id=products.productcategory_id AND products.market_id = markets.id AND products.id=productrates.product_id";
+        $this->datatable->myWhere = " WHERE productcategories.id=products.productcategory_id AND products.market_id = markets.id AND products.id=productrates.product_id $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -376,19 +475,41 @@ class json extends CI_Controller
     }
 
     public function getSuppliersJsonData() {
+        $market_id = $this->input->get('market_id');
+        $suppliertype_id = $this->input->get('suppliertype_id');
+        $supplierbusinesstype_id = $this->input->get('supplierbusinesstype_id');
+        $supplieramenity_id = $this->input->get('supplieramenity_id');
+
+        $where = '';
+        if(!empty($market_id) && strtolower($market_id) != 'null'){
+            $where .= ' AND suppliers.market_id =' . $market_id; 
+        }
+
+        if(!empty($suppliertype_id) && strtolower($suppliertype_id) != 'null'){
+            $where .= ' AND FIND_IN_SET('. $suppliertype_id .', suppliers.suppliertype_id)';
+        }
+
+        if(!empty($supplierbusinesstype_id) && strtolower($supplierbusinesstype_id) != 'null'){
+            $where .= ' AND FIND_IN_SET('. $supplierbusinesstype_id .', suppliers.supplierbusinesstype_id)';
+        }
+
+        if(!empty($supplieramenity_id) && strtolower($supplieramenity_id) != 'null'){
+            $where .= ' AND FIND_IN_SET('. $supplieramenity_id .', suppliers.supplieramenity_id)';
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array(
             'users.' .$this->session_data->language . '_fullname AS supplier_name',
             'suppliers.' .$this->session_data->language . '_shop_name AS shop_name',
-            'users.mobile',
+            'markets.' .$this->session_data->language . '_name AS market_name',
             'GROUP_CONCAT(DISTINCT(suppliertypes.'. $this->session_data->language . '_name)) AS supplier_types',
             'GROUP_CONCAT(DISTINCT(supplierbusinesstypes.'. $this->session_data->language . '_name)) AS supplierbusiness_types',
             'GROUP_CONCAT(DISTINCT(supplieramenities.'. $this->session_data->language . '_name)) AS supplieramenities',
         );
         $this->datatable->eColumns = array('suppliers.id');
         $this->datatable->sIndexColumn = "suppliers.id";
-        $this->datatable->sTable = " users, suppliertypes, suppliers, supplierbusinesstypes, supplieramenities";
-        $this->datatable->myWhere = " WHERE users.id=suppliers.user_id AND FIND_IN_SET(suppliertypes.id, suppliers.suppliertype_id) AND FIND_IN_SET(supplierbusinesstypes.id, suppliers.supplierbusinesstype_id) AND FIND_IN_SET(supplieramenities.id, suppliers.supplieramenity_id)";
+        $this->datatable->sTable = " users, suppliertypes, suppliers, supplierbusinesstypes, supplieramenities, markets";
+        $this->datatable->myWhere = " WHERE users.id=suppliers.user_id AND suppliers.market_id = markets.id AND FIND_IN_SET(suppliertypes.id, suppliers.suppliertype_id) AND FIND_IN_SET(supplierbusinesstypes.id, suppliers.supplierbusinesstype_id) AND FIND_IN_SET(supplieramenities.id, suppliers.supplieramenity_id) $where";
         $this->datatable->groupBy = " GROUP BY suppliertype_id, supplierbusinesstype_id, supplieramenity_id";
         $this->datatable->datatable_process();
         
@@ -396,7 +517,7 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['supplier_name'];
             $temp_arr[] = $aRow['shop_name'];
-            $temp_arr[] = $aRow['mobile'];
+            $temp_arr[] = $aRow['market_name'];
             $temp_arr[] = $aRow['supplier_types'];
             $temp_arr[] = $aRow['supplierbusiness_types'];
             $temp_arr[] = $aRow['supplieramenities'];

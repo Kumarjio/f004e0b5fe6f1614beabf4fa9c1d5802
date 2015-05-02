@@ -36,6 +36,23 @@ class ajax extends CI_Controller
         echo $option;
     }
 
+    function getProductByCategory($category_id){
+        $obj_product = new Product();
+        $obj_product->where('productcategory_id', $category_id)->get();
+
+        $option = '';
+        if($obj_product->result_count() > 0){
+            $option = '<option value="null">'. $this->lang->line('product_select') .'</option>';
+            foreach ($obj_product as $product) {
+                $option .= '<option value="'. $product->id .'">'.  $product->{$this->session_data->language .'_name'} .'</option>';
+            }
+        } else {
+            $option = '<option>'. $this->lang->line('no_product_found') .'</option>';
+        }
+
+        echo $option;
+    }
+
     function getProductByCategoryForRate($category_id){
         $obj_product = new Product();
         $obj_product->where('productcategory_id', $category_id)->get();

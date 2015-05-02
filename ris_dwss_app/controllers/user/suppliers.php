@@ -13,7 +13,19 @@ class suppliers extends CI_Controller
     }
     
     function viewSupplier() {
-        $this->layout->view('user/suppliers/view');
+        $obj_markert = new Market();
+        $data['markets'] = $obj_markert->where('status',1)->get();
+
+        $obj_suppliertype = new Suppliertype();
+        $data['suppliertypes'] = $obj_suppliertype->get();
+
+        $obj_supplierbusinesstype = new Supplierbusinesstype();
+        $data['supplierbusinesstypes'] = $obj_supplierbusinesstype->get();
+
+        $obj_supplieramenitie = new Supplieramenitie();
+        $data['supplieramenities'] = $obj_supplieramenitie->get();
+
+        $this->layout->view('user/suppliers/view', $data);
     }
 
     function addSupplier() {
@@ -94,9 +106,6 @@ class suppliers extends CI_Controller
 
             $obj_supplieramenitie = new Supplieramenitie();
             $data['supplieramenities'] = $obj_supplieramenitie->get();
-
-            $obj_markert = new Market();
-            $data['markets'] = $obj_markert->where('status',1)->get();
 
             $obj_supplier = new Supplier();
             $data['form_no'] = $obj_supplier->autoIncerementNumber();

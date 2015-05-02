@@ -13,7 +13,10 @@ class products extends CI_Controller
     }
     
     function viewProduct() {
-        $this->layout->view('user/products/view');
+        $obj_markert = new Market();
+        $data['markets'] = $obj_markert->where('status',1)->get();
+
+        $this->layout->view('user/products/view', $data);
     }
 
     function addProduct() {
