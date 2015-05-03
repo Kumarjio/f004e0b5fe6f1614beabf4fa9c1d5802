@@ -15,9 +15,61 @@ class dashboard extends CI_Controller
     public function index() {
         if (empty($this->session_data)) {
             redirect(USER_URL . 'login', 'refresh');
-        } else {        
-            $this->layout->view('user/dashboard/view');
+        } else {
+            switch ($this->session_data->role) {
+                case 1:
+                    $this->dashboardSuperAdmin();
+                    break;
+
+                case 2:
+                    $this->dashboardAdmin();
+                    break;
+
+                case 3:
+                    $this->dashboardSupplier();
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
         }
+    }
+
+    function dashboardSuperAdmin(){
+        $obj_market = new Market();
+        $data['total_markets'] = $obj_market->get()->result_count();
+
+        $obj_productcategory = new Productcategory();
+        $data['total_product_categories'] = $obj_productcategory->get()->result_count();
+
+        $obj_product = new Product();
+        $data['total_products'] = $obj_product->get()->result_count();
+
+        $obj_supplier = new Supplier();
+        $data['total_suppliers'] = $obj_supplier->get()->result_count();
+
+        $obj_news = new News();
+        $data['total_news'] = $obj_news->get()->result_count();
+
+        $obj_tender = new Tender();
+        $data['total_tenders'] = $obj_tender->get()->result_count();
+
+        $obj_bod = new Bod();
+        $data['total_bods'] = $obj_bod->get()->result_count();
+
+        $obj_saff = new Staff();
+        $data['total_stafves'] = $obj_saff->get()->result_count();
+
+        $this->layout->view('user/dashboard/super_admin', $data);
+    }
+
+    function dashboardAdmin(){
+        $this->layout->view('user/dashboard/admin');
+    }
+
+    function dashboardSupplier(){
+        $this->layout->view('user/dashboard/supplier');
     }
 
     public function updateProfile(){
@@ -25,7 +77,14 @@ class dashboard extends CI_Controller
             $user = new User();
             $user->where('id', $this->session_data->id)->get();
 
-            $user->fullname = $this->input->post('fullname');
+            foreach ($this->config->item('custom_languages') as $key => $value) {
+                if ($this->input->post($key . '_fullname') != '') {
+                    $user->{$key . '_fullname'} = $this->input->post($key . '_fullname');
+                } else {
+                    $user->{$key . '_fullname'} = $this->input->post('en_fullname');
+                }
+            }
+
             $user->username = $this->input->post('username');
             $user->email = $this->input->post('email');
             $user->mobile = $this->input->post('mobile');

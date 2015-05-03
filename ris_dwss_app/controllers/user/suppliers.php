@@ -39,7 +39,7 @@ class suppliers extends CI_Controller
                 }
             }
 
-            $user->role_id = 2;
+            $user->role_id = 3;
             $user->username = $this->input->post('username');
             $user->password = md5($this->input->post('password'));
             $user->mobile = $this->input->post('mobile');

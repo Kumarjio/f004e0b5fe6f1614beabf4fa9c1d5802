@@ -42,15 +42,18 @@
 <div class="row">
     <div class="col-lg-12">
         <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'profile'; ?>" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('user_fullname'); ?>
-                    <span class="text-danger">*</span>
-                </label>
-                <div class="col-lg-9">
-                    <input type="text" name="fullname" class="form-control required" placeholder="<?php echo $this->lang->line('user_fullname'); ?>" value="<?php echo $session->fullname; ?>"/>
+
+            <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo ucwords($value), ' ', $this->lang->line('user_fullname'); ?>
+                        <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" name="<?php echo $key . '_fullname'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('user_fullname'); ?>"value="<?php echo $session->{$key . '_fullname'}; ?>"/>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">

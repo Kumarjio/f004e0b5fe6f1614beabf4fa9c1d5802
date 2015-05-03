@@ -161,38 +161,6 @@
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('latestnews', 'viewLatestnews')) { ?>
-                            <li class="<?php echo ($uri_1 == 'latestnews') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'latestnews'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('news'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if (hasPermission('tenders', 'viewTender')) { ?>
-                            <li class="<?php echo ($uri_1 == 'tender') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'tender'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('tender'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if (hasPermission('bods', 'viewBod')) { ?>
-                            <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('bod'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if (hasPermission('stafves', 'viewStaff')) { ?>
-                            <li class="<?php echo ($uri_1 == 'staff') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'staff'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('staff'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
-
                         <?php if (hasPermission('productcategories', 'viewProductcategory')) { ?>
                             <li class="<?php echo ($uri_1 == 'productcategory') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'productcategory'; ?>"><i class="icon-asterisk"></i>
@@ -225,6 +193,40 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('latestnews', 'viewLatestnews')) { ?>
+                            <li class="<?php echo ($uri_1 == 'latestnews') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'latestnews'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('news'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('tenders', 'viewTender')) { ?>
+                            <li class="<?php echo ($uri_1 == 'tender') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'tender'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('tender'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('bods', 'viewBod')) { ?>
+                            <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('bod'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('stafves', 'viewStaff')) { ?>
+                            <li class="<?php echo ($uri_1 == 'staff') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'staff'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('staff'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        
+
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
@@ -237,7 +239,7 @@
                         <?php if (hasPermission('emails', 'viewEmail')) { ?>
                             <li class="<?php echo ($uri_1 == 'email') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'email'; ?>">
-                                    <i class="icon-envelope-alt"></i>
+                                    <i class="icon-asterisk"></i>
                                     <span class="title"><?php echo $this->lang->line('email_templates'); ?></span></i>
                                 </a>
                             </li>
@@ -246,7 +248,7 @@
                         <?php if (hasPermission('systemsettings', 'viewSystemSetting')) { ?>
                             <li class="<?php echo ($uri_1 == 'system_setting' && ($uri_2 == 'general' || $uri_2 == 'mail')) ? 'active open' : ''; ?>">
                                 <a href="#">
-                                    <i class="icon-cog"></i>
+                                    <i class="icon-asterisk"></i>
                                     <span class="title"><?php echo $this->lang->line('setting'); ?></span><i class="icon-arrow"></i>
                                 </a>
                                 <ul class="sub-menu">

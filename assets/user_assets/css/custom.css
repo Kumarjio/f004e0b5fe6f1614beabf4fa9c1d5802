@@ -90,3 +90,9 @@
 .form-horizontal .checkbox-inline {
     line-height: 25px;
 }
+
+.hero-widget { text-align: center; padding-top: 20px; padding-bottom: 20px; }
+.hero-widget .icon { display: block; font-size: 50px; line-height: 50px; margin-bottom: 10px; text-align: center; }
+.hero-widget var { display: block; height: 24px; font-size: 24px; line-height: 24px; font-style: normal; }
+.hero-widget label { font-size: 15px; }
+.hero-widget .options { margin-top: 10px; }
