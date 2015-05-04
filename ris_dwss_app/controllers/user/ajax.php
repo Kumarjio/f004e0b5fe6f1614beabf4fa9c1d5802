@@ -55,7 +55,7 @@ class ajax extends CI_Controller
 
     function getProductByCategoryForRate($category_id){
         $obj_product = new Product();
-        $obj_product->where('productcategory_id', $category_id)->get();
+        $obj_product->where(array('productcategory_id'=> $category_id, 'rate' => 1))->get();
 
         $str = '';
         foreach ($obj_product as $product) {
@@ -131,5 +131,33 @@ class ajax extends CI_Controller
         } else {
             echo 'false';
         }
+    }
+
+    function getProductBySupplierSelloffer($supplier_id){
+        $obj_supplier_product = new Supplierproduct();
+        $obj_supplier_product->where('supplier_id', $supplier_id);
+        $product_data =array();
+        foreach ($obj_supplier_product->get() as $products_detail) {
+            $prod_temp = $products_detail->Product->get();
+            $cat_temp = $products_detail->Product->Productcategory->get();
+            $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
+            $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
+
+            $temp = array();
+            $temp['id'] = $prod_temp->stored->id;
+            $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
+            $product_data[$cat_temp->stored->id]['products'][] = $temp;
+        }
+
+        $str = '';
+        foreach ($product_data as $value) {
+            $str .= '<optgroup label="'.$value['category_name'] .'">';
+                foreach ($value['products'] as $product) {
+                    $str .= '<option value="'.$product['id'].'">'. $product['name'].'</option>';
+                }
+            $str .= '</optgroup>';
+        }
+
+        echo $str;
     }
 }

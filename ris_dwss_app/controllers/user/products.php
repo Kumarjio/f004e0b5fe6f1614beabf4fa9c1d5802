@@ -25,6 +25,7 @@ class products extends CI_Controller
 
             $product->market_id = $this->input->post('market_id');
             $product->productcategory_id = $this->input->post('productcategory_id');
+            $product->rate = $this->input->post('rate');
             
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 if ($this->input->post($key . '_name') != '') {
@@ -82,6 +83,7 @@ class products extends CI_Controller
                 $product = new Product();
                 $product->where('id', $id)->get();
                 $product->market_id = $this->input->post('market_id');
+                $product->rate = $this->input->post('rate');
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     if ($this->input->post($key . '_name') != '') {
                         $product->{$key . '_name'} = $this->input->post($key . '_name');

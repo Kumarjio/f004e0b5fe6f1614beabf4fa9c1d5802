@@ -15,17 +15,17 @@
                 }
             });
 
-        jQuery('#market_id').change(function(){
-            jQuery.ajax({
-                type: 'GET',
-                url: '<?php echo USER_URL ."get_product_category_by_market/"; ?>' + $('#market_id').val(),
-                success: function(data){
-                    jQuery('#productcategory_id').empty();
-                    jQuery('#productcategory_id').append(data);
-                    jQuery("#productcategory_id").trigger("chosen:updated");
-                }
+            jQuery('#market_id').change(function(){
+                jQuery.ajax({
+                    type: 'GET',
+                    url: '<?php echo USER_URL ."get_product_category_by_market/"; ?>' + $('#market_id').val(),
+                    success: function(data){
+                        jQuery('#productcategory_id').empty();
+                        jQuery('#productcategory_id').append(data);
+                        jQuery("#productcategory_id").trigger("chosen:updated");
+                    }
+                });
             });
-        });
         });
     //]]>
 </script>
@@ -127,8 +127,23 @@
                         <textarea name="<?php echo $key . '_description'; ?>"  class="form-control" placeholder="<?php echo $this->lang->line('product_description'), ' ', ucwords($value); ?>" rows="5"></textarea>
                     </div>
                 </div>
-
             <?php } ?>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('product_can_enter_rate'); ?>
+                </label>
+                <div class="col-lg-9">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="rate" class="square-grey" checked>
+                        <?php echo $this->lang->line('yes'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="rate" class="square-grey">
+                        <?php echo $this->lang->line('no'); ?>
+                    </label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">&nbsp;</label>

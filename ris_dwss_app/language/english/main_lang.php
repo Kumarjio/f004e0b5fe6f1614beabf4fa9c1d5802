@@ -171,6 +171,7 @@
 	$lang['product_name'] = 'Product Name';
 	$lang['product_description'] = 'Description';
 	$lang['product_image'] = 'Image';
+	$lang['product_can_enter_rate'] = 'Can enter rate';
 	$lang['product_current_image'] = 'Current Image';
 	$lang['product_select_market'] = 'Select Market';
 	$lang['product_select_category'] = 'Select Category';
@@ -233,5 +234,14 @@
 //Supplier Products
 	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
 
-	
+//Sell Offer
+	$lang['selloffer'] = 'Sell Offer';
+	$lang['selloffer_title'] = 'Title';
+	$lang['selloffer_description'] = 'Description';
+	$lang['selloffer_start_date'] = 'Start Date';
+	$lang['selloffer_end_date'] = 'End Date';
+	$lang['selloffer_status'] = 'Status';
+	$lang['selloffer_supplier'] = 'Select Supplier';
+	$lang['selloffer_product'] = 'Select Product';
+
 ?>

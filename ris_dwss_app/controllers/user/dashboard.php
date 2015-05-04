@@ -36,7 +36,7 @@ class dashboard extends CI_Controller
         }
     }
 
-    function dashboardSuperAdmin(){
+    private function _getTotalCounts(){
         $obj_market = new Market();
         $data['total_markets'] = $obj_market->get()->result_count();
 
@@ -61,14 +61,21 @@ class dashboard extends CI_Controller
         $obj_saff = new Staff();
         $data['total_stafves'] = $obj_saff->get()->result_count();
 
+        return $data;
+    }
+
+    function dashboardSuperAdmin(){
+        $data = $this->_getTotalCounts();
         $this->layout->view('user/dashboard/super_admin', $data);
     }
 
     function dashboardAdmin(){
-        $this->layout->view('user/dashboard/admin');
+        $data = $this->_getTotalCounts();
+        $this->layout->view('user/dashboard/admin', $data);
     }
 
     function dashboardSupplier(){
+        $data = $this->_getTotalCounts();
         $this->layout->view('user/dashboard/supplier');
     }
 

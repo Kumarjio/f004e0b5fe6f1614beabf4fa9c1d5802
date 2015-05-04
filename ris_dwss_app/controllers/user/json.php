@@ -565,5 +565,65 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getSelloffersJsonData() {
+        $status    = $this->input->get('status');
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+
+        $where = '1=1';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND status=' . $status; 
+        }
+
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_title AS title', 'start_date','end_date','status');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " selloffers";
+        $this->datatable->myWhere = " WHERE $where";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['title'];
+
+            $temp_arr[] =  date('d-m-Y', strtotime($aRow['start_date']));
+            if(!empty($aRow['end_date'])){
+                $temp_arr[] =  date('d-m-Y', strtotime($aRow['end_date']));
+            } else {
+                $temp_arr[] = '';
+            }
+
+            if($aRow['status'] == 0){
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
+            } else {
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+            }
+
+            $str = '';
+            if (hasPermission('selloffer', 'editSelloffer')) {
+                $str .= '<a href="' . USER_URL . 'latestnews/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('selloffer', 'deleteSelloffer')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }

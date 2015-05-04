@@ -193,6 +193,14 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('selloffer', 'viewSelloffer')) { ?>
+                            <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'selloffer'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('selloffer'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
                         <?php if (hasPermission('latestnews', 'viewLatestnews')) { ?>
                             <li class="<?php echo ($uri_1 == 'latestnews') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'latestnews'; ?>"><i class="icon-asterisk"></i>
@@ -224,9 +232,6 @@
                                 </a>
                             </li>
                         <?php } ?>
-
-                        
-
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">

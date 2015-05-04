@@ -102,8 +102,23 @@
                         <textarea name="<?php echo $key . '_description'; ?>"  class="form-control" placeholder="<?php echo $this->lang->line('product_description'), ' ', ucwords($value); ?>" rows="5"><?php echo $product->{$key .'_description'} ?></textarea>
                     </div>
                 </div>
-
             <?php } ?>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('product_can_enter_rate'); ?>
+                </label>
+                <div class="col-lg-9">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="rate" class="square-grey" <?php echo ($product->rate == 1) ? 'checked' : ''; ?>>
+                        <?php echo $this->lang->line('yes'); ?>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="rate" class="square-grey" <?php echo ($product->rate == 0) ? 'checked' : ''; ?>>
+                        <?php echo $this->lang->line('no'); ?>
+                    </label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">&nbsp;</label>

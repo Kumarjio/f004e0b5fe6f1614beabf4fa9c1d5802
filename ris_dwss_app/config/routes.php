@@ -43,16 +43,18 @@ if (!defined('BASEPATH'))
 
 include_once (APPPATH . 'helpers/inflector_helper.php');
 
-$path = explode('/', $_SERVER['REQUEST_URI']);
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_ADDR'] == '192.168.1.29') {
-  @$controller = null;
-  if(@$path[2] == 'user'){
-    @$controller = $path[3];  
-  }
-} else {
-  @$controller = null;
-  if(@$path[2] == 'user'){
-    @$controller = $path[3];  
+if(isset($_SERVER)){
+  $path = explode('/', $_SERVER['REQUEST_URI']);
+  if ($_SERVER['SERVER_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_ADDR'] == '192.168.1.29') {
+    @$controller = null;
+    if(@$path[2] == 'user'){
+      @$controller = $path[3];  
+    }
+  } else {
+    @$controller = null;
+    if(@$path[2] == 'user'){
+      @$controller = $path[3];  
+    }
   }
 }
 
@@ -97,6 +99,8 @@ $route['user/get_product_by_category/(:num)'] = 'user/ajax/getProductByCategory/
 $route['user/change_language/(:any)'] = "user/ajax/setNewLanguage/$1";
 $route['user/checkusername/(:num)'] = "user/ajax/checkUsernameExit/$1";
 $route['user/checkemail/(:num)'] = "user/ajax/checkEmailExit/$1";
+$route['user/get_product_by_supplier_selloffer/(:num)'] = "user/ajax/getProductBySupplierSelloffer/$1";
+
 
 //Supplier Product
 $route['user/supplier/product'] = "user/suppliers/manageProductSupplier";
