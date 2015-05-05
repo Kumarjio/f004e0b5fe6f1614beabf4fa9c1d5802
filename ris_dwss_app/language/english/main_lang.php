@@ -244,4 +244,12 @@
 	$lang['selloffer_supplier'] = 'Select Supplier';
 	$lang['selloffer_product'] = 'Select Product';
 
+//Supplier Requriments
+	$lang['supplierrequriment'] = 'Supplier Requriment';
+	$lang['supplierrequriment_title'] = 'Title';
+	$lang['supplierrequriment_description'] = 'Description';
+	$lang['supplierrequriment_status'] = 'Status';
+	$lang['supplierrequriment_supplier'] = 'Select Supplier';
+	$lang['supplierrequriment_product'] = 'Select Product';
+
 ?>

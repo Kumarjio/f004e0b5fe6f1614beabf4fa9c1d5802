@@ -584,7 +584,7 @@ class json extends CI_Controller
             $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
         }
 
-        if($this->session_data->role == 3 || $this->session_data->role ==2){
+        if($this->session_data->role == 3){
             $where .= ' AND supplier_id =' . $this->session_data->id; 
         }
 
@@ -619,6 +619,53 @@ class json extends CI_Controller
             }
 
             if (hasPermission('selloffers', 'deleteSelloffer')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getSupplierrequrimentsJsonData() {
+        $status    = $this->input->get('status');
+        
+        $where = '1=1';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND status=' . $status; 
+        }
+
+        if($this->session_data->role == 3){
+            $where .= ' AND supplier_id =' . $this->session_data->id; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_title AS title','status');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " supplierrequriments";
+        $this->datatable->myWhere = " WHERE $where";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['title'];
+
+            if($aRow['status'] == 0){
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
+            } else {
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+            }
+
+            $str = '';
+            if (hasPermission('supplierrequriments', 'editSupplierrequriment')) {
+                $str .= '<a href="' . USER_URL . 'supplierrequriment/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('supplierrequriments', 'deleteSupplierrequriment')) {
                 $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
             }
 

@@ -206,6 +206,15 @@ if (!function_exists('createPermissionArray')) {
                     'deleteSelloffer' => array('name' => 'Delete'),
                 )
             ),
+            'supplierrequriments' => array(
+                'name' => 'Supplier Requriments',
+                'hasChild' => array(
+                    'viewSupplierrequriments' => array('name' => 'List'),
+                    'addSupplierrequriments' => array('name' => 'Add'),
+                    'editSupplierrequriments' => array('name' => 'Edit'),
+                    'deleteSupplierrequriments' => array('name' => 'Delete'),
+                )
+            ),
             'emails' => array(
                 'name' => 'Email Templates',
                 'hasChild' => array(
