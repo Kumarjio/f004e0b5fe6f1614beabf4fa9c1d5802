@@ -17,6 +17,19 @@ if (!function_exists('hasPermission')) {
     }
 }
 
+if(!function_exists('checkSuppliersupplierAmenities')){
+    function checkSuppliersupplierAmenities($amenity_id, $suppplier_id){
+        $obj_supplier = new Supplier();
+        $obj_supplier->where('id', $suppplier_id)->get();
+
+        if(in_array($amenity_id, explode(',', $obj_supplier->supplieramenity_id))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 if (!function_exists('printPermission')) {
     function printPermission($key, $array, $parent_key, $given_permission) {
         $str = '';
@@ -182,6 +195,15 @@ if (!function_exists('createPermissionArray')) {
                     'addSupplier' => array('name' => 'Add'),
                     'editSupplier' => array('name' => 'Edit'),
                     'deleteSupplier' => array('name' => 'Delete'),
+                )
+            ),
+            'selloffers' => array(
+                'name' => 'Sell Offer',
+                'hasChild' => array(
+                    'viewSelloffer' => array('name' => 'List'),
+                    'addSelloffer' => array('name' => 'Add'),
+                    'editSelloffer' => array('name' => 'Edit'),
+                    'deleteSelloffer' => array('name' => 'Delete'),
                 )
             ),
             'emails' => array(

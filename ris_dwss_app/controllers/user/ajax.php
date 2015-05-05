@@ -25,7 +25,7 @@ class ajax extends CI_Controller
 
         $option = '';
         if($obj_productcategory->result_count() > 0){
-            $option = '<option>'. $this->lang->line('product_select_category') .'</option>';
+            $option = '<option value="null">'. $this->lang->line('product_select_category') .'</option>';
             foreach ($obj_productcategory as $productcategory) {
                 $option .= '<option value="'. $productcategory->id .'">'.  $productcategory->{$this->session_data->language .'_name'} .'</option>';
             }

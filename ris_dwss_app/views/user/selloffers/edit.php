@@ -1,7 +1,9 @@
+<?php $session = $this->session->userdata('user_session'); ?>
 <script>
     //<![CDATA[
         jQuery(document).ready(function() {
-            jQuery("#edit").validate({
+            jQuery.validator.setDefaults({ ignore: ":hidden:not(select)" });
+            jQuery("#add").validate({
                 errorPlacement: function(error, element) {
                     if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
                         error.appendTo(element.parent());
@@ -10,6 +12,24 @@
                         error.insertAfter(element);
                     }
                 }
+            });
+
+            jQuery('#supplier_id').change(function(){
+                jQuery.ajax({
+                    type: 'GET',
+                    url: '<?php echo USER_URL ."get_product_by_supplier_selloffer/"; ?>' + jQuery('#supplier_id').val(),
+                    success: function(data){
+                        jQuery('#product_id').empty();
+                        jQuery('#product_id').append(data);
+                        jQuery("#product_id").trigger("chosen:updated");
+                    }
+                });
+                jQuery(this).parent().find('.error').hide();
+                jQuery('#product_id').parent().find('.error').hide();
+            });
+
+            jQuery('#product_id').change(function(){
+                jQuery(this).parent().find('.error').remove();
             });
 
             jQuery('.summernote-sm').summernote({
@@ -36,70 +56,106 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('edit') ,' ', $this->lang->line('news'); ?></h1>
+            <h1><?php echo $this->lang->line('edit') ,' ', $this->lang->line('selloffer'); ?></h1>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'latestnews/edit/' . $news->id; ?>" enctype="multipart/form-data">
+        <form id="add" method="post" class="form-horizontal" action="<?php echo USER_URL . 'selloffer/edit/' . $selloffer->id; ?>">
+            <?php if($this->session_data->role ==1 || $this->session_data->role ==2){  ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('selloffer_supplier'); ?>
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <select name="supplier_id" id="supplier_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_supplier'); ?>" required>
+                            <option value=""></option>
+                            <?php foreach ($supplier_details as $supplier) { ?>
+                                <option value="<?php echo $supplier->id; ?>" <?php echo ($selloffer->supplier_id ==$supplier->id) ? 'selected' : ''; ?>><?php echo $supplier->shop_no .' - '. $supplier->{$session->language.'_shop_name'} ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('selloffer_product'); ?>
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <select name="product_id" id="product_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_product'); ?>">
+                            <option value=""></option>
+                            <?php foreach ($products_details as $products) { ?>
+                                <optgroup label="<?php echo $products['category_name']; ?>">
+                                    <?php foreach ($products['products'] as $product) { ?>
+                                        <option value="<?php echo $product['id']; ?>" <?php echo ($selloffer->product_id == $product['id']) ? 'selected' : ''; ?>><?php echo $product['name']; ?></option>
+                                    <?php } ?>
+                                </optgroup>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
 
             <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                 <div class="form-group">
                     <label for="question" class="col-lg-2 control-label">
-                        <?php echo ucwords($value), ' ', $this->lang->line('news_name'); ?>
+                        <?php echo ucwords($value), ' ', $this->lang->line('selloffer_title'); ?>
                         <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                     </label>
                     <div class="col-lg-9">
-                        <input type="text" name="<?php echo $key . '_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('news'), ' ', $this->lang->line('news_name'), ' ', ucwords($value); ?>" value="<?php echo $news->{$key .'_name'}; ?>"/>
+                        <input type="text" name="<?php echo $key . '_title'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('selloffer'), ' ', $this->lang->line('selloffer_title'), ' ', ucwords($value); ?>" value="<?php echo $selloffer->{$key.'_title'} ?>"/>
                     </div>
                 </div>
             <?php } ?>
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('news_start_date'); ?>
+                    <?php echo $this->lang->line('selloffer_start_date'); ?>
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-9">
-                    <input type="text" name="start_date" value="<?php echo date('d-m-Y', strtotime($news->start_date)); ?>" class="form-control required date-picker" placeholder="<?php echo $this->lang->line('news_start_date'); ?>"/>
+                    <input type="text" name="start_date"  class="form-control required date-picker" placeholder="<?php echo $this->lang->line('selloffer_start_date'); ?>" value="<?php echo date('d-m-Y', strtotime($selloffer->start_date)); ?>"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('news_end_date'); ?>
+                    <?php echo $this->lang->line('selloffer_end_date'); ?>
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-9">
-                    <input type="text" name="end_date" value="<?php echo date('d-m-Y', strtotime($news->end_date)); ?>" class="form-control required date-picker" placeholder="<?php echo $this->lang->line('news_end_date'); ?>"/>
+                    <input type="text" name="end_date"  class="form-control required date-picker" placeholder="<?php echo $this->lang->line('selloffer_end_date'); ?>" value="<?php echo date('d-m-Y', strtotime($selloffer->end_date)); ?>"/>
                 </div>
             </div>
 
             <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                 <div class="form-group">
                     <label for="question" class="col-lg-2 control-label">
-                        <?php echo ucwords($value), ' ', $this->lang->line('news_description'); ?>
+                        <?php echo ucwords($value), ' ', $this->lang->line('selloffer_description'); ?>
                         <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                     </label>
                     <div class="col-lg-9">
-                        <textarea name="<?php echo $key . '_description'; ?>"  class="summernote-sm <?php echo ($key == 'en') ? 'required' : ''; ?>"><?php echo $news->{$key .'_description'}; ?></textarea>
+                        <textarea name="<?php echo $key . '_description'; ?>"  class="summernote-sm <?php echo ($key == 'en') ? 'required' : ''; ?>"><?php echo $selloffer->{$key.'_description'} ?>"</textarea>
                     </div>
                 </div>
             <?php } ?>
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('news_status'); ?>
+                    <?php echo $this->lang->line('market_status'); ?>
                 </label>
                 <div class="col-lg-9">
                     <label class="radio-inline">
-                        <input type="radio" value="1" name="status" class="square-grey" <?php echo ($news->status == 1) ? 'checked' : ''; ?>>
+                        <input type="radio" value="1" name="status" class="square-grey" <?php echo ($selloffer->status == 1) ? 'checked' : ''; ?>>
                         <?php echo $this->lang->line('active'); ?>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" value="0" name="status" class="square-grey" <?php echo ($news->status == 0) ? 'checked' : ''; ?>>
+                        <input type="radio" value="0" name="status" class="square-grey" <?php echo ($selloffer->status == 0) ? 'checked' : ''; ?>>
                         <?php echo $this->lang->line('in_active'); ?>
                     </label>
                 </div>
@@ -108,8 +164,8 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">&nbsp;</label>
                 <div class="col-lg-9">
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('update'); ?>"><?php echo $this->lang->line('update'); ?></button>
-                    <a href="<?php echo USER_URL . 'latestnews' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'); ?>"><?php echo $this->lang->line('add'); ?></button>
+                    <a href="<?php echo USER_URL . 'selloffer' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
                 </div>
             </div>
 
@@ -122,5 +178,3 @@
         </form>
     </div>
 </div>
-
-<script src="<?php echo PLUGIN_URL; ?>bootstrap-fileupload/bootstrap-fileupload.min.js"></script>

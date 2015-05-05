@@ -10,6 +10,13 @@ class selloffers extends CI_Controller
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('selloffer'));
         $this->session_data = $this->session->userdata('user_session');
+
+        if($this->session_data->role == 3){
+            if(!checkSuppliersupplierAmenities(4, $this->session_data->id)){
+                $this->session->set_flashdata('error', 'You dont have permission to see it Please contact Administrator');
+                redirect(USER_URL . 'denied', 'refresh');
+            }
+        }
     }
     
     function viewSelloffer() {
@@ -93,7 +100,7 @@ class selloffers extends CI_Controller
     function editSelloffer($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
-                $selloffer = new News();
+                $selloffer = new Selloffer();
                 $selloffer->where('id', $id)->get();
 
                 if($this->session_data->role ==1 || $this->session_data->role ==2){
@@ -136,9 +143,33 @@ class selloffers extends CI_Controller
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('selloffer'));
 
-                $selloffer = new News();
+                $selloffer = new Selloffer();
                 $data['selloffer'] = $selloffer->where('id', $id)->get();
 
+                if($this->session_data->role ==1 || $this->session_data->role ==2){
+                    $obj_supplier = new Supplier();
+                    $data['supplier_details'] = $obj_supplier->get();
+                    $supplier_id = $selloffer->supplier_id;
+                } else {
+                    $supplier_id = $this->session_data->id;
+                }
+
+                $obj_supplier_product = new Supplierproduct();
+                $obj_supplier_product->where('supplier_id', $supplier_id);
+                $product_data =array();
+                foreach ($obj_supplier_product->get() as $products_detail) {
+                    $prod_temp = $products_detail->Product->get();
+                    $cat_temp = $products_detail->Product->Productcategory->get();
+                    $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
+                    $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
+
+                    $temp = array();
+                    $temp['id'] = $prod_temp->stored->id;
+                    $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
+                    $product_data[$cat_temp->stored->id]['products'][] = $temp;
+                }
+
+                $data['products_details'] = $product_data;
                 $this->layout->view('user/selloffers/edit', $data);
             }
         } else {
@@ -149,7 +180,7 @@ class selloffers extends CI_Controller
 
     function deleteSelloffer($id) {
         if (!empty($id)) {
-            $obj_selloffer = new News();
+            $obj_selloffer = new Selloffer();
             $obj_selloffer->where('id', $id)->get();
             if ($obj_selloffer->result_count() == 1) {
                 $obj_selloffer->delete();

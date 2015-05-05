@@ -193,7 +193,17 @@
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('selloffer', 'viewSelloffer')) { ?>
+                        <?php $view_seller_offer = false; ?>
+                        <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
+                            $view_seller_offer = true;
+                        } else if($this->session_data->role == 3) {
+                            if(checkSuppliersupplierAmenities(4, $this->session_data->id)){
+                                $view_seller_offer = true;
+                            }
+                        } ?>
+
+                        
+                        <?php if($view_seller_offer && hasPermission('selloffers', 'viewSelloffer')) { ?>
                             <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'selloffer'; ?>"><i class="icon-asterisk"></i>
                                     <span class="title"><?php echo $this->lang->line('selloffer'); ?></span>

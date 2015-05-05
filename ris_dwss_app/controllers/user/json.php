@@ -584,6 +584,10 @@ class json extends CI_Controller
             $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
         }
 
+        if($this->session_data->role == 3 || $this->session_data->role ==2){
+            $where .= ' AND supplier_id =' . $this->session_data->id; 
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_title AS title', 'start_date','end_date','status');
         $this->datatable->eColumns = array('id');
@@ -610,11 +614,11 @@ class json extends CI_Controller
             }
 
             $str = '';
-            if (hasPermission('selloffer', 'editSelloffer')) {
+            if (hasPermission('selloffers', 'editSelloffer')) {
                 $str .= '<a href="' . USER_URL . 'selloffer/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
-            if (hasPermission('selloffer', 'deleteSelloffer')) {
+            if (hasPermission('selloffers', 'deleteSelloffer')) {
                 $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
             }
 

@@ -165,7 +165,7 @@
                 <label class="col-lg-2 control-label">&nbsp;</label>
                 <div class="col-lg-9">
                     <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'); ?>"><?php echo $this->lang->line('add'); ?></button>
-                    <a href="<?php echo USER_URL . 'latestselloffer' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
+                    <a href="<?php echo USER_URL . 'selloffer' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
                 </div>
             </div>
 
