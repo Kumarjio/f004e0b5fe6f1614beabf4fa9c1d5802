@@ -611,7 +611,7 @@ class json extends CI_Controller
 
             $str = '';
             if (hasPermission('selloffer', 'editSelloffer')) {
-                $str .= '<a href="' . USER_URL . 'latestnews/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+                $str .= '<a href="' . USER_URL . 'selloffer/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
             if (hasPermission('selloffer', 'deleteSelloffer')) {

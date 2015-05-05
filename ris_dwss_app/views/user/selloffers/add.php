@@ -2,6 +2,7 @@
 <script>
     //<![CDATA[
         jQuery(document).ready(function() {
+            jQuery.validator.setDefaults({ ignore: ":hidden:not(select)" });
             jQuery("#add").validate({
                 errorPlacement: function(error, element) {
                     if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
@@ -16,13 +17,19 @@
             jQuery('#supplier_id').change(function(){
                 jQuery.ajax({
                     type: 'GET',
-                    url: '<?php echo USER_URL ."get_product_by_supplier_selloffer/"; ?>' + $('#supplier_id').val(),
+                    url: '<?php echo USER_URL ."get_product_by_supplier_selloffer/"; ?>' + jQuery('#supplier_id').val(),
                     success: function(data){
                         jQuery('#product_id').empty();
                         jQuery('#product_id').append(data);
                         jQuery("#product_id").trigger("chosen:updated");
                     }
                 });
+                jQuery(this).parent().find('.error').hide();
+                jQuery('#product_id').parent().find('.error').hide();
+            });
+
+            jQuery('#product_id').change(function(){
+                jQuery(this).parent().find('.error').remove();
             });
 
             jQuery('.summernote-sm').summernote({
@@ -64,7 +71,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
-                        <select name="supplier_id" id="supplier_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_supplier'); ?>">
+                        <select name="supplier_id" id="supplier_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_supplier'); ?>" required>
                             <option value=""></option>
                             <?php foreach ($supplier_details as $supplier) { ?>
                                 <option value="<?php echo $supplier->id; ?>"><?php echo $supplier->shop_no .' - '. $supplier->{$session->language.'_shop_name'} ?></option>
@@ -80,8 +87,15 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
-                        <select name="product_id" id="product_id" class="form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_product'); ?>">
+                        <select name="product_id" id="product_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_product'); ?>">
                             <option value=""></option>
+                            <?php foreach ($products_details as $products) { ?>
+                                <optgroup label="<?php echo $products['category_name']; ?>">
+                                    <?php foreach ($products['products'] as $product) { ?>
+                                        <option value="<?php echo $product['id']; ?>"><?php echo $product['name']; ?></option>
+                                    <?php } ?>
+                                </optgroup>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
