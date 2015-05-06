@@ -107,6 +107,14 @@ $route['user/supplier/product'] = "user/suppliers/manageProductSupplier";
 $route['user/supplier/product/(:num)'] = "user/suppliers/manageProductSupplier/$1";
 $route['user/supplier/product/delete/(:num)/(:num)'] = "user/suppliers/deleteproductSupplier/$1/$2";
 
+//Supplier Requriment SMS
+$route['user/supplierrequriment/sms/(:num)'] = "user/supplierrequriments/smsSupplierrequriment/$1";
+$route['user/supplierrequriment/sms/getjson'] = "user/json/getSmsSupplierrequrimentJsonData";
+$route['user/supplierrequriment/sms/send/(:num)'] = "user/supplierrequriments/sendSmsSupplierrequriment/$1";
+$route['user/supplierrequriment/sms/resend/(:num)'] = "user/supplierrequriments/resendSmsSupplierrequriment/$1";
+$route['user/supplierrequriment/sms/delete/(:num)'] = "user/supplierrequriments/deleteSmsSupplierrequriment/$1";
+
+
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";
 

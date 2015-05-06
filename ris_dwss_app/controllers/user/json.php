@@ -661,8 +661,12 @@ class json extends CI_Controller
             }
 
             $str = '';
+            if (hasPermission('supplierrequriments', 'smsSupplierrequriment')) {
+                $str .= '<a href="' . USER_URL . 'supplierrequriment/sms/' . $aRow['id'] . '" class="btn btn-green" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('supplierrequriment_viewsms') .'"><i class="icon-envelope"></i></a>';
+            }
+
             if (hasPermission('supplierrequriments', 'editSupplierrequriment')) {
-                $str .= '<a href="' . USER_URL . 'supplierrequriment/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+                $str .= '&nbsp;<a href="' . USER_URL . 'supplierrequriment/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
             if (hasPermission('supplierrequriments', 'deleteSupplierrequriment')) {
@@ -675,6 +679,61 @@ class json extends CI_Controller
         }
         echo json_encode($this->datatable->output);
         exit();
+    }
+
+    function getSmsSupplierrequrimentJsonData(){
+        $id = $this->input->get('id');
+        $status    = $this->input->get('status');
+
+        if(!empty($id)){
+            $where = null;
+            if($status == '0' || $status == '1'){
+                $where .= ' AND supplierrequrimentsms.status=' . $status; 
+            }
+
+            if($this->session_data->role == 3){
+                $where .= ' AND supplierrequriments.supplier_id =' . $this->session_data->id; 
+            }
+
+            $this->load->library('datatable');
+            $this->datatable->aColumns = array('supplierrequriments.' . $this->session_data->language . '_title AS title','supplierrequrimentsms.mobile_no','supplierrequrimentsms.status');
+            $this->datatable->eColumns = array('supplierrequrimentsms.id');
+            $this->datatable->sIndexColumn = "supplierrequrimentsms.id";
+            $this->datatable->sTable = " supplierrequriments, supplierrequrimentsms";
+            $this->datatable->myWhere = " WHERE supplierrequrimentsms.supplierrequriment_id=supplierrequriments.id AND supplierrequrimentsms.supplierrequriment_id = " . $id . $where;
+            $this->datatable->datatable_process();
+
+            foreach ($this->datatable->rResult->result_array() as $aRow) {
+                $temp_arr = array();
+                $temp_arr[] = $aRow['title'];
+                $temp_arr[] = $aRow['mobile_no'];
+
+                if($aRow['status'] == 0){
+                    $temp_arr[] = '<span class="label label-warning" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('not_delivered') .'">'. $this->lang->line('not_delivered') .'</span>';
+                } else {
+                    $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('delivered') .'">'. $this->lang->line('delivered') .'</span>';
+                }
+
+                $str = '';
+                if (hasPermission('supplierrequriments', 'resendSmsSupplierrequriment')) {
+                    $str .= '&nbsp;<a href="javascript:;" onclick="resendsms(this)" class="btn btn-green" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('supplierrequriment_resendsms') .'" title="'. $this->lang->line('supplierrequriment_resendsms') .'"><i class="icon-remove icon-refresh"></i></i></a>';
+                }
+
+                if (hasPermission('supplierrequriments', 'deleteSmsSupplierrequriment')) {
+                    $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+                }
+
+                $temp_arr[] = $str;
+
+                $this->datatable->output['aaData'][] = $temp_arr;
+            }
+        } else {
+            $this->datatable->output['aaData'][] = array();
+        }
+
+        echo json_encode($this->datatable->output);
+        exit();
+        
     }
     
 }

@@ -3,7 +3,6 @@
     $(document).ready(function() {
         loadDatatable();
 
-
         jQuery('#status').change(function(){
             loadDatatable();    
         });
@@ -22,9 +21,10 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": "text-center"},{"bSortable": false, "sClass": "text-center"}
+                {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},
+                {"bSortable": false, "sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo USER_URL . 'supplierrequriment/getjson?status='; ?>" + jQuery('#status').val(),
+            "sAjaxSource": "<?php echo USER_URL . 'supplierrequriment/sms/getjson?id=' . $supplierrequriment->id .'&status='; ?>" + jQuery('#status').val(),
         });
     }
 
@@ -49,7 +49,7 @@
                 if (isConfirm) {
                     jQuery.ajax({
                         type: 'POST',
-                        url: http_host_js + 'supplierrequriment/delete/' + current_id,
+                        url: http_host_js + 'supplierrequriment/sms/delete/' + current_id,
                         data: id = current_id,
                         dataType : 'JSON',
                         success: function(data) {
@@ -66,19 +66,58 @@
         );
         return false;
     }
+
+    function resendsms(ele) {
+        var current_id = jQuery(ele).attr('id');
+        var parent = jQuery(ele).parent().parent();
+        var $this = jQuery(ele);
+
+        swal(
+            {
+                title: "<?php echo $this->lang->line('supplierrequriment_resendsms'); ?>",
+                text: "<?php echo $this->lang->line('do_you_want_to_resend_sms'); ?>",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "<?php echo $this->lang->line('yes'); ?>",
+                cancelButtonText: "<?php echo $this->lang->line('no'); ?>",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: http_host_js + 'supplierrequriment/sms/resend/' + current_id,
+                        data: id = current_id,
+                        dataType : 'JSON',
+                        success: function(data) {
+                            if(data.status == 'success'){
+                                loadDatatable();
+                                swal("Success!", data.msg, "success");
+                            }else{
+                                swal("Error!", data.msg, "error");
+                            }
+                        }
+                    });
+                }
+            }
+        );
+        return false;
+    }
 </script>
 
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('supplierrequriment'); ?></h1>
+            <h1><?php echo $this->lang->line('supplierrequriment_listsms'); ?></h1>
         </div>
     </div>
 
-    <?php if (hasPermission('supplierrequriments', 'addSupplierrequriments')) { ?>
+    <?php if (hasPermission('supplierrequriments', 'sendSmsSupplierrequriment')) { ?>
         <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
             <div class="page-header text-right">
-                <h1><a class="btn btn-green" href="<?php echo USER_URL . 'supplierrequriment/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('supplierrequriment'); ?></a></h1>
+                <h1><a class="btn btn-green" href="<?php echo USER_URL . 'supplierrequriment/sms/send/' . $supplierrequriment->id; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('supplierrequriment_sendsms'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('supplierrequriment_sendsms'); ?></a></h1>
             </div>
         </div>
     <?php } ?>
@@ -102,8 +141,8 @@
                     <div>
                         <select id="status" class="form-control chosen-select">
                             <option value="null">All</option>
-                            <option value="1">Active</option>
-                            <option value="0">IN Active</option>
+                            <option value="1"><?php echo $this->lang->line('delivered'); ?></option>
+                            <option value="0"><?php echo $this->lang->line('not_delivered'); ?></option>
                         </select>
                     </div>
                 </div>
@@ -128,13 +167,14 @@
                 <thead class="the-box dark full">
                     <tr align="left">
                         <th><?php echo $this->lang->line('supplierrequriment_title'); ?></th>
+                        <th width="100"><?php echo $this->lang->line('supplierrequriment_mobile_no'); ?></th>
                         <th width="100"><?php echo $this->lang->line('supplierrequriment_status'); ?></th>
                         <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="3"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                        <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
                     </tr>
                 </tbody>
             </table>

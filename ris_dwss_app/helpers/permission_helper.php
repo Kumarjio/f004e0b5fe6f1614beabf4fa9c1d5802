@@ -195,6 +195,7 @@ if (!function_exists('createPermissionArray')) {
                     'addSupplier' => array('name' => 'Add'),
                     'editSupplier' => array('name' => 'Edit'),
                     'deleteSupplier' => array('name' => 'Delete'),
+                    'manageProductSupplier' => array('name' => 'Manage Products'),
                 )
             ),
             'selloffers' => array(
@@ -209,10 +210,14 @@ if (!function_exists('createPermissionArray')) {
             'supplierrequriments' => array(
                 'name' => 'Supplier Requriments',
                 'hasChild' => array(
-                    'viewSupplierrequriments' => array('name' => 'List'),
-                    'addSupplierrequriments' => array('name' => 'Add'),
-                    'editSupplierrequriments' => array('name' => 'Edit'),
-                    'deleteSupplierrequriments' => array('name' => 'Delete'),
+                    'viewSupplierrequriment' => array('name' => 'List'),
+                    'addSupplierrequriment' => array('name' => 'Add'),
+                    'editSupplierrequriment' => array('name' => 'Edit'),
+                    'deleteSupplierrequriment' => array('name' => 'Delete'),
+                    'smsSupplierrequriment' => array('name' => 'List SMS'),
+                    'sendSmsSupplierrequriment' => array('name' => 'Send SMS'),
+                    'deleteSmsSupplierrequriment' => array('name' => 'Delete SMS'),
+                    'resendSmsSupplierrequriment' => array('name' => 'Re-Send SMS'),
                 )
             ),
             'emails' => array(

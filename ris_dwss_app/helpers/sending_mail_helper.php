@@ -44,4 +44,12 @@ if (!function_exists('send_mail')) {
     }
 
 }
+
+if (!function_exists('sendSMS')) {
+
+    function sendSMS($no, $msg) {
+        return 1;
+    }
+}
+
 ?>

@@ -22,6 +22,8 @@
 	$lang['no'] = 'No';
 	$lang['yes'] = 'Yes';
 	$lang['active'] = 'Active';
+	$lang['delivered'] = 'Delivered';
+	$lang['not_delivered'] = 'Not Delivered';
 	$lang['in_active'] = 'In active';
 	$lang['select_image'] = 'Select Image';
 	$lang['change_image'] = 'Change Image';
@@ -38,11 +40,14 @@
 	$lang['delete_data_error'] = 'Not able to delete data';
 	$lang['attachment_removed'] = 'Attachment removed successfully';
 	$lang['manage_data'] = 'Manage Data';
-	$lang['do_you_want_to_delete'] = 'Do you Want to Delete the Data?';
+	$lang['do_you_want_to_delte'] = 'Do you Want to Delete the Data?';
+	$lang['do_you_want_to_resend_sms'] = 'Do you Want to Send SMS again?';
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
 	$lang['download'] = 'Download';
 	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
+	$lang['send_sms_success'] = 'SMS Sent Successfully';
+	$lang['send_sms_error'] = 'Not able to Send SMS';
 
 	$lang['sunday'] = 'Sunday';
 	$lang['monday'] = 'Monday';
@@ -251,5 +256,10 @@
 	$lang['supplierrequriment_status'] = 'Status';
 	$lang['supplierrequriment_supplier'] = 'Select Supplier';
 	$lang['supplierrequriment_product'] = 'Select Product';
+	$lang['supplierrequriment_viewsms'] = 'View SMS';
+	$lang['supplierrequriment_listsms'] = 'List SMS Details';
+	$lang['supplierrequriment_sendsms'] = 'Send SMS';
+	$lang['supplierrequriment_resendsms'] = 'Re-Send SMS';
+	$lang['supplierrequriment_mobile_no'] = 'Mobile No';
 
 ?>

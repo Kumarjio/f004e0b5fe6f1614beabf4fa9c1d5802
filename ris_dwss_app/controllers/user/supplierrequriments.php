@@ -180,4 +180,114 @@ class supplierrequriments extends CI_Controller
         }
         echo json_encode($data);
     }
+
+    function smsSupplierrequriment($id){
+        $supplierrequriment = new Supplierrequriment();
+        if($this->session_data->role == 3) {
+            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->id))->get();
+        } else {
+            $data['supplierrequriment'] = $supplierrequriment->where('id', $id)->get();
+        }
+        
+
+        if($supplierrequriment->result_count() == 1){
+            $this->layout->view('user/supplierrequriments/view_sms', $data); 
+        } else{
+            redirect(USER_URL . 'supplierrequriment', 'refresh');
+        }  
+    }
+
+    function sendSmsSupplierrequriment($id){
+        $supplierrequriment = new Supplierrequriment();
+        if($this->session_data->role == 3) {
+            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->id))->get();
+        } else {
+            $data['supplierrequriment'] = $supplierrequriment->where('id', $id)->get();
+        }
+
+        if($supplierrequriment->result_count() == 1){
+            if ($this->input->post() !== false) {
+                $mobile_nos = $this->input->post('mobile');
+                $description = $this->input->post('description');
+                foreach ($mobile_nos as $mobile) {
+                    if(!empty($mobile)){
+                        $check = sendSMS($mobile, $description);
+
+                        $obj = new Supplierrequrimentsms();
+                        $obj->mobile_no = $mobile;
+                        $obj->supplierrequriment_id = $id;
+                        $obj->message = $description;
+                        $obj->status = $check;
+                        $obj->created_id = $this->session_data->id;
+                        $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
+                        $obj->updated_id = $this->session_data->id;
+                        $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
+                        $obj->save();
+                    }
+                }
+
+                $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
+                redirect(USER_URL . 'supplierrequriment/sms/' . $id, 'refresh');
+            } else{
+                $this->layout->view('user/supplierrequriments/send_sms', $data);
+            }
+        } else {
+            redirect(USER_URL . 'supplierrequriment', 'refresh');
+        }
+    }
+
+    function deleteSmsSupplierrequriment($id){
+        $obj = new Supplierrequrimentsms();
+        $obj->where('id', $id)->get();
+
+        if($obj->result_count() == 1){
+            $supplierrequriment = new Supplierrequriment();
+            if($this->session_data->role == 3) {
+                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->id))->get();
+            } else {
+                $supplierrequriment->where('id', $obj->supplierrequriment_id)->get();
+            }
+
+            if($supplierrequriment->result_count() == 1){
+                $obj->delete();
+                $data = array('status' => 'success', 'msg' => $this->lang->line('delete_data_success'));
+            } else {
+                $data = array('status' => 'error', 'msg' => $this->lang->line('delete_data_error'));
+            }   
+        } else {
+            $data = array('status' => 'error', 'msg' => $this->lang->line('delete_data_error'));
+        }
+
+        echo json_encode($data);
+    }
+
+    function resendSmsSupplierrequriment($id){
+        $obj = new Supplierrequrimentsms();
+        $obj->where('id', $id)->get();
+
+        if($obj->result_count() == 1){
+            $supplierrequriment = new Supplierrequriment();
+            if($this->session_data->role == 3) {
+                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->id))->get();
+            } else {
+                $supplierrequriment->where('id', $obj->supplierrequriment_id)->get();
+            }
+
+            if($supplierrequriment->result_count() == 1){
+                $check = sendSMS($obj->mobile_no, $obj->message);
+                $obj = new Supplierrequrimentsms();
+                $obj->status = $check;
+                $obj->updated_id = $this->session_data->id;
+                $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj->save();
+                $data = array('status' => 'success', 'msg' => $this->lang->line('send_sms_success'));
+            } else {
+                $data = array('status' => 'error', 'msg' => $this->lang->line('send_sms_error'));
+            }   
+        } else {
+            $data = array('status' => 'error', 'msg' => $this->lang->line('send_sms_error'));
+        }
+
+        echo json_encode($data);
+    }
 }
