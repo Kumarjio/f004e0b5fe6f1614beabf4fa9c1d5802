@@ -22,9 +22,9 @@
 	$lang['no'] = 'No';
 	$lang['yes'] = 'Yes';
 	$lang['active'] = 'Active';
+	$lang['in_active'] = 'In active';
 	$lang['delivered'] = 'Delivered';
 	$lang['not_delivered'] = 'Not Delivered';
-	$lang['in_active'] = 'In active';
 	$lang['select_image'] = 'Select Image';
 	$lang['change_image'] = 'Change Image';
 	$lang['remove_image'] = 'Remove Image';
@@ -40,7 +40,7 @@
 	$lang['delete_data_error'] = 'Not able to delete data';
 	$lang['attachment_removed'] = 'Attachment removed successfully';
 	$lang['manage_data'] = 'Manage Data';
-	$lang['do_you_want_to_delte'] = 'Do you Want to Delete the Data?';
+	$lang['do_you_want_to_delete'] = 'Do you Want to Delete the Data?';
 	$lang['do_you_want_to_resend_sms'] = 'Do you Want to Send SMS again?';
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
@@ -261,5 +261,18 @@
 	$lang['supplierrequriment_sendsms'] = 'Send SMS';
 	$lang['supplierrequriment_resendsms'] = 'Re-Send SMS';
 	$lang['supplierrequriment_mobile_no'] = 'Mobile No';
+
+//Communications
+	$lang['communication'] = 'Communication';
+	$lang['communication_listsms'] = 'List SMS details';
+	$lang['communication_sendsms'] = 'Send SMS';
+	$lang['communication_resendsms'] = 'Re-Send SMS';
+	$lang['communication_title'] = 'Title';
+	$lang['communication_from_id'] = 'From';
+	$lang['communication_to_id'] = 'To';
+	$lang['communication_mobile_no'] = 'Mobile No';
+	$lang['communication_description'] = 'Description';
+	$lang['communication_status'] = 'Status';
+	
 
 ?>

@@ -20,7 +20,10 @@ class selloffers extends CI_Controller
     }
     
     function viewSelloffer() {
-        $this->layout->view('user/selloffers/view');
+        $obj_selloffer = new Selloffer();
+        $data['count'] = $obj_selloffer->count();
+
+        $this->layout->view('user/selloffers/view', $data);
     }
 
     function addSelloffer() {

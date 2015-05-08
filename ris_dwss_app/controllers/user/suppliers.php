@@ -13,8 +13,8 @@ class suppliers extends CI_Controller
     }
     
     function viewSupplier() {
-        $obj_markert = new Market();
-        $data['markets'] = $obj_markert->where('status',1)->get();
+        $obj_market = new Market();
+        $data['markets'] = $obj_market->where('status',1)->get();
 
         $obj_suppliertype = new Suppliertype();
         $data['suppliertypes'] = $obj_suppliertype->get();
@@ -24,6 +24,16 @@ class suppliers extends CI_Controller
 
         $obj_supplieramenitie = new Supplieramenitie();
         $data['supplieramenities'] = $obj_supplieramenitie->get();
+
+        $obj_supplier = new Supplier();
+        $data['count'] = $obj_supplier->count();
+
+        foreach ($obj_market as $market) {
+            $temp = array();
+            $temp['name'] = $market->{$this->session_data->language.'_name'};
+            $temp['count'] = $market->Supplier->count();
+            $data['counts'][] = $temp;
+        }
 
         $this->layout->view('user/suppliers/view', $data);
     }

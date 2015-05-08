@@ -20,7 +20,10 @@ class supplierrequriments extends CI_Controller
     }
     
     function viewSupplierrequriment() {
-        $this->layout->view('user/supplierrequriments/view');
+        $obj_supplierrequriment = new Supplierrequriment();
+        $data['count'] = $obj_supplierrequriment->count();
+
+        $this->layout->view('user/supplierrequriments/view', $data);
     }
 
     function addSupplierrequriment() {

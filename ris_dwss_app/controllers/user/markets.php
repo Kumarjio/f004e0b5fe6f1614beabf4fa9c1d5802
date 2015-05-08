@@ -8,12 +8,14 @@ class markets extends CI_Controller
     
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', $this->lang->line('market'));
+        $this->layout->setField('page_title', $this->lang->line('markets'));
         $this->session_data = $this->session->userdata('user_session');
     }
     
     function viewMarket() {
-        $this->layout->view('user/markets/view');
+        $obj_market = new Market();
+        $data['count'] = $obj_market->count();
+        $this->layout->view('user/markets/view', $data);
     }
 
     function addMarket() {

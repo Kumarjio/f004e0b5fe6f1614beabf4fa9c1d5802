@@ -96,3 +96,37 @@
 .hero-widget var { display: block; height: 24px; font-size: 24px; line-height: 24px; font-style: normal; }
 .hero-widget label { font-size: 15px; }
 .hero-widget .options { margin-top: 10px; }
+
+.daredevel-tree li span.daredevel-tree-anchor {
+    left: -20px;
+}
+
+.daredevel-tree li span.daredevel-tree-label {
+    margin-left: 20px;
+}
+
+#permission_tree li.expanded {
+    width: 100%;
+    float: left;
+    display: inherit;
+    border-bottom: 2px dashed;
+    margin-bottom: 20px;
+}
+
+#permission_tree li.expanded input[type="checkbox"] {
+    height: 22px;
+    width: 22px;
+}
+
+#permission_tree li.expanded ul {
+    float: left;
+    width: 100%;
+    clear: both;
+    margin-top : 0px;
+    margin-bottom: 10px;
+}
+
+#permission_tree li.leaf {
+    float: left;
+    margin-right: 20px;
+}

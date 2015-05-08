@@ -732,8 +732,68 @@ class json extends CI_Controller
         }
 
         echo json_encode($this->datatable->output);
+        exit();    
+    }
+
+    function getCommunicationsJsonData(){
+        $id = $this->input->get('id');
+        $status    = $this->input->get('status');
+
+        $where = null;
+        if($status == '0' || $status == '1'){
+            $where .= ' AND communications.status=' . $status; 
+        }
+
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND communications.created_datetime >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND communications.created_datetime <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
+        if($this->session_data->role != 1){
+            $where .= ' AND communications.from_id =' . $this->session_data->id; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('communications.from_id', 'communications.to_id', 'communications.mobile_no', 'communications.title', 'communications.message', 'communications.status');
+        $this->datatable->eColumns = array('communications.id');
+        $this->datatable->sIndexColumn = "communications.id";
+        $this->datatable->sTable = " communications";
+        $this->datatable->myWhere = " WHERE 1=1 " . $where;
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['from_id'];
+            $temp_arr[] = $aRow['to_id'];
+            $temp_arr[] = $aRow['mobile_no'];
+            $temp_arr[] = $aRow['title'];
+            $temp_arr[] = $aRow['message'];
+
+            if($aRow['status'] == 0){
+                $temp_arr[] = '<span class="label label-warning" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('not_delivered') .'">'. $this->lang->line('not_delivered') .'</span>';
+            } else {
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('delivered') .'">'. $this->lang->line('delivered') .'</span>';
+            }
+
+            $str = '';
+            if (hasPermission('communications', 'resendCommunication')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="resendsms(this)" class="btn btn-green" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('supplierrequriment_resendsms') .'" title="'. $this->lang->line('supplierrequriment_resendsms') .'"><i class="icon-remove icon-refresh"></i></i></a>';
+            }
+
+            if (hasPermission('communications', 'deleteCommunication')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+
+        echo json_encode($this->datatable->output);
         exit();
-        
     }
     
 }

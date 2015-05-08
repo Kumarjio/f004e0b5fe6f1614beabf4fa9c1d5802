@@ -13,7 +13,10 @@ class latestnews extends CI_Controller
     }
     
     function viewLatestnews() {
-        $this->layout->view('user/news/view');
+        $news = new News();
+        $data['count'] = $news->count();
+
+        $this->layout->view('user/news/view', $data);
     }
 
     function addLatestnews() {

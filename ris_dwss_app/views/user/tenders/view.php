@@ -86,7 +86,7 @@
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('tender'); ?></h1>
+            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('tender'), ' ('. @$count .')'; ?></h1>
         </div>
     </div>
 

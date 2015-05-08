@@ -16,6 +16,16 @@ class stafves extends CI_Controller
         $obj_markert = new Market();
         $data['markets'] = $obj_markert->where('status',1)->get();
 
+        $staff = new Staff();
+        $data['count'] = $staff->count();
+
+        foreach ($obj_markert as $market) {
+            $temp = array();
+            $temp['name'] = $market->{$this->session_data->language.'_name'};
+            $temp['count'] = $market->Staff->count();
+            $data['counts'][] = $temp;
+        }
+
         $this->layout->view('user/stafves/view', $data);
     }
 

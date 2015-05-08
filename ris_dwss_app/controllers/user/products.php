@@ -13,8 +13,18 @@ class products extends CI_Controller
     }
     
     function viewProduct() {
-        $obj_markert = new Market();
-        $data['markets'] = $obj_markert->where('status',1)->get();
+        $obj_market = new Market();
+        $data['markets'] = $obj_market->where('status',1)->get();
+
+        $obj_product = new Product();
+        $data['count'] = $obj_product->count();
+
+        foreach ($obj_market as $market) {
+            $temp = array();
+            $temp['name'] = $market->{$this->session_data->language.'_name'};
+            $temp['count'] = $market->Product->count();
+            $data['counts'][] = $temp;
+        }
 
         $this->layout->view('user/products/view', $data);
     }

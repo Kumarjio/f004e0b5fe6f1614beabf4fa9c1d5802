@@ -89,7 +89,7 @@
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('product'); ?></h1>
+            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('product'), ' ('. @$count .')'; ?></h1>
         </div>
     </div>
 
@@ -114,7 +114,7 @@
     </div>
     <div class="panel-body">   
         <div class="row">
-            <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <label class="control-label"><?php echo $this->lang->line('markets'); ?></label>
                     <div>
@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <label class="control-label"><?php echo $this->lang->line('product_category'); ?></label>
                     <div>
@@ -137,6 +137,12 @@
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4 text-right">
+                <?php foreach ($counts as $count) { ?>
+                    <button class="btn btn-default"><?php echo $count['name']; ?>&nbsp;&nbsp;<span class="badge badge-success"><?php echo $count['count']; ?><span></button>
+                <?php } ?>
             </div>
         </div>
     </div>

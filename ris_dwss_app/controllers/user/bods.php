@@ -13,7 +13,10 @@ class bods extends CI_Controller
     }
     
     function viewBod() {
-        $this->layout->view('user/bods/view');
+        $bod = new Bod();
+        $data['count'] = $bod->count();
+
+        $this->layout->view('user/bods/view', $data);
     }
 
     function addBod() {

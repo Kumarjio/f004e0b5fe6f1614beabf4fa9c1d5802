@@ -114,6 +114,9 @@ $route['user/supplierrequriment/sms/send/(:num)'] = "user/supplierrequriments/se
 $route['user/supplierrequriment/sms/resend/(:num)'] = "user/supplierrequriments/resendSmsSupplierrequriment/$1";
 $route['user/supplierrequriment/sms/delete/(:num)'] = "user/supplierrequriments/deleteSmsSupplierrequriment/$1";
 
+//Communications
+$route['user/communication/send'] = "user/communications/sendCommunication";
+$route['user/communication/resend/(:num)'] = "user/communications/resendCommunication/$1";
 
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";

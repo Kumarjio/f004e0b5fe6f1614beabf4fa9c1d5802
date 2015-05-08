@@ -74,13 +74,13 @@ if (!function_exists('printPermission')) {
                 }
 
                 if($type == 'checkbox'){
-                    $class = 'class="icheckbox_square-grey"';
+                    //$class = 'class="icheckbox_square-grey"';
                 } else {
-                    $class = 'class="iradio_square-grey"';
+                    //$class = 'class="iradio_square-grey"';
                 }
 
 
-                return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . $class . '/><span>&nbsp;' . $v . '</span>';
+                return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . @$class . '/><span>&nbsp;' . $v . '</span>';
             } else {
                 break;
             }
@@ -112,7 +112,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewRole' => array('name' => 'List'),
                     'addRole' => array('name' => 'Add'),
-                    'editRole' => array('name' => 'Edit'),
+                    'editRole' => array('name' => 'Edit/Update'),
                     'deleteRole' => array('name' => 'Delete'),
                 )
             ),
@@ -121,7 +121,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewMarket' => array('name' => 'List'),
                     'addMarket' => array('name' => 'Add'),
-                    'editMarket' => array('name' => 'Edit'),
+                    'editMarket' => array('name' => 'Edit/Update'),
                     'deleteMarket' => array('name' => 'Delete'),
                 )
             ),
@@ -130,7 +130,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewLatestnews' => array('name' => 'List'),
                     'addLatestnews' => array('name' => 'Add'),
-                    'editLatestnews' => array('name' => 'Edit'),
+                    'editLatestnews' => array('name' => 'Edit/Update'),
                     'deleteLatestnews' => array('name' => 'Delete'),
                 )
             ),
@@ -139,7 +139,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewTender' => array('name' => 'List'),
                     'addTender' => array('name' => 'Add'),
-                    'editTender' => array('name' => 'Edit'),
+                    'editTender' => array('name' => 'Edit/Update'),
                     'deleteTender' => array('name' => 'Delete'),
                 )
             ),
@@ -148,7 +148,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewBod' => array('name' => 'List'),
                     'addBod' => array('name' => 'Add'),
-                    'editBod' => array('name' => 'Edit'),
+                    'editBod' => array('name' => 'Edit/Update'),
                     'deleteBod' => array('name' => 'Delete'),
                 )
             ),
@@ -157,7 +157,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewStaff' => array('name' => 'List'),
                     'addStaff' => array('name' => 'Add'),
-                    'editStaff' => array('name' => 'Edit'),
+                    'editStaff' => array('name' => 'Edit/Update'),
                     'deleteStaff' => array('name' => 'Delete'),
                 )
             ),
@@ -166,7 +166,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewProductcategory' => array('name' => 'List'),
                     'addProductcategory' => array('name' => 'Add'),
-                    'editProductcategory' => array('name' => 'Edit'),
+                    'editProductcategory' => array('name' => 'Edit/Update'),
                     'deleteProductcategory' => array('name' => 'Delete'),
                 )
             ),
@@ -175,7 +175,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewProduct' => array('name' => 'List'),
                     'addProduct' => array('name' => 'Add'),
-                    'editProduct' => array('name' => 'Edit'),
+                    'editProduct' => array('name' => 'Edit/Update'),
                     'deleteProduct' => array('name' => 'Delete'),
                 )
             ),
@@ -184,7 +184,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewProductrate' => array('name' => 'List'),
                     'addProductrate' => array('name' => 'Add'),
-                    'editProductrate' => array('name' => 'Edit'),
+                    'editProductrate' => array('name' => 'Edit/Update'),
                     'deleteProductrate' => array('name' => 'Delete'),
                 )
             ),
@@ -193,7 +193,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewSupplier' => array('name' => 'List'),
                     'addSupplier' => array('name' => 'Add'),
-                    'editSupplier' => array('name' => 'Edit'),
+                    'editSupplier' => array('name' => 'Edit/Update'),
                     'deleteSupplier' => array('name' => 'Delete'),
                     'manageProductSupplier' => array('name' => 'Manage Products'),
                 )
@@ -203,7 +203,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewSelloffer' => array('name' => 'List'),
                     'addSelloffer' => array('name' => 'Add'),
-                    'editSelloffer' => array('name' => 'Edit'),
+                    'editSelloffer' => array('name' => 'Edit/Update'),
                     'deleteSelloffer' => array('name' => 'Delete'),
                 )
             ),
@@ -212,7 +212,7 @@ if (!function_exists('createPermissionArray')) {
                 'hasChild' => array(
                     'viewSupplierrequriment' => array('name' => 'List'),
                     'addSupplierrequriment' => array('name' => 'Add'),
-                    'editSupplierrequriment' => array('name' => 'Edit'),
+                    'editSupplierrequriment' => array('name' => 'Edit/Update'),
                     'deleteSupplierrequriment' => array('name' => 'Delete'),
                     'smsSupplierrequriment' => array('name' => 'List SMS'),
                     'sendSmsSupplierrequriment' => array('name' => 'Send SMS'),
@@ -220,17 +220,36 @@ if (!function_exists('createPermissionArray')) {
                     'resendSmsSupplierrequriment' => array('name' => 'Re-Send SMS'),
                 )
             ),
+            'communications' => array(
+                'name' => 'Communication SMS',
+                'hasChild' => array(
+                    'viewCommunication' => array('name' => 'List'),
+                    'sendCommunication' => array('name' => 'Send'),
+                    'resendCommunication' => array('name' => 'Re-Send'),
+                    'deleteCommunication' => array('name' => 'Delete'),
+                )
+            ),
+            'advertisements' => array(
+                'name' => 'Advertisements',
+                'hasChild' => array(
+                    'viewAdvertisement' => array('name' => 'List'),
+                    'addAdvertisement' => array('name' => 'Add'),
+                    'editAdvertisement' => array('name' => 'Edit/Update'),
+                    'deleteCommunication' => array('name' => 'Delete'),
+                    'approveCommunication' => array('name' => 'Approval'),
+                )
+            ),
             'emails' => array(
                 'name' => 'Email Templates',
                 'hasChild' => array(
                     'viewEmail' => array('name' => 'List'),
-                    'editEmail' => array('name' => 'Edit'),
+                    'editEmail' => array('name' => 'Edit/Update'),
                 )
             ),
             'systemsettings' => array(
                 'name' => 'Setting',
                 'hasChild' => array(
-                    'viewSystemSetting' => array('name' => 'Edit')
+                    'viewSystemSetting' => array('name' => 'Edit/Update')
                 )
             )
         );

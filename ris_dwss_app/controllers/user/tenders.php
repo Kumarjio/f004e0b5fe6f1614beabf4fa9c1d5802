@@ -13,7 +13,10 @@ class tenders extends CI_Controller
     }
     
     function viewTender() {
-        $this->layout->view('user/tenders/view');
+        $tender = new Tender();
+        $data['count'] = $tender->count();
+
+        $this->layout->view('user/tenders/view', $data);
     }
 
     function addTender() {

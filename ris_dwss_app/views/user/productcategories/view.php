@@ -71,7 +71,7 @@
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('product_category'); ?></h1>
+            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('product_category'), ' ('. @$count .')'; ?></h1>
         </div>
     </div>
 
@@ -108,6 +108,12 @@
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-sm-12 col-sm-8 col-md-8 col-lg-8 text-right">
+                <?php foreach ($counts as $count) { ?>
+                    <button class="btn btn-default"><?php echo $count['name']; ?>&nbsp;&nbsp;<span class="badge badge-success"><?php echo $count['count']; ?><span></button>
+                <?php } ?>
             </div>
         </div>
     </div>

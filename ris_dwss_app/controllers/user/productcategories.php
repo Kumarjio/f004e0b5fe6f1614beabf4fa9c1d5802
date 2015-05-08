@@ -16,6 +16,16 @@ class productcategories extends CI_Controller
         $obj_markert = new Market();
         $data['markets'] = $obj_markert->where('status',1)->get();
 
+        $obj_product_category = new Productcategory();
+        $data['count'] = $obj_product_category->count();
+
+        foreach ($obj_markert as $market) {
+            $temp = array();
+            $temp['name'] = $market->{$this->session_data->language.'_name'};
+            $temp['count'] = $market->Productcategory->count();
+            $data['counts'][] = $temp;
+        }
+
         $this->layout->view('user/productcategories/view', $data);
     }
 

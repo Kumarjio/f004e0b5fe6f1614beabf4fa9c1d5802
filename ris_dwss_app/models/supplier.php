@@ -2,6 +2,7 @@
 class Supplier extends DataMapper {
 
     var $has_many = array("supplierproduct");
+    var $has_one  = array('market');
 
     function __construct($id = NULL) {
         parent::__construct($id);

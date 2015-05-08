@@ -83,7 +83,7 @@
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('supplier'); ?></h1>
+            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('supplier'), ' ('. @$count .')'; ?></h1>
         </div>
     </div>
 
@@ -106,7 +106,21 @@
             </a>
         </div>
     </div>
-    <div class="panel-body">   
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                <?php foreach ($counts as $count) { ?>
+                    <button class="btn btn-default"><?php echo $count['name']; ?>&nbsp;&nbsp;<span class="badge badge-success"><?php echo $count['count']; ?><span></button>
+                <?php } ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+                &nbsp;
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-sm-12 col-sm-6 col-md-3 col-lg-3">
                 <div class="form-group">

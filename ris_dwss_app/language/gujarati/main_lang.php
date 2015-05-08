@@ -12,6 +12,7 @@
 	$lang['delete'] = 'કાઢી નાખો';
 	$lang['cancel'] = 'રદ કરો';
 	$lang['back'] = 'પાછા';
+	$lang['filters'] = 'Filter(s)';
 	$lang['status'] = 'સ્થિતિ';
 	$lang['manage'] = 'મેનેજ';
 	$lang['actions'] = 'ક્રિયાઓ';
@@ -22,6 +23,8 @@
 	$lang['yes'] = 'હા';
 	$lang['active'] = 'સક્રિય';
 	$lang['in_active'] = 'સક્રિય માં';
+	$lang['delivered'] = 'Delivered';
+	$lang['not_delivered'] = 'Not Delivered';
 	$lang['select_image'] = 'પસંદ ઈમેજ';
 	$lang['change_image'] = 'Change Image';
 	$lang['remove_image'] = 'Remove Image';
@@ -38,10 +41,13 @@
 	$lang['attachment_removed'] = 'Attachment removed successfully';
 	$lang['manage_data'] = 'Manage Data';
 	$lang['do_you_want_to_delete'] = 'Do you Want to Delete the Data?';
+	$lang['do_you_want_to_resend_sms'] = 'Do you Want to Send SMS again?';
 	$lang['yes_delete_action'] = 'Yes, delete it!';
 	$lang['no_delete_action'] = 'No, cancel!';
 	$lang['download'] = 'Download';
 	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
+	$lang['send_sms_success'] = 'SMS Sent Successfully';
+	$lang['send_sms_error'] = 'Not able to Send SMS';
 
 	$lang['sunday'] = 'Sunday';
 	$lang['monday'] = 'Monday';
@@ -170,9 +176,12 @@
 	$lang['product_name'] = 'Product Name';
 	$lang['product_description'] = 'Description';
 	$lang['product_image'] = 'Image';
+	$lang['product_can_enter_rate'] = 'Can enter rate';
 	$lang['product_current_image'] = 'Current Image';
 	$lang['product_select_market'] = 'Select Market';
 	$lang['product_select_category'] = 'Select Category';
+	$lang['product_select'] = 'Select Product';
+	$lang['no_product_found'] = 'No product found';
 
 //Prodcut Rates
 	$lang['product_rate'] = 'Product Rate';
@@ -180,9 +189,16 @@
 	$lang['product_rate_max'] = 'Maximun Rate';
 	$lang['product_rate_income'] = 'Income';
 	$lang['product_rate_date'] = 'Date';
+	$lang['product_rate_start_date'] = 'Start Date';
+	$lang['product_rate_end_date'] = 'End Date';
+	$lang['product_rate_export'] = 'Export Data';
+	$lang['product_rate_export_pdf'] = 'PDF';
+	$lang['product_rate_export_excel'] = 'EXCEL';
 
 //Supplier
 	$lang['supplier'] = 'Supplier';
+	$lang['supplier_market'] = 'Market';
+	$lang['supplier_select_market'] = 'Select Market';
 	$lang['supplier_shop_no'] = 'Shop No';
 	$lang['supplier_form_date'] = 'Date';
 	$lang['supplier_form_no'] = 'Form No';
@@ -223,5 +239,40 @@
 //Supplier Products
 	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
 
+//Sell Offer
+	$lang['selloffer'] = 'Sell Offer';
+	$lang['selloffer_title'] = 'Title';
+	$lang['selloffer_description'] = 'Description';
+	$lang['selloffer_start_date'] = 'Start Date';
+	$lang['selloffer_end_date'] = 'End Date';
+	$lang['selloffer_status'] = 'Status';
+	$lang['selloffer_supplier'] = 'Select Supplier';
+	$lang['selloffer_product'] = 'Select Product';
+
+//Supplier Requriments
+	$lang['supplierrequriment'] = 'Supplier Requriment';
+	$lang['supplierrequriment_title'] = 'Title';
+	$lang['supplierrequriment_description'] = 'Description';
+	$lang['supplierrequriment_status'] = 'Status';
+	$lang['supplierrequriment_supplier'] = 'Select Supplier';
+	$lang['supplierrequriment_product'] = 'Select Product';
+	$lang['supplierrequriment_viewsms'] = 'View SMS';
+	$lang['supplierrequriment_listsms'] = 'List SMS Details';
+	$lang['supplierrequriment_sendsms'] = 'Send SMS';
+	$lang['supplierrequriment_resendsms'] = 'Re-Send SMS';
+	$lang['supplierrequriment_mobile_no'] = 'Mobile No';
+
+//Communications
+	$lang['communication'] = 'Communication';
+	$lang['communication_listsms'] = 'List SMS details';
+	$lang['communication_sendsms'] = 'Send SMS';
+	$lang['communication_resendsms'] = 'Re-Send SMS';
+	$lang['communication_title'] = 'Title';
+	$lang['communication_from_id'] = 'From';
+	$lang['communication_to_id'] = 'To';
+	$lang['communication_mobile_no'] = 'Mobile No';
+	$lang['communication_description'] = 'Description';
+	$lang['communication_status'] = 'Status';
 	
+
 ?>

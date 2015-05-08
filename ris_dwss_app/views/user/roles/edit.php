@@ -66,18 +66,18 @@ echo $this->lang->line("role_exits"); ?>'
     <div class="col-lg-12">
     <form id="add" method="post" class="form-horizontal" action="<?php echo USER_URL . 'role/edit/' . $role->id; ?>">
         <div class="form-group">
-            <label class="col-lg-3 control-label">Role Name<span class="text-danger">&nbsp;</span></label>
-            <div class="col-lg-7">
+            <label class="col-lg-2 control-label">Role Name<span class="text-danger">&nbsp;</span></label>
+            <div class="col-lg-4">
                 <input type="text" name="name" class="form-control required" value="<?php echo $role->name; ?>"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="question" class="col-lg-3 control-label">
+            <label for="question" class="col-lg-2 control-label">
                 Permission
                 <span class="text-danger">&nbsp;</span>
             </label>
-            <div class="col-lg-5">
+            <div class="col-lg-10">
                 <div id="permission_tree">
                     <div>
                         <ul>
@@ -89,8 +89,8 @@ echo $this->lang->line("role_exits"); ?>'
         </div>
 
         <div class="form-group">
-            <label class="col-lg-3 control-label">&nbsp;</label>
-            <div class="col-lg-5">
+            <label class="col-lg-2 control-label">&nbsp;</label>
+            <div class="col-lg-4">
                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="Update">Update</button>
                 <a href="<?php
 echo USER_URL . 'role' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="Cancel">Cancel</a>
