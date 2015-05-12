@@ -218,6 +218,22 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('advertisements', 'viewAdvertisement')) { ?>
+                            <li class="<?php echo ($uri_1 == 'advertisement') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'advertisement'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('advertisement'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('communications', 'viewCommunication')) { ?>
+                            <li class="<?php echo ($uri_1 == 'communication') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'communication'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('communication'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
                         <?php if (hasPermission('latestnews', 'viewLatestnews')) { ?>
                             <li class="<?php echo ($uri_1 == 'latestnews') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'latestnews'; ?>"><i class="icon-asterisk"></i>

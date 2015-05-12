@@ -20,35 +20,66 @@ class communications extends CI_Controller {
 
     function sendCommunication(){
         if ($this->input->post() !== false) {
-            $mobile_nos = $this->input->post('mobile');
-            $description = $this->input->post('description');
-            foreach ($mobile_nos as $mobile) {
-                if(!empty($mobile)){
-                    $check = sendSMS($mobile, $description);
 
-                    $obj = new Communication();
-                    $obj->from_id = $this->session_data->id;
-                    $obj->to_id = $to_id;
-                    $obj->mobile_no = $mobile;
-                    $obj->message = $description;
-                    $obj->status = $check;
-                    $obj->created_id = $this->session_data->id;
-                    $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
-                    $obj->updated_id = $this->session_data->id;
-                    $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
-                    $obj->save();
-                }
+            $users = array_unique(array_filter($this->input->post('users')));
+            $description = $this->input->post('description');
+
+            foreach ($users as $user) {
+                $user_details = explode('--', $user);
+                $check = sendSMS($user_details[1], $description);
+
+                $obj = new Communication();
+                $obj->from_id = $this->session_data->id;
+                $obj->to_id = $user_details[0];
+                $obj->mobile_no = $user_details[1];
+                $obj->title = $this->input->post('title');
+                $obj->message = $description;
+                $obj->status = $check;
+                $obj->created_id = $this->session_data->id;
+                $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj->updated_id = $this->session_data->id;
+                $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj->save();
             }
 
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(USER_URL . 'communication', 'refresh');
         } else{
-            $this->layout->view('user/communicationss/send_sms', $data);
+            $this->layout->setField('page_title', $this->lang->line('communication_sendsms'));
+
+            $obj = new Communication();
+            $data['users_details'] = $obj->getAllNumbersAndEmails();
+
+            $this->layout->view('user/communications/send_sms', $data);
         }
     }
 
-    function resendCommunication(){
+    function resendCommunication($id){
+        $obj = new Communication();
+        $obj->where(array('id'=>$id, 'from_id' => $this->session_data->id))->get();
 
+        if($obj->result_count() == 1){
+            $check = sendSMS($obj->mobile_no, $obj->message);
+
+            $obj_new = new Communication();
+            $obj_new->from_id = $this->session_data->id;
+            $obj_new->to_id = $obj->to_id;
+            $obj_new->mobile_no = $obj->mobile_no;
+            $obj_new->title = $obj->title;
+            $obj_new->message = $obj->message;
+            $obj_new->status = $check;
+            $obj_new->created_id = $this->session_data->id;
+            $obj_new->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_new->updated_id = $this->session_data->id;
+            $obj_new->update_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj_new->save();
+        
+            $data = array('status' => 'success', 'msg' => $this->lang->line('send_sms_success'));   
+        } else {
+            $data = array('status' => 'error', 'msg' => $this->lang->line('send_sms_error'));
+        }
+
+        echo json_encode($data);
     }
 
     function deleteCommunication($id) {

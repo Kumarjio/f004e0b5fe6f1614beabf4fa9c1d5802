@@ -271,8 +271,18 @@
 	$lang['communication_from_id'] = 'From';
 	$lang['communication_to_id'] = 'To';
 	$lang['communication_mobile_no'] = 'Mobile No';
-	$lang['communication_description'] = 'Description';
+	$lang['communication_description'] = 'Message';
 	$lang['communication_status'] = 'Status';
+	$lang['communication_all_users'] = 'All';
 	
-
+//Advertisements
+	$lang['advertisement'] = 'Advertisement';
+	$lang['advertisement_place'] = 'Position';
+	$lang['advertisement_shop_name'] = 'Supplier';
+	$lang['advertisement_name'] = 'Title';
+	$lang['advertisement_url'] = 'URL';
+	$lang['advertisement_start_date'] = 'Start Date';
+	$lang['advertisement_end_date'] = 'End Date';
+	$lang['advertisement_image'] = 'Image';
+	
 ?>

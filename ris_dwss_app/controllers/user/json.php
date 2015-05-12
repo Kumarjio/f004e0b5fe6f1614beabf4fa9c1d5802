@@ -757,17 +757,17 @@ class json extends CI_Controller
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('communications.from_id', 'communications.to_id', 'communications.mobile_no', 'communications.title', 'communications.message', 'communications.status');
-        $this->datatable->eColumns = array('communications.id');
+        $this->datatable->aColumns = array('from_user.' . $this->session_data->language .'_fullname AS from_username', 'to_user.' . $this->session_data->language .'_fullname AS to_username', 'communications.mobile_no', 'communications.title', 'communications.message', 'communications.status');
+        $this->datatable->eColumns = array('communications.id', 'communications.from_id', 'communications.to_id');
         $this->datatable->sIndexColumn = "communications.id";
-        $this->datatable->sTable = " communications";
-        $this->datatable->myWhere = " WHERE 1=1 " . $where;
+        $this->datatable->sTable = " communications, users from_user, users to_user";
+        $this->datatable->myWhere = " WHERE from_user.id=communications.from_id AND  to_user.id=communications.to_id" . $where;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['from_id'];
-            $temp_arr[] = $aRow['to_id'];
+            $temp_arr[] = $aRow['from_username'];
+            $temp_arr[] = $aRow['to_username'];
             $temp_arr[] = $aRow['mobile_no'];
             $temp_arr[] = $aRow['title'];
             $temp_arr[] = $aRow['message'];
@@ -792,6 +792,79 @@ class json extends CI_Controller
             $this->datatable->output['aaData'][] = $temp_arr;
         }
 
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getAdvertisementsJsonData() {
+        $status    = $this->input->get('status');
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+
+        $where = '';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND advertisements.status=' . $status; 
+        }
+
+        if(!empty($start_date) && strtolower($start_date) != 'null'){
+            $where .= ' AND advertisements.start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+        }
+
+        if(!empty($end_date) && strtolower($end_date) != 'null'){
+            $where .= ' AND advertisements.end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('place','suppliers.'.$this->session_data->language . '_shop_name', 'advertisements.'.$this->session_data->language . '_name', 'start_date','end_date','status');
+        $this->datatable->eColumns = array('advertisements.id');
+        $this->datatable->sIndexColumn = "advertisements.id";
+        $this->datatable->sTable = " advertisements, suppliers";
+        $this->datatable->myWhere = " WHERE suppliers.id=advertisements.supplier_id $where";
+        $this->datatable->datatable_process();
+        
+        $places = $this->config->item('advertisement_places');
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            if($aRow['place'] == 'T'){
+                $temp_arr[] = '<label class="label label-warning">'. $places[$aRow['place']][$this->session_data->language] .'<label>';    
+            } else if($aRow['place'] == 'R'){
+                $temp_arr[] = '<label class="label label-success">'. $places[$aRow['place']][$this->session_data->language] .'<label>';    
+            } else if($aRow['place'] == 'B'){
+                $temp_arr[] = '<label class="label label-info">'. $places[$aRow['place']][$this->session_data->language] .'<label>';    
+            } else if($aRow['place'] == 'L'){
+                $temp_arr[] = '<label class="label label-danger">'. $places[$aRow['place']][$this->session_data->language] .'<label>';    
+            }
+            
+            $temp_arr[] = $aRow[$this->session_data->language . '_shop_name'];
+            $temp_arr[] = $aRow[$this->session_data->language . '_name'];
+
+            $temp_arr[] =  date('d-m-Y', strtotime($aRow['start_date']));
+            if(!empty($aRow['end_date'])){
+                $temp_arr[] =  date('d-m-Y', strtotime($aRow['end_date']));
+            } else {
+                $temp_arr[] = '';
+            }
+
+            if($aRow['status'] == 0){
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
+            } else {
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+            }
+
+            $str = '';
+            if (hasPermission('advertisements', 'editAdvertisement')) {
+                $str .= '<a href="' . USER_URL . 'advertisement/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('advertisements', 'deleteAdvertisement')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
         echo json_encode($this->datatable->output);
         exit();
     }

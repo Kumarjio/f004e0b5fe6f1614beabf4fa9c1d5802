@@ -75,6 +75,12 @@ if (!defined('IMG_URL')) {
 
 $config['custom_languages'] = array('en' => 'english', 'gu' => 'gujarati');
 
+$config['advertisement_places'] = array(
+  'T' => array('en' => 'Top', 'gu' => 'ઉપર'), 
+  'R' => array('en' => 'Right', 'gu' => 'જમણું'), 
+  'B' => array('en' => 'Bottom', 'gu' => 'નીચે'), 
+  'L' => array('en' => 'Left', 'gu' => 'ડાબે'));
+
 /*
   |--------------------------------------------------------------------------
   | Index File

@@ -203,7 +203,6 @@ class suppliers extends CI_Controller
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('supplier'));
 
-
                 $obj_markert = new Market();
                 $data['markets'] = $obj_markert->where('status',1)->get();
 

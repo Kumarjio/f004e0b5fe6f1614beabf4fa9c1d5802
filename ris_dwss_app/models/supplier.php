@@ -1,7 +1,7 @@
-    <?php
+<?php
 class Supplier extends DataMapper {
 
-    var $has_many = array("supplierproduct");
+    var $has_many = array("supplierproduct", 'advertisement');
     var $has_one  = array('market');
 
     function __construct($id = NULL) {
