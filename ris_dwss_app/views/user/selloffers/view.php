@@ -34,7 +34,7 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""},
                 {"sClass": "text-center"},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo USER_URL . 'selloffer/getjson?status='; ?>" + jQuery('#status').val() + '&start_date=' + jQuery('#start_date').val() + '&end_date=' + jQuery('#end_date').val(),
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <?php if (hasPermission('selloffer', 'addSelloffer')) { ?>
+    <?php if (hasPermission('selloffers', 'addSelloffer')) { ?>
         <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
             <div class="page-header text-right">
                 <h1><a class="btn btn-green" href="<?php echo USER_URL . 'selloffer/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('selloffer'); ?></a></h1>
@@ -158,6 +158,7 @@
             <table class="table table-bordered table-hover" id="list_data">
                 <thead class="the-box dark full">
                     <tr align="left">
+                        <th width="100"><?php echo $this->lang->line('product'); ?></th>
                         <th><?php echo $this->lang->line('selloffer_title'); ?></th>
                         <th width="100"><?php echo $this->lang->line('selloffer_start_date'); ?></th>
                         <th width="100"><?php echo $this->lang->line('selloffer_end_date'); ?></th>
@@ -167,7 +168,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="5"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                        <td colspan="6"><i><?php echo $this->lang->line('loading'); ?></i></td>
                     </tr>
                 </tbody>
             </table>

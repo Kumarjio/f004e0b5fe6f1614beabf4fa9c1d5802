@@ -13,7 +13,12 @@ class communications extends CI_Controller {
     
     function viewCommunication() {
         $communication = new Communication();
-        $data['count'] = $communication->count();
+        if($this->session_data->role != 1){
+            $communication->where('from_id', $this->session_data->id)->get();
+            $data['count'] = $communication->result_count();
+        } else {
+            $data['count'] = $communication->count();
+        }
 
         $this->layout->view('user/communications/view', $data);
     }

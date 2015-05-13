@@ -24,6 +24,13 @@ class authenticate extends CI_Controller
         $user->role = $user->role_id;
         unset($user->role_id);
         $user->language = $this->config->item('default_language');
+
+        if($user->role == 3){
+            $obj_supplier = new Supplier();
+            $obj_supplier->where('user_id', $user->id)->get();
+            $user->supplier_id = $obj_supplier->stored->id;
+        }
+
         $newdata = array('user_session' => $user);
         $this->session->set_userdata($newdata);
         return true;

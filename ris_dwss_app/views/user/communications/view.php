@@ -129,7 +129,7 @@
         </div>
     </div>
 
-    <?php if (hasPermission('communications', 'sendSmsCommunication')) { ?>
+    <?php if (hasPermission('communications', 'sendCommunication')) { ?>
         <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
             <div class="page-header text-right">
                 <h1><a class="btn btn-green" href="<?php echo USER_URL . 'communication/send'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('communication_sendsms'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('communication_sendsms'); ?></a></h1>

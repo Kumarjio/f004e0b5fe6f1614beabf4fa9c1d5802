@@ -571,33 +571,34 @@ class json extends CI_Controller
         $start_date = $this->input->get('start_date');
         $end_date   = $this->input->get('end_date');
 
-        $where = '1=1';
+        $where = '';
         if($status == '0' || $status == '1'){
-            $where .= ' AND status=' . $status; 
+            $where .= ' AND selloffers.status=' . $status; 
         }
 
         if(!empty($start_date) && strtolower($start_date) != 'null'){
-            $where .= ' AND start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
+            $where .= ' AND selloffers.start_date >=\'' . date('Y-m-d', strtotime($start_date)) .'\''; 
         }
 
         if(!empty($end_date) && strtolower($end_date) != 'null'){
-            $where .= ' AND end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+            $where .= ' AND selloffers.end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
         }
 
         if($this->session_data->role == 3){
-            $where .= ' AND supplier_id =' . $this->session_data->id; 
+            $where .= ' AND selloffers.supplier_id =' . $this->session_data->supplier_id; 
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array($this->session_data->language . '_title AS title', 'start_date','end_date','status');
-        $this->datatable->eColumns = array('id');
-        $this->datatable->sIndexColumn = "id";
-        $this->datatable->sTable = " selloffers";
-        $this->datatable->myWhere = " WHERE $where";
+        $this->datatable->aColumns = array('products.'.$this->session_data->language . '_name AS product', 'selloffers.'.$this->session_data->language . '_title AS title', 'selloffers.start_date','selloffers.end_date','selloffers.status');
+        $this->datatable->eColumns = array('selloffers.id');
+        $this->datatable->sIndexColumn = "selloffers.id";
+        $this->datatable->sTable = " selloffers, products";
+        $this->datatable->myWhere = " WHERE selloffers.product_id=products.id $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
+            $temp_arr[] = $aRow['product'];
             $temp_arr[] = $aRow['title'];
 
             $temp_arr[] =  date('d-m-Y', strtotime($aRow['start_date']));
@@ -639,7 +640,7 @@ class json extends CI_Controller
         }
 
         if($this->session_data->role == 3){
-            $where .= ' AND supplier_id =' . $this->session_data->id; 
+            $where .= ' AND supplier_id =' . $this->session_data->supplier_id; 
         }
 
         $this->load->library('datatable');
@@ -692,7 +693,7 @@ class json extends CI_Controller
             }
 
             if($this->session_data->role == 3){
-                $where .= ' AND supplierrequriments.supplier_id =' . $this->session_data->id; 
+                $where .= ' AND supplierrequriments.supplier_id =' . $this->session_data->supplier_id; 
             }
 
             $this->load->library('datatable');
@@ -753,7 +754,7 @@ class json extends CI_Controller
         }
 
         if($this->session_data->role != 1){
-            $where .= ' AND communications.from_id =' . $this->session_data->id; 
+            $where .= ' AND communications.from_id =' . $this->session_data->supplier_id; 
         }
 
         $this->load->library('datatable');

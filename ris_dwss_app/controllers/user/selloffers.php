@@ -21,7 +21,12 @@ class selloffers extends CI_Controller
     
     function viewSelloffer() {
         $obj_selloffer = new Selloffer();
-        $data['count'] = $obj_selloffer->count();
+        if($this->session_data->role != 1){
+            $obj_selloffer->where('supplier_id', $this->session_data->supplier_id)->get();
+            $data['count'] = $obj_selloffer->result_count();
+        } else {
+            $data['count'] = $obj_selloffer->count();
+        }
 
         $this->layout->view('user/selloffers/view', $data);
     }
@@ -33,7 +38,7 @@ class selloffers extends CI_Controller
             if($this->session_data->role ==1 || $this->session_data->role ==2){
                 $selloffer->supplier_id = $this->input->post('supplier_id');
             } else {
-                $selloffer->supplier_id = $this->session_data->id;
+                $selloffer->supplier_id = $this->session_data->supplier_id;
             }
 
             $selloffer->product_id = $this->input->post('product_id');
@@ -79,7 +84,7 @@ class selloffers extends CI_Controller
                 $data['products_details'] = NULL;
             } else {
                 $obj_supplier_product = new Supplierproduct();
-                $obj_supplier_product->where('supplier_id', $this->session_data->id);
+                $obj_supplier_product->where('supplier_id', $this->session_data->supplier_id);
                 $product_data =array();
                 foreach ($obj_supplier_product->get() as $products_detail) {
                     $prod_temp = $products_detail->Product->get();
@@ -109,7 +114,7 @@ class selloffers extends CI_Controller
                 if($this->session_data->role ==1 || $this->session_data->role ==2){
                     $selloffer->supplier_id = $this->input->post('supplier_id');
                 } else {
-                    $selloffer->supplier_id = $this->session_data->id;
+                    $selloffer->supplier_id = $this->session_data->supplier_id;
                 }
 
                 $selloffer->product_id = $this->input->post('product_id');
@@ -146,34 +151,42 @@ class selloffers extends CI_Controller
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('selloffer'));
 
-                $selloffer = new Selloffer();
-                $data['selloffer'] = $selloffer->where('id', $id)->get();
-
                 if($this->session_data->role ==1 || $this->session_data->role ==2){
+                    $selloffer = new Selloffer();
+                    $data['selloffer'] = $selloffer->where(array('id' => $id))->get();
+                    $supplier_id = $data['selloffer']->supplier_id;
+                } else if($this->session_data->role == 3){
+                    $supplier_id = $this->session_data->supplier_id;
+                    $selloffer = new Selloffer();
+                    $data['selloffer'] = $selloffer->where(array('id' => $id, 'supplier_id' => $supplier_id))->get();
+                }
+
+                if($selloffer->result_count() == 1){
                     $obj_supplier = new Supplier();
                     $data['supplier_details'] = $obj_supplier->get();
-                    $supplier_id = $selloffer->supplier_id;
+                    $data['products_details'] = NULL;
+
+                    $obj_supplier_product = new Supplierproduct();
+                    $obj_supplier_product->where('supplier_id', $supplier_id);
+                    $product_data =array();
+                    foreach ($obj_supplier_product->get() as $products_detail) {
+                        $prod_temp = $products_detail->Product->get();
+                        $cat_temp = $products_detail->Product->Productcategory->get();
+                        $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
+                        $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
+
+                        $temp = array();
+                        $temp['id'] = $prod_temp->stored->id;
+                        $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
+                        $product_data[$cat_temp->stored->id]['products'][] = $temp;
+                    }
+
+                    $data['products_details'] = $product_data;
+                    $this->layout->view('user/selloffers/edit', $data);
                 } else {
-                    $supplier_id = $this->session_data->id;
+                    $this->session->set_flashdata('error', $this->lang->line('no_record_exits'));
+                    redirect(USER_URL . 'selloffer', 'refresh');
                 }
-
-                $obj_supplier_product = new Supplierproduct();
-                $obj_supplier_product->where('supplier_id', $supplier_id);
-                $product_data =array();
-                foreach ($obj_supplier_product->get() as $products_detail) {
-                    $prod_temp = $products_detail->Product->get();
-                    $cat_temp = $products_detail->Product->Productcategory->get();
-                    $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
-                    $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
-
-                    $temp = array();
-                    $temp['id'] = $prod_temp->stored->id;
-                    $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
-                    $product_data[$cat_temp->stored->id]['products'][] = $temp;
-                }
-
-                $data['products_details'] = $product_data;
-                $this->layout->view('user/selloffers/edit', $data);
             }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));

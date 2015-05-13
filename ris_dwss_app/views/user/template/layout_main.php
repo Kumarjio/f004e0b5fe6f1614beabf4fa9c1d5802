@@ -101,6 +101,21 @@
 
                             </ul>
                         </li>
+
+                        <li class="dropdown">
+                            <a data-toggle="modal" class="" role="button" href="#contact-details">
+                                <i class="icon-phone"></i>
+                                <span class="title"><?php echo $this->lang->line('contact_details'); ?></span>
+                            </a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="" href="http://webmail.apmcbaroda.org/" target="_blank" rel="nofollow">
+                                <i class="icon-envelope-alt"></i>
+                                <span class="title"><?php echo $this->lang->line('webmail'); ?></span>
+                            </a>
+                        </li>
+                        
                         <li class="dropdown current-user">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="username"><?php echo $session->{$session->language.'_fullname'}; ?></span>
@@ -145,6 +160,9 @@
                     <?php
                         $uri_1 = ($this->uri->segment(2) ? $this->uri->segment(2) : 'dashboard');
                         $uri_2 = ($this->uri->segment(2) ? $this->uri->segment(3) ? $this->uri->segment(3) : $this->uri->segment(2) : 'dashboard');
+
+                        $view_offer_requriment = false;
+                        $view_advertisement = false;
                     ?>
                     <ul class="main-navigation-menu">
                         <li class="<?php echo ($uri_1 == 'dashboard') ? 'active open' : ''; ?>">
@@ -152,6 +170,16 @@
                                 <span class="title"><?php echo $this->lang->line('dashboard'); ?></span>
                             </a>
                         </li>
+
+                        <?php if($this->session_data->role == 3) { ?>
+                            <?php if (hasPermission('suppliers', 'manageProductSupplier')) { ?>
+                                <li class="<?php echo ($uri_1 == 'supplier') ? 'active open' : ''; ?>">
+                                    <a href="<?php echo USER_URL . 'supplier/product'; ?>"><i class="icon-asterisk"></i>
+                                        <span class="title"><?php echo $this->lang->line('supplier_manage_product'); ?></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
 
                         <?php if (hasPermission('markets', 'viewMarket')) { ?>
                             <li class="<?php echo ($uri_1 == 'market') ? 'active open' : ''; ?>">
@@ -193,7 +221,6 @@
                             </li>
                         <?php } ?>
 
-                        <?php $view_offer_requriment = false; ?>
                         <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
                             $view_offer_requriment = true;
                         } else if($this->session_data->role == 3) {
@@ -218,7 +245,15 @@
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('advertisements', 'viewAdvertisement')) { ?>
+                        <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
+                            $view_advertisement = true;
+                        } else if($this->session_data->role == 3) {
+                            if(checkSuppliersupplierAmenities(2, $this->session_data->id)){
+                                $view_advertisement = true;
+                            }
+                        } ?>
+
+                        <?php if ($view_advertisement && hasPermission('advertisements', 'viewAdvertisement')) { ?>
                             <li class="<?php echo ($uri_1 == 'advertisement') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'advertisement'; ?>"><i class="icon-asterisk"></i>
                                     <span class="title"><?php echo $this->lang->line('advertisement'); ?></span>
@@ -295,6 +330,10 @@
                                 </ul>
                             </li>
                         <?php } ?>
+
+                        <li>
+                            
+                        </li>
                     </ul>
                     <!-- end: MAIN NAVIGATION MENU -->
                 </div>
@@ -358,6 +397,15 @@
             </div>
         </div>
 
+<div class="modal fade" id="contact-details" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="<?php echo USER_ASSETS_URL .'images/contact_us.png' ?>" class="img-responsive">
+            </div>
+        </div>
+    </div>
+</div>
         <!-- end: FOOTER -->
 
         <!-- start: MAIN JAVASCRIPTS -->

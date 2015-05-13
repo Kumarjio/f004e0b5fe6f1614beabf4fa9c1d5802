@@ -37,14 +37,14 @@
 							<div class="tab-pane <?php echo (++$i == 1) ? 'active' : ''; ?>" id="panel_tab<?php echo $product_category['category_id']; ?>">
 								<h2 class="text-center"><?php echo$product_category['category_name']; ?></h2>
 								<hr />
-								<div class="">
+								<?php if(isset($product_category['products']) && count($product_category['products']) > 0) { ?>
 									<?php foreach ($product_category['products'] as $product) { ?>
 										<label class="checkbox-inline">
 				                            <input type="checkbox" value="<?php echo $product['id']; ?>" name="product_ids[]" class="square-grey" <?php echo (in_array($product['id'], $supplier_product)) ? 'checked' : ''; ?>>
 				                            <?php echo $product['name']; ?>
 				                        </label>
 									<?php } ?>
-								</div>
+								<?php } else { echo '<strong class="text-danger">' , $this->lang->line('no_product_in_category'), '</strong>'; }?>
 							</div>
 						<?php } ?>
 					</div>

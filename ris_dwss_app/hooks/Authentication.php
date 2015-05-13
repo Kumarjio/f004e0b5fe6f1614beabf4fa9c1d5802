@@ -44,7 +44,8 @@ class Authentication extends CI_Controller {
         $this->allowed_controller = array(
             'authenticate',
             'json',
-            'dashboard'
+            'dashboard',
+            'ajax'
         );
     }
 

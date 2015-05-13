@@ -48,6 +48,9 @@
 	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
 	$lang['send_sms_success'] = 'SMS Sent Successfully';
 	$lang['send_sms_error'] = 'Not able to Send SMS';
+	$lang['webmail'] = 'Webmail';
+	$lang['no_record_exits'] = 'No Record Exits';
+	$lang['contact_details'] = 'Contact Details';
 
 	$lang['sunday'] = 'Sunday';
 	$lang['monday'] = 'Monday';
@@ -237,7 +240,9 @@
 	$lang['supplier_confirm_password'] = 'Confirm Password';	
 
 //Supplier Products
-	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
+	$lang['supplier_prodcu'] = 'Supplier Prodcuts';
+	$lang['no_product_in_category'] = 'No Products Found';
+	$lang['supplier_manage_product'] = 'Manage Products';
 
 //Sell Offer
 	$lang['selloffer'] = 'Sell Offer';
@@ -284,5 +289,7 @@
 	$lang['advertisement_start_date'] = 'Start Date';
 	$lang['advertisement_end_date'] = 'End Date';
 	$lang['advertisement_image'] = 'Image';
-	
+
+//Contact US
+	$lang['contact_us'] = 'Contact Us';
 ?>

@@ -293,7 +293,7 @@ class suppliers extends CI_Controller
     function manageProductSupplier($supplier_id = null){
         if ($this->input->post() !== false) {
             if($this->session_data->role == 3) {
-                $supplier_id = $this->session_data->id;
+                $supplier_id = $this->session_data->supplier_id;
                 $valid = true;
             } else if($this->session_data->role == 1 || $this->session_data->role == 2) {
                 if(empty($supplier_id)){
@@ -328,8 +328,6 @@ class suppliers extends CI_Controller
                         }
                     }
 
-
-
                     foreach ($product_remove as $remove_product) {
                         $obj_supplier_product_remove = new Supplierproduct();
                         $obj_supplier_product_remove->where(array('supplier_id' => $supplier_id, 'product_id' => $remove_product));
@@ -347,7 +345,6 @@ class suppliers extends CI_Controller
                         $obj_supplier_product_add->update_datetime = get_current_date_time()->get_date_time_for_db();
                         $obj_supplier_product_add->save();
                     }
-
                 } else {
                     foreach ($product_ids as $product_id) {
                         $supplier_product = new Supplierproduct();
@@ -363,15 +360,24 @@ class suppliers extends CI_Controller
                 }
 
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
-                redirect(USER_URL . 'supplier', 'refresh');
+                if($this->session_data->role == 3) {
+                    redirect(USER_URL . 'supplier/product', 'refresh');
+                } else {
+                    redirect(USER_URL . 'supplier', 'refresh');
+                }
+                
             } else {
                 $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
-                redirect(USER_URL . 'supplier', 'refresh');
+                if($this->session_data->role == 3) {
+                    redirect(USER_URL . 'supplier/product', 'refresh');
+                } else {
+                    redirect(USER_URL . 'supplier', 'refresh');
+                }
             }
         } else {
             $valid = false;
             if($this->session_data->role == 3) {
-                $supplier_id = $this->session_data->id;
+                $supplier_id = $this->session_data->supplier_id;
                 $valid = true;
             } else if($this->session_data->role == 1 || $this->session_data->role == 2) {
                 if(empty($supplier_id)){
@@ -393,7 +399,7 @@ class suppliers extends CI_Controller
                     $data['supplier_details'] = $obj_supplier->stored;
 
                     $obj_product_catgory = new Productcategory();
-                    $obj_product_catgory->where('market_id', $obj_supplier->stored->id);
+                    $obj_product_catgory->where('market_id', $obj_supplier->stored->market_id);
 
                     $product_data =array();
                     foreach ($obj_product_catgory->get() as $product_category) {
@@ -433,7 +439,7 @@ class suppliers extends CI_Controller
         }
     }
 
-    function deleteProductSupplier($supplier_id, $product_id){
+    function manageProdcut(){
 
     }
 }
