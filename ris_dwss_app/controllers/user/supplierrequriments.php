@@ -12,7 +12,7 @@ class supplierrequriments extends CI_Controller
         $this->session_data = $this->session->userdata('user_session');
 
         if($this->session_data->role == 3){
-            if(!checkSuppliersupplierAmenities(4, $this->session_data->id)){
+            if(!checkSuppliersupplierAmenities(4, $this->session_data->supplier_id)){
                 $this->session->set_flashdata('error', 'You dont have permission to see it Please contact Administrator');
                 redirect(USER_URL . 'denied', 'refresh');
             }
@@ -21,7 +21,12 @@ class supplierrequriments extends CI_Controller
     
     function viewSupplierrequriment() {
         $obj_supplierrequriment = new Supplierrequriment();
-        $data['count'] = $obj_supplierrequriment->count();
+        if($this->session_data->role == 1 || $this->session_data->role == 2){
+            $data['count'] = $obj_supplierrequriment->count();
+        } else {
+            $obj_supplierrequriment->where('supplier_id', $this->session_data->supplier_id)->get();
+            $data['count'] = $obj_supplierrequriment->result_count();
+        }
 
         $this->layout->view('user/supplierrequriments/view', $data);
     }
@@ -33,7 +38,7 @@ class supplierrequriments extends CI_Controller
             if($this->session_data->role ==1 || $this->session_data->role ==2){
                 $supplierrequriment->supplier_id = $this->input->post('supplier_id');
             } else {
-                $supplierrequriment->supplier_id = $this->session_data->id;
+                $supplierrequriment->supplier_id = $this->session_data->supplier_id;
             }
 
             $supplierrequriment->product_id = $this->input->post('product_id');
@@ -72,7 +77,7 @@ class supplierrequriments extends CI_Controller
                 $data['products_details'] = NULL;
             } else {
                 $obj_supplier_product = new Supplierproduct();
-                $obj_supplier_product->where('supplier_id', $this->session_data->id);
+                $obj_supplier_product->where('supplier_id', $this->session_data->supplier_id);
                 $product_data =array();
                 foreach ($obj_supplier_product->get() as $products_detail) {
                     $prod_temp = $products_detail->Product->get();
@@ -102,7 +107,7 @@ class supplierrequriments extends CI_Controller
                 if($this->session_data->role ==1 || $this->session_data->role ==2){
                     $supplierrequriment->supplier_id = $this->input->post('supplier_id');
                 } else {
-                    $supplierrequriment->supplier_id = $this->session_data->id;
+                    $supplierrequriment->supplier_id = $this->session_data->supplier_id;
                 }
 
                 $supplierrequriment->product_id = $this->input->post('product_id');
@@ -133,34 +138,38 @@ class supplierrequriments extends CI_Controller
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('supplierrequriment'));
 
-                $supplierrequriment = new Supplierrequriment();
-                $data['supplierrequriment'] = $supplierrequriment->where('id', $id)->get();
-
                 if($this->session_data->role ==1 || $this->session_data->role ==2){
-                    $obj_supplier = new Supplier();
-                    $data['supplier_details'] = $obj_supplier->get();
-                    $supplier_id = $supplierrequriment->supplier_id;
+                    $supplierrequriment = new Supplierrequriment();
+                    $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id))->get();
+                    $supplier_id = $data['supplierrequriment']->supplier_id;
+                } else if($this->session_data->role == 3){
+                    $supplier_id = $this->session_data->supplier_id;
+                    $supplierrequriment = new Supplierrequriment();
+                    $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $supplier_id))->get();
+                }
+
+                if($supplierrequriment->result_count() == 1){
+                    $obj_supplier_product = new Supplierproduct();
+                    $obj_supplier_product->where('supplier_id', $supplier_id);
+                    $product_data =array();
+                    foreach ($obj_supplier_product->get() as $products_detail) {
+                        $prod_temp = $products_detail->Product->get();
+                        $cat_temp = $products_detail->Product->Productcategory->get();
+                        $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
+                        $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
+
+                        $temp = array();
+                        $temp['id'] = $prod_temp->stored->id;
+                        $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
+                        $product_data[$cat_temp->stored->id]['products'][] = $temp;
+                    }
+
+                    $data['products_details'] = $product_data;
+                    $this->layout->view('user/supplierrequriments/edit', $data);
                 } else {
-                    $supplier_id = $this->session_data->id;
+                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    redirect(USER_URL . 'supplierrequriment', 'refresh');
                 }
-
-                $obj_supplier_product = new Supplierproduct();
-                $obj_supplier_product->where('supplier_id', $supplier_id);
-                $product_data =array();
-                foreach ($obj_supplier_product->get() as $products_detail) {
-                    $prod_temp = $products_detail->Product->get();
-                    $cat_temp = $products_detail->Product->Productcategory->get();
-                    $product_data[$cat_temp->stored->id]['category_id'] = $cat_temp->stored->id;
-                    $product_data[$cat_temp->stored->id]['category_name'] = $cat_temp->stored->{$this->session_data->language.'_name'};
-
-                    $temp = array();
-                    $temp['id'] = $prod_temp->stored->id;
-                    $temp['name'] = $prod_temp->stored->{$this->session_data->language.'_name'};
-                    $product_data[$cat_temp->stored->id]['products'][] = $temp;
-                }
-
-                $data['products_details'] = $product_data;
-                $this->layout->view('user/supplierrequriments/edit', $data);
             }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
@@ -187,7 +196,7 @@ class supplierrequriments extends CI_Controller
     function smsSupplierrequriment($id){
         $supplierrequriment = new Supplierrequriment();
         if($this->session_data->role == 3) {
-            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->id))->get();
+            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->supplier_id))->get();
         } else {
             $data['supplierrequriment'] = $supplierrequriment->where('id', $id)->get();
         }
@@ -203,7 +212,7 @@ class supplierrequriments extends CI_Controller
     function sendSmsSupplierrequriment($id){
         $supplierrequriment = new Supplierrequriment();
         if($this->session_data->role == 3) {
-            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->id))->get();
+            $data['supplierrequriment'] = $supplierrequriment->where(array('id' => $id, 'supplier_id' => $this->session_data->supplier_id))->get();
         } else {
             $data['supplierrequriment'] = $supplierrequriment->where('id', $id)->get();
         }
@@ -246,7 +255,7 @@ class supplierrequriments extends CI_Controller
         if($obj->result_count() == 1){
             $supplierrequriment = new Supplierrequriment();
             if($this->session_data->role == 3) {
-                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->id))->get();
+                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->supplier_id))->get();
             } else {
                 $supplierrequriment->where('id', $obj->supplierrequriment_id)->get();
             }
@@ -271,7 +280,7 @@ class supplierrequriments extends CI_Controller
         if($obj->result_count() == 1){
             $supplierrequriment = new Supplierrequriment();
             if($this->session_data->role == 3) {
-                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->id))->get();
+                $supplierrequriment->where(array('id' => $obj->supplierrequriment_id, 'supplier_id' => $this->session_data->supplier_id))->get();
             } else {
                 $supplierrequriment->where('id', $obj->supplierrequriment_id)->get();
             }

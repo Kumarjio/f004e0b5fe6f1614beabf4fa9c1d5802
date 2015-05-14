@@ -163,6 +163,7 @@
 
                         $view_offer_requriment = false;
                         $view_advertisement = false;
+                        $view_order_form = false;
                     ?>
                     <ul class="main-navigation-menu">
                         <li class="<?php echo ($uri_1 == 'dashboard') ? 'active open' : ''; ?>">
@@ -224,7 +225,7 @@
                         <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
                             $view_offer_requriment = true;
                         } else if($this->session_data->role == 3) {
-                            if(checkSuppliersupplierAmenities(4, $this->session_data->id)){
+                            if(checkSuppliersupplierAmenities(4, $this->session_data->supplier_id)){
                                 $view_offer_requriment = true;
                             }
                         } ?>
@@ -246,20 +247,28 @@
                         <?php } ?>
 
                         <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
-                            $view_advertisement = true;
+                            $view_order_form = true;
                         } else if($this->session_data->role == 3) {
-                            if(checkSuppliersupplierAmenities(2, $this->session_data->id)){
-                                $view_advertisement = true;
+                            if(checkSuppliersupplierAmenities(5, $this->session_data->supplier_id)){
+                                $view_order_form = true;
                             }
                         } ?>
 
-                        <?php if ($view_advertisement && hasPermission('advertisements', 'viewAdvertisement')) { ?>
-                            <li class="<?php echo ($uri_1 == 'advertisement') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'advertisement'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('advertisement'); ?></span>
+                        <?php if ($view_order_form && hasPermission('packets', 'viewPacket')) { ?>
+                            <li class="<?php echo ($uri_1 == 'packet') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'packet'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('packet'); ?></span>
                                 </a>
                             </li>
                         <?php } ?>
+
+                        <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
+                            $view_advertisement = true;
+                        } else if($this->session_data->role == 3) {
+                            if(checkSuppliersupplierAmenities(2, $this->session_data->supplier_id)){
+                                $view_advertisement = true;
+                            }
+                        } ?>
 
                         <?php if (hasPermission('communications', 'viewCommunication')) { ?>
                             <li class="<?php echo ($uri_1 == 'communication') ? 'active open' : ''; ?>">
@@ -389,12 +398,13 @@
             </div>
         </div>
 
+        <!--<div class="footer-items">
+            <span class="go-top"><i class="clip-chevron-up"></i></span>
+        </div> -->
+
         <div class="footer clearfix">
-            <p class="col-md-6"><?php echo $this->config->item($session->language . '_copyright_left'); ?></p>
-            <p class="col-md-6 text-right"><?php echo $this->config->item($session->language . '_copyright_right'); ?></p>
-            <div class="footer-items">
-                <span class="go-top"><i class="clip-chevron-up"></i></span>
-            </div>
+            <p class="col-md-6"><?php echo html_entity_decode($this->config->item($session->language . '_copyright_left')); ?></p>
+            <p class="col-md-6 text-right"><?php echo html_entity_decode($this->config->item($session->language . '_copyright_right')); ?></p>
         </div>
 
 <div class="modal fade" id="contact-details" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">

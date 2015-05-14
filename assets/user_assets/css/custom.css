@@ -132,3 +132,25 @@
     float: left;
     margin-right: 20px;
 }
+
+.main-content .container{
+    border-bottom: none;
+}
+
+.footer{
+    background: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid #C8C7CC;
+}
+
+.footer p{
+    padding: 10px 0;
+    font-size: 15px;
+}
+
+.footer p a{
+    font-weight: bold;
+}
+
+.footer p.text-right a{
+    font-family: cursive;
+}

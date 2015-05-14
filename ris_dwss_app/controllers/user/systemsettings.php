@@ -60,83 +60,14 @@ class systemsettings extends CI_Controller
         $setting = new Systemsetting();
         $setting->where('type', $type)->get();
 
-        if($type == 'login_credential'){
-            $user = new Admin();
-            $user->where('id', $this->session_data->id)->get();
-            $user->fullname = $this->input->post('fullname');
-            $user->email = $this->input->post('email');
-            if($this->input->post('password') != ''){
-                $user->password = md5($this->input->post('password'));    
+        foreach ($setting as $value) {
+            if($value->sys_key != 'smtp_pass'){
+                $setting->where('sys_key', $value->sys_key)->update('sys_value', htmlentities($this->input->post($value->sys_key)));
+            } else {
+                $setting->where('sys_key', $value->sys_key)->update('sys_value', $this->input->post($value->sys_key));
             }
-            $user->save();
+        }
 
-            $user_data = $this->session_data;
-            $user_data->name = $this->input->post('fullname');
-            $user_data->email = $this->input->post('email');
-            $newdata = array('user_session' => $user_data);
-            $this->session->set_userdata($newdata);
-        } else {
-            foreach ($setting as $value) {
-                if ($value->sys_key == 'login_logo' || $value->sys_key == 'main_logo') {
-                    if ($_FILES[$value->sys_key]['name'] != '') {
-                        $avtar = $this->_uploadAvtar($value->sys_key);
-                        $setting->where('sys_key', $value->sys_key)->update('sys_value', $avtar['file_name']);
-                    }
-                } else if ($value->sys_key == 'post_last_wish') {
-                    $post_last_wish = $this->input->post('post_last_wish_input') .'_' . $this->input->post('post_last_wish_select');
-                    $setting->where('sys_key', $value->sys_key)->update('sys_value', $post_last_wish);
-                } else {
-                    $setting->where('sys_key', $value->sys_key)->update('sys_value', $this->input->post($value->sys_key));
-                }
-            }
-        }
         return TRUE;
-    }
-    
-    private function _uploadAvtar($sys_key) {
-        $this->upload->initialize(array('upload_path' => "./assets/img", 'allowed_types' => 'jpg|jpeg|gif|png|bmp', 'overwrite' => FALSE, 'remove_spaces' => TRUE, 'encrypt_name' => TRUE));
-        
-        $setting = new Systemsetting();
-        $setting->where('sys_key', $sys_key)->get();
-        
-        if (!$this->upload->do_upload($sys_key)) {
-            $data = array('error' => $this->upload->display_errors());
-        } else {
-            $data = array('upload_data' => $this->upload->data($sys_key));
-        }
-        
-        if (isset($data['upload_data'])) {
-            if ($data['upload_data']['file_name'] != '') {
-                
-                if ($setting->sys_value != null && $setting->sys_value != 'no_avatar.jpg') {
-                    if (file_exists('assets/img/' . $setting->sys_value)) {
-                        unlink('assets/img/' . $setting->sys_value);
-                    }
-                }
-                
-                $image = str_replace(' ', '_', $data['upload_data']['file_name']);
-                
-                if ($sys_key == 'main_logo' && $data['upload_data']['image_width'] > 250) {
-                    $this->load->helper('image_manipulation/image_manipulation');
-                    include_lib_image_manipulation();
-                    
-                    $magicianObj = new imageLib('./assets/img/' . $image);
-                    $magicianObj->resizeImage(250, 70, 'landscape');
-                    $magicianObj->saveImage('./assets/img/' . $image, 100);
-                } else if ($sys_key == 'login_logo' && $data['upload_data']['image_height'] > 120) {
-                    $this->load->helper('image_manipulation/image_manipulation');
-                    include_lib_image_manipulation();
-                    
-                    $magicianObj = new imageLib('./assets/img/' . $image);
-                    $magicianObj->resizeImage(320, 120, 'portrait');
-                    $magicianObj->saveImage('./assets/img/' . $image, 100);
-                }
-                
-                return $data['upload_data'];
-            }
-        } else if (isset($data['error'])) {
-            $this->session->set_flashdata($sys_key, $data['error']);
-            redirect(USER_URL . 'system_setting/' . $setting->type, 'refresh');
-        }
     }
 }

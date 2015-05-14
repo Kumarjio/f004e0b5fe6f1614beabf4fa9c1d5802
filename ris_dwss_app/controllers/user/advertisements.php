@@ -13,7 +13,12 @@ class advertisements extends CI_Controller {
     
     function viewAdvertisement() {
         $advertisement = new Advertisement();
-        $data['count'] = $advertisement->count();
+        if($this->session_data->role == 1 || $this->session_data->role == 2){
+            $data['count'] = $advertisement->count();
+        } else {
+            $advertisement->where('supplier_id', $this->session_data->supplier_id)->get();
+            $data['count'] = $advertisement->result_count();
+        }
 
         $this->layout->view('user/advertisements/view', $data);
     }
@@ -25,7 +30,7 @@ class advertisements extends CI_Controller {
             if($this->session_data->role ==1 || $this->session_data->role ==2){
                 $obj->supplier_id = $this->input->post('supplier_id');
             } else {
-                $obj->supplier_id = $this->session_data->id;
+                $obj->supplier_id = $this->session_data->supplier_id;
             }
 
             $obj->place = $this->input->post('place');
@@ -137,13 +142,25 @@ class advertisements extends CI_Controller {
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('advertisement'));
 
-                $obj = new Supplier();
-                $data['suppliers'] = $obj->get();
+                if($this->session_data->role ==1 || $this->session_data->role ==2){
+                    $advertisement = new Advertisement();
+                    $data['advertisement'] = $advertisement->where(array('id' => $id))->get();
+                    $supplier_id = $data['advertisement']->supplier_id;
+                } else if($this->session_data->role == 3){
+                    $supplier_id = $this->session_data->supplier_id;
+                    $advertisement = new Advertisement();
+                    $data['advertisement'] = $advertisement->where(array('id' => $id, 'supplier_id' => $supplier_id))->get();
+                }
 
-                $obj = new Advertisement();
-                $data['advertisement'] = $obj->where('id', $id)->get();
+                if($advertisement->result_count() == 1){
+                    $obj = new Supplier();
+                    $data['suppliers'] = $obj->get();
 
-                $this->layout->view('user/advertisements/edit', $data);
+                    $this->layout->view('user/advertisements/edit', $data);
+                } else {
+                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    redirect(USER_URL . 'advertisement', 'refresh');
+                }
             }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));

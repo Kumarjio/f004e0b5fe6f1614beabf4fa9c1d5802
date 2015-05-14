@@ -40,7 +40,7 @@ class communications extends CI_Controller {
                 $obj->title = $this->input->post('title');
                 $obj->message = $description;
                 $obj->status = $check;
-                $obj->created_id = $this->session_data->id;
+                $obj->created_datetime = $this->session_data->id;
                 $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
                 $obj->updated_id = $this->session_data->id;
                 $obj->update_datetime = get_current_date_time()->get_date_time_for_db();

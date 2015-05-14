@@ -62,20 +62,22 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('advertisement_shop_name'); ?>
-                    <span class="text-danger">*</span>
-                </label>
-                <div class="col-lg-9">
-                    <select class="form-control chosen-select required" name="supplier_id">
-                        <option value=""></option>
-                    <?php foreach ($suppliers as $s_value) { ?>
-                        <option value="<?php echo $s_value->id; ?>" <?php echo ($advertisement->supplier_id == $s_value->id) ? 'selected' : ''; ?>><?php echo $s_value->{$session->language.'_shop_name'}; ?></option>
-                    <?php } ?>
-                    </select>
+            <?php if($this->session_data->role ==1 || $this->session_data->role ==2){  ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('advertisement_shop_name'); ?>
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <select class="form-control chosen-select required" name="supplier_id">
+                            <option value=""></option>
+                        <?php foreach ($suppliers as $s_value) { ?>
+                            <option value="<?php echo $s_value->id; ?>" <?php echo ($advertisement->supplier_id == $s_value->id) ? 'selected' : ''; ?>><?php echo $s_value->{$session->language.'_shop_name'}; ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             
             <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                 <div class="form-group">

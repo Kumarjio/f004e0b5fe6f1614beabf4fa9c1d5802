@@ -753,8 +753,8 @@ class json extends CI_Controller
             $where .= ' AND communications.created_datetime <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
         }
 
-        if($this->session_data->role != 1){
-            $where .= ' AND communications.from_id =' . $this->session_data->supplier_id; 
+        if($this->session_data->role == 3){
+            $where .= ' AND communications.from_id =' . $this->session_data->id; 
         }
 
         $this->load->library('datatable');
@@ -813,6 +813,10 @@ class json extends CI_Controller
 
         if(!empty($end_date) && strtolower($end_date) != 'null'){
             $where .= ' AND advertisements.end_date <=\'' . date('Y-m-d', strtotime($end_date)) .'\''; 
+        }
+
+        if($this->session_data->role == 3){
+            $where .= ' AND advertisements.supplier_id =' . $this->session_data->supplier_id; 
         }
 
         $this->load->library('datatable');

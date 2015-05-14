@@ -202,7 +202,7 @@
                         <th width="125"><?php echo $this->lang->line('supplier_type'); ?></th>
                         <th width="125"><?php echo $this->lang->line('supplier_bussiness_type'); ?></th>
                         <th width="125"><?php echo $this->lang->line('supplier_amenities'); ?></th>
-                        <th width="125"><?php echo $this->lang->line('actions'); ?></th>
+                        <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

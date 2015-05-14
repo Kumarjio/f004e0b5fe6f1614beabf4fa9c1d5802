@@ -81,6 +81,12 @@ $config['advertisement_places'] = array(
   'B' => array('en' => 'Bottom', 'gu' => 'નીચે'), 
   'L' => array('en' => 'Left', 'gu' => 'ડાબે'));
 
+$config['packet_measurements'] = array(
+  'LT' => array('en' => 'Liter', 'gu' => 'લિટર'), 
+  'GR' => array('en' => 'Gram', 'gu' => 'ગ્રામ'), 
+  'KG' => array('en' => 'Kilogram', 'gu' => 'કિલોગ્રામ'), 
+  'QT' => array('en' => 'Quintal', 'gu' => 'ક્વિન્ટલ'));
+
 /*
   |--------------------------------------------------------------------------
   | Index File

@@ -292,4 +292,7 @@
 
 //Contact US
 	$lang['contact_us'] = 'Contact Us';
+
+//Packets
+	$lang['packet'] = 'Manage Order Packing';	
 ?>
