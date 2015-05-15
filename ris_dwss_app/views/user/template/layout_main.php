@@ -190,60 +190,93 @@
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('productcategories', 'viewProductcategory')) { ?>
-                            <li class="<?php echo ($uri_1 == 'productcategory') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'productcategory'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('product_category'); ?></span>
+                        <?php if ($this->session_data->role ==1 || $this->session_data->role ==2) { ?>
+                            <li class="<?php echo ($uri_1 == 'productcategory' || $uri_1 == 'product' || $uri_1 == 'productrate') ? 'active open' : ''; ?>">
+                                <a href="#">
+                                    <i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('product'); ?></span><i class="icon-arrow"></i>
                                 </a>
+                                <ul class="sub-menu">
+                                    <?php if (hasPermission('product', 'viewProduct')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'product') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'product'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('product'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php if (hasPermission('productcategories', 'viewProductcategory')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'productcategory') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'productcategory'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('product_category'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php if (hasPermission('productrates', 'viewProductrate')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'productrate') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'productrate'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('product_rate'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('product', 'viewProduct')) { ?>
-                            <li class="<?php echo ($uri_1 == 'product') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'product'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('product'); ?></span>
+                        <?php if ($this->session_data->role ==1 || $this->session_data->role ==2) { ?>
+                            <li class="<?php echo ($uri_1 == 'supplier' || $uri_1 == 'selloffer' || $uri_1 == 'supplierrequriment') ? 'active open' : ''; ?>">
+                                <a href="#">
+                                    <i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('supplier'); ?></span><i class="icon-arrow"></i>
                                 </a>
-                            </li>
-                        <?php } ?>
+                                <ul class="sub-menu">
+                                    <?php if (hasPermission('suppliers', 'viewSupplier')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'supplier') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'supplier'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('supplier'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
 
-                        <?php if (hasPermission('productrates', 'viewProductrate')) { ?>
-                            <li class="<?php echo ($uri_1 == 'productrate') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'productrate'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('product_rate'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
+                                    <?php if(hasPermission('selloffers', 'viewSelloffer')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'selloffer'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('selloffer'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
 
-                        <?php if (hasPermission('suppliers', 'viewSupplier')) { ?>
-                            <li class="<?php echo ($uri_1 == 'supplier') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'supplier'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('supplier'); ?></span>
-                                </a>
+                                    <?php if(hasPermission('supplierrequriments', 'viewSupplierrequriment')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'supplierrequriment') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'supplierrequriment'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('supplierrequriment'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </li>
-                        <?php } ?>
+                        <?php } else if($this->session_data->role == 3) {
+                                if(checkSuppliersupplierAmenities(4, $this->session_data->supplier_id)){
+                                    $view_offer_requriment = true;
+                                }
+                        ?>
 
-                        <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
-                            $view_offer_requriment = true;
-                        } else if($this->session_data->role == 3) {
-                            if(checkSuppliersupplierAmenities(4, $this->session_data->supplier_id)){
-                                $view_offer_requriment = true;
-                            }
-                        } ?>
+                            <?php if($view_offer_requriment && hasPermission('selloffers', 'viewSelloffer')) { ?>
+                                <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
+                                    <a href="<?php echo USER_URL .'selloffer'; ?>"><i class="icon-asterisk"></i>
+                                        <span class="title"><?php echo $this->lang->line('selloffer'); ?></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
 
-                        <?php if($view_offer_requriment && hasPermission('selloffers', 'viewSelloffer')) { ?>
-                            <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'selloffer'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('selloffer'); ?></span>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if($view_offer_requriment && hasPermission('supplierrequriments', 'viewSupplierrequriment')) { ?>
-                            <li class="<?php echo ($uri_1 == 'supplierrequriment') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'supplierrequriment'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('supplierrequriment'); ?></span>
-                                </a>
-                            </li>
+                            <?php if($view_offer_requriment && hasPermission('supplierrequriments', 'viewSupplierrequriment')) { ?>
+                                <li class="<?php echo ($uri_1 == 'supplierrequriment') ? 'active open' : ''; ?>">
+                                    <a href="<?php echo USER_URL .'supplierrequriment'; ?>"><i class="icon-asterisk"></i>
+                                        <span class="title"><?php echo $this->lang->line('supplierrequriment'); ?></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
                         <?php } ?>
 
                         <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
@@ -270,6 +303,14 @@
                             }
                         } ?>
 
+                        <?php if ($view_advertisement && hasPermission('advertisements', 'viewAdvertisement')) { ?>
+                            <li class="<?php echo ($uri_1 == 'advertisement') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'advertisement'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('advertisement'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
                         <?php if (hasPermission('communications', 'viewCommunication')) { ?>
                             <li class="<?php echo ($uri_1 == 'communication') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'communication'; ?>"><i class="icon-asterisk"></i>
@@ -294,19 +335,29 @@
                             </li>
                         <?php } ?>
 
-                        <?php if (hasPermission('bods', 'viewBod')) { ?>
-                            <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('bod'); ?></span>
+                        <?php if (hasPermission('bods', 'viewBod') || hasPermission('stafves', 'viewStaff')) { ?>
+                            <li class="<?php echo ($uri_1 == 'bod' || $uri_1 == 'staff' || $uri_1 == 'user') ? 'active open' : ''; ?>">
+                                <a href="#">
+                                    <i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('users'); ?></span><i class="icon-arrow"></i>
                                 </a>
-                            </li>
-                        <?php } ?>
+                                <ul class="sub-menu">
+                                    <?php if (hasPermission('bods', 'viewBod')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('bod'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
 
-                        <?php if (hasPermission('stafves', 'viewStaff')) { ?>
-                            <li class="<?php echo ($uri_1 == 'staff') ? 'active open' : ''; ?>">
-                                <a href="<?php echo USER_URL .'staff'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('staff'); ?></span>
-                                </a>
+                                    <?php if (hasPermission('stafves', 'viewStaff')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'staff') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'staff'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('staff'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
                             </li>
                         <?php } ?>
 

@@ -51,6 +51,12 @@
 	$lang['webmail'] = 'Webmail';
 	$lang['no_record_exits'] = 'No Record Exits';
 	$lang['contact_details'] = 'Contact Details';
+	$lang['all_fields_are_compulsory'] = '* All fields are compulsory';
+
+	$lang['pending'] = 'Pending';
+	$lang['approved'] = 'Approved';
+	$lang['unapproved'] = 'Unapproved';
+	$lang['over'] = 'Over';
 
 	$lang['sunday'] = 'Sunday';
 	$lang['monday'] = 'Monday';
@@ -77,6 +83,11 @@
 	$lang['sign_into_account'] = 'Sign in to your account';
 	$lang['i_forgot_password'] = 'I forgot my password';
 	$lang['login_button'] = 'Login';
+
+	$lang['invalid_username_password'] = 'Invalid Username or password';
+	$lang['user_inactive'] = 'You are not an active member. Please contact administartor';
+	$lang['login_contact_admin'] = 'Something went wrong. Please contact administartor';
+	
 
 //Forgot Password
 	$lang['send_mail'] = 'Send Mail';
@@ -289,10 +300,15 @@
 	$lang['advertisement_start_date'] = 'Start Date';
 	$lang['advertisement_end_date'] = 'End Date';
 	$lang['advertisement_image'] = 'Image';
+	$lang['advertisement_approve'] = 'Approve';
+	$lang['advertisement_remark'] = 'Remark';
 
 //Contact US
 	$lang['contact_us'] = 'Contact Us';
 
 //Packets
-	$lang['packet'] = 'Manage Order Packing';	
+	$lang['packet'] = 'Manage Order Packing';
+
+//Users
+	$lang['users'] = 'Manage Users';	
 ?>

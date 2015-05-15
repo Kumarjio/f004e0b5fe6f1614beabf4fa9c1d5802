@@ -852,14 +852,23 @@ class json extends CI_Controller
             }
 
             if($aRow['status'] == 0){
-                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
-            } else {
-                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+                $temp_arr[] = '<span class="label label-warning" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('pending') .'">'. $this->lang->line('pending') .'</span>';
+            } else if($aRow['status'] == 1){
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('approved') .'">'. $this->lang->line('approved') .'</span>';
+            } else if($aRow['status'] == 2){
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('unapproved') .'">'. $this->lang->line('unapproved') .'</span>';
+            }  else if($aRow['status'] == 3){
+                $temp_arr[] = '<span class="label label-info" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('over') .'">'. $this->lang->line('over') .'</span>';
             }
 
             $str = '';
-            if (hasPermission('advertisements', 'editAdvertisement')) {
-                $str .= '<a href="' . USER_URL . 'advertisement/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+
+            if (hasPermission('advertisements', 'approveAdvertisement')) {
+                $str .= '<a href="' . USER_URL . 'advertisement/approve/' . $aRow['id'] . '" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('advertisement_approve') .'"><i class="clip-checkmark"></i></a>';
+            }
+
+            if ($aRow['status'] != 3 && hasPermission('advertisements', 'editAdvertisement')) {
+                $str .= '&nbsp;<a href="' . USER_URL . 'advertisement/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
             if (hasPermission('advertisements', 'deleteAdvertisement')) {

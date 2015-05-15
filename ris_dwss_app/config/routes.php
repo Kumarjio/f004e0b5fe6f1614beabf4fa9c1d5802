@@ -101,7 +101,6 @@ $route['user/checkusername/(:num)'] = "user/ajax/checkUsernameExit/$1";
 $route['user/checkemail/(:num)'] = "user/ajax/checkEmailExit/$1";
 $route['user/get_product_by_supplier_selloffer/(:num)'] = "user/ajax/getProductBySupplierSelloffer/$1";
 
-
 //Supplier Product
 $route['user/supplier/product'] = "user/suppliers/manageProductSupplier";
 $route['user/supplier/product/(:num)'] = "user/suppliers/manageProductSupplier/$1";
@@ -117,6 +116,9 @@ $route['user/supplierrequriment/sms/delete/(:num)'] = "user/supplierrequriments/
 //Communications
 $route['user/communication/send'] = "user/communications/sendCommunication";
 $route['user/communication/resend/(:num)'] = "user/communications/resendCommunication/$1";
+
+//Advertisements
+$route['user/advertisement/approve/(:num)'] = "user/advertisements/approveAdvertisement/$1";
 
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";

@@ -158,13 +158,13 @@
             <table class="table table-bordered table-hover" id="list_data">
                 <thead class="the-box dark full">
                     <tr align="left">
-                        <th width="100"><?php echo $this->lang->line('advertisement_place'); ?></th>
+                        <th width="75"><?php echo $this->lang->line('advertisement_place'); ?></th>
                         <th width="150"><?php echo $this->lang->line('advertisement_shop_name'); ?></th>
                         <th><?php echo $this->lang->line('advertisement_name'); ?></th>
                         <th width="100"><?php echo $this->lang->line('advertisement_start_date'); ?></th>
                         <th width="100"><?php echo $this->lang->line('advertisement_end_date'); ?></th>
-                        <th width="75"><?php echo $this->lang->line('status'); ?></th>
-                        <th width="100"><?php echo $this->lang->line('actions'); ?></th>
+                        <th width="100"><?php echo $this->lang->line('status'); ?></th>
+                        <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -41,7 +41,7 @@ class authenticate extends CI_Controller
         $this->form_validation->set_rules('password', $this->lang->line('password'), 'required');
 
         if ($this->form_validation->run() == FALSE){
-            $this->session->set_flashdata('error', 'All fields are compulsory');
+            $this->session->set_flashdata('error', $this->lang->line('all_fields_are_compulsory'));
             redirect(USER_URL .'login', 'refresh');
         } else {
             $user = new User();
@@ -50,11 +50,19 @@ class authenticate extends CI_Controller
             $user->get();
             
             if ($user->result_count() != 1) {
-                $this->session->set_flashdata('error', 'Login failed');
+                $this->session->set_flashdata('error', $this->lang->line('invalid_username_password'));
                 redirect(USER_URL . 'login', 'refresh');
             } else {
-                $this->_setSessionData($user->stored);
-                redirect(USER_URL . 'dashboard', 'refresh');
+                if($user->stored->status == 1){
+                    $this->_setSessionData($user->stored);
+                    redirect(USER_URL . 'dashboard', 'refresh');
+                } else if($user->stored->status == 0){
+                    $this->session->set_flashdata('info', $this->lang->line('user_inactive'));
+                    redirect(USER_URL . 'login', 'refresh');
+                } else {
+                    $this->session->set_flashdata('info', $this->lang->line('login_contact_admin'));
+                    redirect(USER_URL . 'login', 'refresh');
+                }
             }
         }
     }

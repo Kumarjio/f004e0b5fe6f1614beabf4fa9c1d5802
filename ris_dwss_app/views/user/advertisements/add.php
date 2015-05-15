@@ -147,21 +147,27 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('status'); ?>
-                </label>
-                <div class="col-lg-9">
-                    <label class="radio-inline">
-                        <input type="radio" value="1" name="status" class="square-grey" checked>
-                        <?php echo $this->lang->line('active'); ?>
+            <?php if($this->session_data->role ==1 || $this->session_data->role ==2){  ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('status'); ?>
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" value="0" name="status" class="square-grey">
-                        <?php echo $this->lang->line('in_active'); ?>
-                    </label>
+                    <div class="col-lg-9">
+                        <label class="radio-inline">
+                            <input type="radio" value="0" name="status" class="square-grey" />
+                            <?php echo $this->lang->line('pending'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="1" name="status" class="square-grey" />
+                            <?php echo $this->lang->line('approved'); ?>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="2" name="status" class="square-grey" />
+                            <?php echo $this->lang->line('unapproved'); ?>
+                        </label>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">&nbsp;</label>

@@ -99,8 +99,8 @@
             <?php echo @$content_for_layout; ?>
             
             <div class="copyright">
-                <p><?php echo $this->config->item($session->language . '_copyright_left'); ?></p>
-                <p><?php echo $this->config->item($session->language . '_copyright_right'); ?></p>
+                <p><?php echo html_entity_decode($this->config->item($session->language . '_copyright_left')); ?></p>
+                <p><?php echo html_entity_decode($this->config->item($session->language . '_copyright_right')); ?></p>
             </div>
         </div>
     </body>

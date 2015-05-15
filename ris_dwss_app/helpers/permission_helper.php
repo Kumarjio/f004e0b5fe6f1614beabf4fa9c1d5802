@@ -235,8 +235,17 @@ if (!function_exists('createPermissionArray')) {
                     'viewAdvertisement' => array('name' => 'List'),
                     'addAdvertisement' => array('name' => 'Add'),
                     'editAdvertisement' => array('name' => 'Edit/Update'),
-                    'deleteCommunication' => array('name' => 'Delete'),
-                    'approveCommunication' => array('name' => 'Approval'),
+                    'deleteAdvertisement' => array('name' => 'Delete'),
+                    'approveAdvertisement' => array('name' => 'Approval'),
+                )
+            ),
+            'packets' => array(
+                'name' => 'Manage Order Packing',
+                'hasChild' => array(
+                    'viewPacket' => array('name' => 'List'),
+                    'addPacket' => array('name' => 'Add'),
+                    'editPacket' => array('name' => 'Edit/Update'),
+                    'deletePacket' => array('name' => 'Delete')
                 )
             ),
             'emails' => array(

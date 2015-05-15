@@ -65,7 +65,12 @@ class advertisements extends CI_Controller {
                 $obj->end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
             }
 
-            $obj->status = $this->input->post('status');
+            if($this->session_data->role ==1 || $this->session_data->role ==2){
+                $obj->status = $this->input->post('status');
+            } else {
+                $obj->status = 0;
+            }
+
             $obj->created_id = $this->session_data->id;
             $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
             $obj->updated_id = $this->session_data->id;
@@ -132,7 +137,10 @@ class advertisements extends CI_Controller {
                     $obj->end_date = date('Y-m-d', strtotime($this->input->post('end_date')));
                 }
 
-                $obj->status = $this->input->post('status');
+                if($this->session_data->role ==1 || $this->session_data->role ==2){
+                    $obj->status = $this->input->post('status');
+                }
+
                 $obj->updated_id = $this->session_data->id;
                 $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
                 $obj->save();
@@ -157,6 +165,46 @@ class advertisements extends CI_Controller {
                     $data['suppliers'] = $obj->get();
 
                     $this->layout->view('user/advertisements/edit', $data);
+                } else {
+                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    redirect(USER_URL . 'advertisement', 'refresh');
+                }
+            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(USER_URL . 'advertisement', 'refresh');
+        }
+    }
+
+    function approveAdvertisement($id) {
+        if (!empty($id)) {
+            if ($this->input->post() !== false) {
+                $obj = new Advertisement();
+                $obj->where('id', $id)->get();
+
+                if($this->session_data->role ==1 || $this->session_data->role ==2){
+                    $obj->status = $this->input->post('status');
+                }
+
+                if ($this->input->post('remark') != '') {
+                    $obj->remark = $this->input->post('remark');
+                }
+
+                $obj->updated_id = $this->session_data->id;
+                $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj->save();
+
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                redirect(USER_URL . 'advertisement', 'refresh');
+            } else {
+                $this->layout->setField('page_title', $this->lang->line('advertisement_approve') . ' ' . $this->lang->line('advertisement'));
+
+                $advertisement = new Advertisement();
+                $data['advertisement'] = $advertisement->where(array('id' => $id))->get();
+                $supplier_id = $data['advertisement']->supplier_id;
+
+                if($advertisement->result_count() == 1){
+                    $this->layout->view('user/advertisements/approval', $data);
                 } else {
                     $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
                     redirect(USER_URL . 'advertisement', 'refresh');
