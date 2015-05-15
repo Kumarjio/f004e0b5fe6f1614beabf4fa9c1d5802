@@ -882,5 +882,27 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getPacketsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array( 'products.'.$this->session_data->language . '_name');
+        $this->datatable->eColumns = array('supplierproducts.id', 'supplierproducts.product_id');
+        $this->datatable->sIndexColumn = "supplierproducts.id";
+        $this->datatable->sTable = " supplierproducts, products";
+        $this->datatable->myWhere = " WHERE products.id=supplierproducts.product_id AND supplierproducts.supplier_id=" . $this->session_data->supplier_id;
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            $temp_arr[] = $aRow[$this->session_data->language . '_name'];
+
+            $temp_arr[] = '<a href="' . USER_URL . 'packet/manage/' . $aRow['product_id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('manage') .'"><i class="icon-edit"></i></a>';
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }

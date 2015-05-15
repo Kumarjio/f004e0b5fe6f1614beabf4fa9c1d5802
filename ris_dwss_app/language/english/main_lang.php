@@ -307,7 +307,11 @@
 	$lang['contact_us'] = 'Contact Us';
 
 //Packets
-	$lang['packet'] = 'Manage Order Packing';
+	$lang['packet'] = 'Packet';
+	$lang['manage_packet'] = 'Manage Order Packing';
+	$lang['packet_weight'] = 'Weight';
+	$lang['add_packet'] = 'Add New Packet';
+	$lang['delete_packet'] = 'Delete Packet';
 
 //Users
 	$lang['users'] = 'Manage Users';	

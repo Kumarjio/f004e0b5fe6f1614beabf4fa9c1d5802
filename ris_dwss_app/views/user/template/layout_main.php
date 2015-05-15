@@ -260,7 +260,7 @@
                                 if(checkSuppliersupplierAmenities(4, $this->session_data->supplier_id)){
                                     $view_offer_requriment = true;
                                 }
-                        ?>
+                            ?>
 
                             <?php if($view_offer_requriment && hasPermission('selloffers', 'viewSelloffer')) { ?>
                                 <li class="<?php echo ($uri_1 == 'selloffer') ? 'active open' : ''; ?>">
@@ -279,9 +279,7 @@
                             <?php } ?>
                         <?php } ?>
 
-                        <?php if($this->session_data->role == 1 || $this->session_data->role == 2){
-                            $view_order_form = true;
-                        } else if($this->session_data->role == 3) {
+                        <?php if($this->session_data->role == 3) {
                             if(checkSuppliersupplierAmenities(5, $this->session_data->supplier_id)){
                                 $view_order_form = true;
                             }
@@ -290,7 +288,7 @@
                         <?php if ($view_order_form && hasPermission('packets', 'viewPacket')) { ?>
                             <li class="<?php echo ($uri_1 == 'packet') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'packet'; ?>"><i class="icon-asterisk"></i>
-                                    <span class="title"><?php echo $this->lang->line('packet'); ?></span>
+                                    <span class="title"><?php echo $this->lang->line('manage_packet'); ?></span>
                                 </a>
                             </li>
                         <?php } ?>

@@ -243,8 +243,7 @@ if (!function_exists('createPermissionArray')) {
                 'name' => 'Manage Order Packing',
                 'hasChild' => array(
                     'viewPacket' => array('name' => 'List'),
-                    'addPacket' => array('name' => 'Add'),
-                    'editPacket' => array('name' => 'Edit/Update'),
+                    'managePacket' => array('name' => 'Manage'),
                     'deletePacket' => array('name' => 'Delete')
                 )
             ),

@@ -120,6 +120,9 @@ $route['user/communication/resend/(:num)'] = "user/communications/resendCommunic
 //Advertisements
 $route['user/advertisement/approve/(:num)'] = "user/advertisements/approveAdvertisement/$1";
 
+//Packets
+$route['user/packet/manage/(:num)'] = "user/packets/managePacket/$1";
+
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";
 
