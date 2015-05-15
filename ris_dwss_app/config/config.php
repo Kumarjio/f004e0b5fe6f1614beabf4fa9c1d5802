@@ -25,7 +25,7 @@ $http = 'http://';
 if (isset($_SERVER) && $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
   $config['base_url'] = $http .'localhost/f004e0b5fe6f1614beabf4fa9c1d5802/';
 } else {
-  $config['base_url'] = $http .'labs.rootitsolutions.com/f004e0b5fe6f1614beabf4fa9c1d5802/';
+  $config['base_url'] = $http .'labs.rootitsolutions.com/apmc/';
 }
 
 
