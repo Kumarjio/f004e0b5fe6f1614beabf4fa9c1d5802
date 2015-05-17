@@ -88,7 +88,6 @@
 	$lang['user_inactive'] = 'You are not an active member. Please contact administartor';
 	$lang['login_contact_admin'] = 'Something went wrong. Please contact administartor';
 	
-
 //Forgot Password
 	$lang['send_mail'] = 'Send Mail';
 	$lang['back_to_login'] = 'Back to Login';
@@ -314,5 +313,13 @@
 	$lang['delete_packet'] = 'Delete Packet';
 
 //Users
-	$lang['users'] = 'Manage Users';	
+	$lang['users'] = 'Manage Users';
+	$lang['user'] = 'User';
+	$lang['user_image'] = 'Profile Pic';
+	$lang['user_name'] = 'Name';
+	$lang['user_username'] = 'Username';
+	$lang['user_role'] = 'Role';
+	$lang['user_mobile'] = 'Mobile';
+	$lang['user_status'] = 'Status';
+
 ?>

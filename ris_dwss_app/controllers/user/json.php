@@ -904,5 +904,55 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getUsersJsonData() {
+        $status = $this->input->get('status');
+        $role_id = $this->input->get('role_id');
+
+        $where = '';
+        if($status == '0' || $status == '1'){
+            $where .= ' AND users.status=' . $status; 
+        }
+
+        if(!empty($role_id) && $role_id > 1){
+            $where .= ' AND users.role_id=' . $role_id; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('users.profile_pic', 'users.'.$this->session_data->language . '_fullname AS name', 'username', 'roles.name AS role', 'mobile', 'status');
+        $this->datatable->eColumns = array('users.id');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = " users, roles";
+        $this->datatable->myWhere = ' WHERE role_id > 1 AND users.role_id=roles.id ' . $where; 
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/user_images/' . $aRow['profile_pic'] .'" alt="" class="col-xs-12 col-sm-6 col-md-12 col-lg-12">';
+
+            $temp_arr[] = $aRow['name'];
+            $temp_arr[] = $aRow['username'];
+            $temp_arr[] = $aRow['role'];
+            $temp_arr[] = $aRow['mobile'];
+
+            if($aRow['status'] == 0){
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
+            } else {
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+            }
+
+            $str = '';
+            if (hasPermission('bods', 'editBod')) {
+                $str .= '<a href="' . USER_URL . 'user/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }
