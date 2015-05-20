@@ -33,28 +33,56 @@ class Packets extends CI_Controller
 
     function managePacket($id) {
         if ($this->input->post() !== false) {
-            echo '<pre>';
-            print_r($_POST);
-            exit;
 
-            $packet = new Packet();
+            $old_id = $this->input->post('old_id');
+            $old_weight = $this->input->post('old_weight');
+            $old_measurement = $this->input->post('old_measurement');
 
-            if($this->session_data->role ==1 || $this->session_data->role ==2){
-                $packet->supplier_id = $this->input->post('supplier_id');
-            } else {
-                $packet->supplier_id = $this->session_data->supplier_id;
+            for($i=0; $i< count($old_id); $i++){
+                if(!empty($old_weight[$old_id[$i]]) && !empty($old_measurement[$old_id[$i]])){
+
+                    $packet = new Packet();
+                    if($this->session_data->role == 1 || $this->session_data->role == 2){
+                        $packet->where('id', $id)->get();
+                    } else if($this->session_data->role == 3 ){
+                        $packet->where(array('id' => $old_id[$i], 'supplier_id' => $this->session_data->supplier_id))->get();
+                    }
+
+                    $packet->weight = $old_weight[$old_id[$i]];
+                    $packet->measurement = $old_measurement[$old_id[$i]];
+                    $packet->updated_id = $this->session_data->id;
+                    $packet->update_datetime = get_current_date_time()->get_date_time_for_db();
+
+                    $packet->save();
+                }
             }
 
-            $packet->product_id = $id;
-            $packet->weight = $this->input->post('weight');
-            $packet->measurement = $this->input->post('measurement');
+            $weight = $this->input->post('weight');
+            $measurement = $this->input->post('measurement');
 
-            $packet->created_id = $this->session_data->id;
-            $packet->created_datetime = get_current_date_time()->get_date_time_for_db();
-            $packet->updated_id = $this->session_data->id;
-            $packet->update_datetime = get_current_date_time()->get_date_time_for_db();
+            for($i=0; $i<= count($weight); $i++){
+                if(!empty($weight[$i]) && !empty($measurement[$i])){
 
-            $packet->save();
+                    $packet = new Packet();
+                    if($this->session_data->role ==1 || $this->session_data->role ==2){
+                        $packet->supplier_id = $this->input->post('supplier_id');
+                    } else {
+                        $packet->supplier_id = $this->session_data->supplier_id;
+                    }
+
+                    $packet->product_id = $id;
+                    $packet->weight = $weight[$i];
+                    $packet->measurement = $measurement[$i];
+
+                    $packet->created_id = $this->session_data->id;
+                    $packet->created_datetime = get_current_date_time()->get_date_time_for_db();
+                    $packet->updated_id = $this->session_data->id;
+                    $packet->update_datetime = get_current_date_time()->get_date_time_for_db();
+
+                    $packet->save();
+                }
+            }
+
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(USER_URL . 'packet', 'refresh');
         } else {
@@ -81,7 +109,12 @@ class Packets extends CI_Controller
     function deletePacket($id) {
         if (!empty($id)) {
             $obj_packet = new Packet();
-            $obj_packet->where('id', $id)->get();
+            if($this->session_data->role == 1 || $this->session_data->role == 2){
+                $obj_packet->where('id', $id)->get();
+            } else if($this->session_data->role == 3 ){
+                $obj_packet->where(array('id' => $id, 'supplier_id' => $this->session_data->supplier_id))->get();
+            }
+
             if ($obj_packet->result_count() == 1) {
                 $obj_packet->delete();
                 $data = array('status' => 'success', 'msg' => $this->lang->line('delete_data_success'));

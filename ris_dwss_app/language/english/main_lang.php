@@ -311,6 +311,8 @@
 	$lang['packet_weight'] = 'Weight';
 	$lang['add_packet'] = 'Add New Packet';
 	$lang['delete_packet'] = 'Delete Packet';
+	$lang['manage_add_new_packets'] = 'Add New Packets';
+	$lang['manage_old_packets'] = 'Manage Old Packets';
 
 //Users
 	$lang['users'] = 'Manage Users';
