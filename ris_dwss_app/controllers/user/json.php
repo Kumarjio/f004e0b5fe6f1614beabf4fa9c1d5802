@@ -937,9 +937,13 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['mobile'];
 
             if($aRow['status'] == 0){
-                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
+                $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('user_status_inactive') .'">'. $this->lang->line('user_status_inactive') .'</span>';
+            } else if($aRow['status'] == 1){
+                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('user_status_active') .'">'. $this->lang->line('user_status_active') .'</span>';
+            } else if($aRow['status'] == 2){
+                $temp_arr[] = '<span class="label label-info" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('user_status_banned') .'">'. $this->lang->line('user_status_banned') .'</span>';
             } else {
-                $temp_arr[] = '<span class="label label-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('active') .'">'. $this->lang->line('active') .'</span>';
+                $temp_arr[] = '&nbsp;';
             }
 
             $str = '';

@@ -17,7 +17,7 @@ class users extends CI_Controller
         $data['count'] = $user->count();
 
         $role = new Role();
-        $data['roles'] = $role->where('id >', 1)->get();
+        $data['roles'] = $role->where('id >', $this->session_data->role)->get();
 
         $this->layout->view('user/users/view', $data);
     }
@@ -25,61 +25,35 @@ class users extends CI_Controller
     function addUser() {
         if ($this->input->post() !== false) {
             $user = new User();
-
             foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_name') != '') {
-                    $user->{$key . '_name'} = $this->input->post($key . '_name');
+                if ($this->input->post($key . '_fullname') != '') {
+                    $user->{$key . '_fullname'} = $this->input->post($key . '_fullname');
                 } else {
-                    $user->{$key . '_name'} = $this->input->post('en_name');
+                    $user->{$key . '_fullname'} = $this->input->post('en_fullname');
                 }
             }
 
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_position') != '') {
-                    $user->{$key . '_position'} = $this->input->post($key . '_position');
-                } else {
-                    $user->{$key . '_position'} = $this->input->post('en_position');
-                }
-            }
-
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_address') != '') {
-                    $user->{$key . '_address'} = $this->input->post($key . '_address');
-                } else {
-                    $user->{$key . '_address'} = $this->input->post('en_address');
-                }
-            }
-
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_number') != '') {
-                    $user->{$key . '_number'} = $this->input->post($key . '_number');
-                } else {
-                    $user->{$key . '_number'} = $this->input->post('en_number');
-                }
-            }
-
-            if ($_FILES['user_image']['name'] != '') {
-                $image = $this->uploadImage('user_image');
-                if (isset($image['error'])) {
-                    $this->session->set_flashdata('file_errors', $image['error']);
-                    redirect(USER_URL . 'user/add', 'refresh');
-                } else if (isset($image['upload_data'])) {
-                    $user->image = $image['upload_data']['file_name'];
-                }
-            }
-
+            $user->role_id = @$this->input->post('role_id');
+            $user->username =$this->input->post('username');
+            $user->password = md5($this->input->post('password'));
+            $user->mobile = $this->input->post('mobile');
+            $user->email = @$this->input->post('email');
             $user->status = $this->input->post('status');
             $user->created_id = $this->session_data->id;
             $user->created_datetime = get_current_date_time()->get_date_time_for_db();
             $user->updated_id = $this->session_data->id;
             $user->update_datetime = get_current_date_time()->get_date_time_for_db();
-
             $user->save();
+
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(USER_URL . 'user', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('user'));
-            $this->layout->view('user/users/add');
+
+            $role = new Role();
+            $data['roles'] = $role->where('id >', $this->session_data->role)->get();
+
+            $this->layout->view('user/users/add', $data);
         }
     }
     
@@ -90,35 +64,25 @@ class users extends CI_Controller
                 $user->where('id', $id)->get();
 
                 foreach ($this->config->item('custom_languages') as $key => $value) {
-                    if ($this->input->post($key . '_name') != '') {
-                        $user->{$key . '_name'} = $this->input->post($key . '_name');
+                    if ($this->input->post($key . '_fullname') != '') {
+                        $user->{$key . '_fullname'} = $this->input->post($key . '_fullname');
                     } else {
-                        $user->{$key . '_name'} = $this->input->post('en_name');
+                        $user->{$key . '_fullname'} = $this->input->post('en_fullname');
                     }
                 }
 
-                if ($_FILES['user_image']['name'] != '') {
-                    $image = $this->uploadImage('user_image');
-                    if (isset($image['error'])) {
-                        $this->session->set_flashdata('file_errors', $image['error']);
-                        redirect(USER_URL . 'user/edit/'. $id, 'refresh');
-                    } else if (isset($image['upload_data'])) {
-                        if ($user->image != 'no-avtar.png' && file_exists('assets/uploads/user_images/' . $user->image)) {
-                            unlink('assets/uploads/user_images/' . $user->image);
-                        }
-
-                        if ($user->image != 'no-avtar.png' && file_exists('assets/uploads/user_images/thumb/' . $user->image)) {
-                            unlink('assets/uploads/user_images/thumb/' . $user->image);
-                        }
-                        $user->image = $image['upload_data']['file_name'];
-                    }
+                $user->role_id = @$this->input->post('role_id');
+                $user->username =$this->input->post('username');
+                if($this->input->post('password') != ''){    
+                    $user->password = md5($this->input->post('password'));
                 }
-
+                $user->mobile = $this->input->post('mobile');
+                $user->email = @$this->input->post('email');
                 $user->status = $this->input->post('status');
                 $user->updated_id = $this->session_data->id;
                 $user->update_datetime = get_current_date_time()->get_date_time_for_db();
-
                 $user->save();
+                
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(USER_URL . 'user', 'refresh');
             } else {
@@ -126,6 +90,9 @@ class users extends CI_Controller
 
                 $user = new User();
                 $data['user'] = $user->where('id', $id)->get();
+
+                $role = new Role();
+                $data['roles'] = $role->where('id >', $this->session_data->role)->get();
 
                 $this->layout->view('user/users/edit', $data);
             }
