@@ -75,8 +75,24 @@ class dashboard extends CI_Controller
     }
 
     function dashboardSupplier(){
-        $data = $this->_getTotalCounts();
-        $this->layout->view('user/dashboard/supplier');
+        $supplier_id = $this->session_data->supplier_id;
+
+        $obj_supplier_product = new Supplierproduct();
+        $data['total_supplier_product'] = $obj_supplier_product->where('supplier_id', $supplier_id)->get()->result_count();
+
+        $obj_selloffer = new Selloffer();
+        $obj_selloffer->where('supplier_id', $supplier_id)->get();
+        $data['total_selloffer'] = $obj_selloffer->result_count();
+
+        $obj_supplierrequriment = new Supplierrequriment();
+        $obj_supplierrequriment->where('supplier_id', $this->session_data->supplier_id)->get();
+        $data['total_supplierrequriment'] = $obj_supplierrequriment->result_count();
+
+        $advertisement = new Advertisement();
+        $advertisement->where('supplier_id', $supplier_id)->get();
+        $data['total_advertisement'] = $advertisement->result_count();
+
+        $this->layout->view('user/dashboard/supplier', $data);
     }
 
     public function updateProfile(){
