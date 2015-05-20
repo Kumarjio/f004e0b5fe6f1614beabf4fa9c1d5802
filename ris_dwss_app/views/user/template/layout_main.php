@@ -340,6 +340,14 @@
                                     <span class="title"><?php echo $this->lang->line('users'); ?></span><i class="icon-arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
+                                    <?php if (hasPermission('users', 'viewUser')) { ?>
+                                        <li class="<?php echo ($uri_1 == 'user') ? 'active open' : ''; ?>">
+                                            <a href="<?php echo USER_URL .'user'; ?>"><i class="icon-asterisk"></i>
+                                                <span class="title"><?php echo $this->lang->line('users'); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
                                     <?php if (hasPermission('bods', 'viewBod')) { ?>
                                         <li class="<?php echo ($uri_1 == 'bod') ? 'active open' : ''; ?>">
                                             <a href="<?php echo USER_URL .'bod'; ?>"><i class="icon-asterisk"></i>
