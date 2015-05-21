@@ -7,7 +7,7 @@ body, .main-container, .footer, .main-navigation, ul.main-navigation-menu > li >
 	border-right-color: #C8C7CC;
 }
 .navbar-inverse {
-	background: rgba(255, 255, 255, 0.9);
+	background: rgba(255, 255, 255, 1);
 	border-color: #C8C7CC;
 }
 /* ie8 fixes */
@@ -122,7 +122,7 @@ ul.main-navigation-menu li > ul.sub-menu > li.open > a, ul.main-navigation-menu 
 	color: #007AFF;
 }
 .footer-fixed .footer {
-	background: rgba(255, 255, 255, 0.9) !important;
+	background: rgba(255, 255, 255, 1) !important;
 	border-top-color: #C8C7CC;
 }
 /* ie8 fixes */
@@ -144,7 +144,7 @@ ul.main-navigation-menu li > ul.sub-menu > li.open > a, ul.main-navigation-menu 
 		background: none !important;
 	}
 	.navbar-tools {
-		background: rgba(255, 255, 255, 0.9);
+		background: rgba(255, 255, 255, 1);
 		border-top-color: #C8C7CC;
 	}
 	/* ie8 fixes */

@@ -28,7 +28,6 @@
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>chosen/chosen.min.css">
-        <link rel="stylesheet" href="<?php echo USER_CSS_URL; ?>theme_light.css" id="skin_color">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>icheck/skins/all.css">
         <link rel="stylesheet" href="<?php echo PLUGIN_URL; ?>bootstrap-fileupload/bootstrap-fileupload.min.css">

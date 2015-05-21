@@ -105,24 +105,24 @@
             <?php $required = ($packets_details->result_count() <= 0) ? 'required' : ''; ?>
             <div class="packet-group">
                 <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
+                    <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                         <?php echo $this->lang->line('packet'); ?>
                         <span class="text-danger">*</span>
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                         <input type="text" name="weight[0]" class="form-control <?php echo $required; ?>" placeholder="<?php echo $this->lang->line('packet_weight'); ?>" />
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <button type="button" class="btn btn-success addButton" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add_packet'); ?>"><i class="clip-plus-circle"></i></button>
                         <button type="button" class="btn btn-danger hide removeButton" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('delete_packet'); ?>"><i class="clip-minus-circle"></i></button>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
+                    <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                         &nbsp;
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                         <?php foreach ($this->config->item('packet_measurements') as $p_key => $p_value) { ?>
                             <label class="radio-inline">
                                 <input type="radio" value="<?php echo $p_key; ?>" name="measurement[0]" class="square-grey" />
@@ -135,24 +135,24 @@
 
             <div id="template-packet-group" class="packet-group hide">
                 <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
+                    <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                         <?php echo $this->lang->line('packet'); ?>
                         <span class="text-danger">*</span>
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                         <input type="text" disabled="disabled" name="weight" class="form-control <?php echo $required; ?>" placeholder="<?php echo $this->lang->line('packet_weight'); ?>"/>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <button type="button" class="btn btn-success addButton" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add_packet'); ?>"><i class="clip-plus-circle"></i></button>
                         <button type="button" class="btn btn-danger removeButton" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('delete_packet'); ?>"><i class="clip-minus-circle"></i></button>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
+                    <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                         &nbsp;
                     </label>
-                    <div class="col-lg-6">
+                    <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                         <?php foreach ($this->config->item('packet_measurements') as $p_key => $p_value) { ?>
                             <label class="radio-inline">
                                 <input type="radio" value="<?php echo $p_key; ?>" name="measurement" />
@@ -168,24 +168,24 @@
                 <?php foreach ($packets_details as $packet) { ?>
                     <div class="old-packet-group">
                         <div class="form-group">
-                            <label for="question" class="col-lg-2 control-label">
+                            <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                                 <?php echo $this->lang->line('packet'); ?>
                                 <span class="text-danger">*</span>
                             </label>
-                            <div class="col-lg-6">
+                            <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                                 <input type="hidden" name="old_id[]" value="<?php echo $packet->id; ?>"/>
                                 <input type="text" name="old_weight[<?php echo $packet->id; ?>]" class="form-control required" placeholder="<?php echo $this->lang->line('packet_weight'); ?>" value="<?php echo $packet->weight; ?>"/>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <a onclick="deletedata(this)" id="<?php echo $packet->id; ?>" class="btn btn-danger" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('delete_packet'); ?>"><i class="clip-minus-circle"></i></a>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="question" class="col-lg-2 control-label">
+                            <label for="question" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
                                 &nbsp;
                             </label>
-                            <div class="col-lg-6">
+                            <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
                                 <?php foreach ($this->config->item('packet_measurements') as $p_key => $p_value) { ?>
                                     <label class="radio-inline">
                                         <input type="radio" value="<?php echo $p_key; ?>" name="old_measurement[<?php echo $packet->id; ?>]" class="square-grey" <?php echo ($packet->measurement == $p_key) ? 'checked' : '';?>/>
