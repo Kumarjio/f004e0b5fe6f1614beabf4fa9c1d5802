@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('add') ,' ', $this->lang->line('product_category'); ?></h1>
+            <h1><?php echo $this->lang->line('edit') ,' ', $this->lang->line('product_category'); ?></h1>
         </div>
     </div>
 </div>
@@ -61,6 +61,17 @@
                     </label>
                     <div class="col-lg-9">
                         <input type="text" name="<?php echo $key . '_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('product_category_name'), ' ', ucwords($value); ?>" value="<?php echo $product_category->{$key .'_name'} ?>"/>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <?php if(!empty($product_category->image) && file_exists('assets/uploads/productcategory_images/' . $product_category->image)){ ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('product_category_image'); ?>
+                    </label>
+                    <div class="col-lg-9">
+                        <img src="<?php echo ASSETS_URL .'uploads/productcategory_images/' . $product_category->image; ?>" alt="" class="img-thumbnail col-md-3">
                     </div>
                 </div>
             <?php } ?>

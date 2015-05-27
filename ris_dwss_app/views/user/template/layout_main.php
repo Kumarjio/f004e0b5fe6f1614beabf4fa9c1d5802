@@ -483,7 +483,7 @@
 
         <script src="<?php echo PLUGIN_URL; ?>bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>blockUI/jquery.blockUI.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>iCheck/jquery.icheck.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>icheck/jquery.icheck.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>chosen/chosen.jquery.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/jquery.mousewheel.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>perfect-scrollbar/src/perfect-scrollbar.js"></script>

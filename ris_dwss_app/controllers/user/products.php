@@ -58,7 +58,6 @@ class products extends CI_Controller
                     $this->session->set_flashdata('file_errors', $image['error']);
                     redirect(USER_URL . 'product/add', 'refresh');
                 } else if (isset($image)) {
-                    
                     foreach ($image as $key => $value) {
                         $images[] = $value['file_name'];
                     }

@@ -12,7 +12,7 @@ class suppliers extends CI_Controller
         $this->session_data = $this->session->userdata('user_session');
     }
     
-    function viewSupplier() {
+    function viewSupplier() {        
         $obj_market = new Market();
         $data['markets'] = $obj_market->where('status',1)->get();
 
@@ -84,15 +84,34 @@ class suppliers extends CI_Controller
             }
 
             $supplier->owner = $this->input->post('owner');
-            $supplier->working_days = implode(',', $this->input->post('working_days'));
-            $supplier->working_time = $this->input->post('working_time');
-            $supplier->estd_year = $this->input->post('estd_year');
-            $supplier->payment = implode(',', $this->input->post('payment'));
-            $supplier->website = $this->input->post('website');
-            $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
-            $supplier->no_employees = $this->input->post('no_employees');
-            $supplier->sms_requriment = $this->input->post('sms_requriment');
-            $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
+            
+            if($this->input->post('working_days') != ''){
+                $supplier->working_days = implode(',', $this->input->post('working_days'));
+            }
+
+            if($this->input->post('working_time') != ''){
+                $supplier->working_time = $this->input->post('working_time');
+            }
+
+            $supplier->estd_year = @$this->input->post('estd_year');
+
+            if($this->input->post('payment') != ''){
+                $supplier->payment = implode(',', $this->input->post('payment'));
+            }
+
+            
+            $supplier->website = @$this->input->post('website');
+
+            if($this->input->post('supplierbusinesstype_id') != ''){
+                $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
+            }
+
+            $supplier->no_employees = @$this->input->post('no_employees');
+            $supplier->sms_requriment = @$this->input->post('sms_requriment');
+
+            if($this->input->post('supplieramenity_id') != ''){
+                $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
+            }
 
             $supplier->created_id = $this->session_data->id;
             $supplier->created_datetime = get_current_date_time()->get_date_time_for_db();
@@ -100,6 +119,23 @@ class suppliers extends CI_Controller
             $supplier->update_datetime = get_current_date_time()->get_date_time_for_db();
 
             $supplier->save();
+
+            $message = 'Thank you for the registration in the APMC Portal.';
+            $check = sendSMS($this->input->post('mobile'), $message);
+
+            $obj = new Communication();
+            $obj->from_id = $this->session_data->id;
+            $obj->to_id = $user->id;
+            $obj->mobile_no = $this->input->post('mobile');
+            $obj->title = 'APMC Registration';
+            $obj->message = $message;
+            $obj->status = $check;
+            $obj->created_datetime = $this->session_data->id;
+            $obj->created_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj->updated_id = $this->session_data->id;
+            $obj->update_datetime = get_current_date_time()->get_date_time_for_db();
+            $obj->save();
+
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(USER_URL . 'supplier', 'refresh');
         } else {
@@ -161,16 +197,33 @@ class suppliers extends CI_Controller
                     }
                 }
 
-                $supplier->owner = $this->input->post('owner');
-                $supplier->working_days = implode(',', $this->input->post('working_days'));
-                $supplier->working_time = $this->input->post('working_time');
-                $supplier->estd_year = $this->input->post('estd_year');
-                $supplier->payment = implode(',', $this->input->post('payment'));
-                $supplier->website = $this->input->post('website');
-                $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
-                $supplier->no_employees = $this->input->post('no_employees');
-                $supplier->sms_requriment = $this->input->post('sms_requriment');
-                $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
+                if($this->input->post('working_days') != ''){
+                    $supplier->working_days = implode(',', $this->input->post('working_days'));
+                }
+
+                if($this->input->post('working_time') != ''){
+                    $supplier->working_time = $this->input->post('working_time');
+                }
+
+                $supplier->estd_year = @$this->input->post('estd_year');
+
+                if($this->input->post('payment') != ''){
+                    $supplier->payment = implode(',', $this->input->post('payment'));
+                }
+
+                
+                $supplier->website = @$this->input->post('website');
+
+                if($this->input->post('supplierbusinesstype_id') != ''){
+                    $supplier->supplierbusinesstype_id = implode(',', $this->input->post('supplierbusinesstype_id'));
+                }
+
+                $supplier->no_employees = @$this->input->post('no_employees');
+                $supplier->sms_requriment = @$this->input->post('sms_requriment');
+
+                if($this->input->post('supplieramenity_id') != ''){
+                    $supplier->supplieramenity_id = implode(',', $this->input->post('supplieramenity_id'));
+                }
 
                 $supplier->updated_id = $this->session_data->id;
                 $supplier->update_datetime = get_current_date_time()->get_date_time_for_db();

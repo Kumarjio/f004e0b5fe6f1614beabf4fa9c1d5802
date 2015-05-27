@@ -47,8 +47,16 @@ if (!function_exists('send_mail')) {
 
 if (!function_exists('sendSMS')) {
 
-    function sendSMS($no, $msg) {
+    function sendSMS($mobile, $msg) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_URL, 'http://bhashsms.com/api/sendmsg.php?user=Daliaweb&pass=Dalia58&sender=WEBINQ&phone=' . $mobile . '&text=' . urlencode($msg) . '&priority=ndnd&stype=normal');
+        $check = curl_exec($curl);
+        curl_close($curl);
+
         return 1;
+
     }
 }
 

@@ -2,15 +2,33 @@
 <script>
     //<![CDATA[
         jQuery(document).ready(function() {
+            jQuery('.radio-checkbox-error').hide();
             jQuery("#add").validate({
+                rules: {
+                    confirm_password: {equalTo: '#password'},
+                    username: {nowhitespace: true, remote: '<?php echo USER_URL . "checkusername/0"; ?>'},
+                    email: {remote: '<?php echo USER_URL . "checkemail/0"; ?>'},
+                },
+                messages: {
+                    cpassword: {equalTo: '* Password does Not Match'},
+                    username: {remote: '* Username already exit'},
+                    email: {remote: '* Email already exit'},
+                },
                 errorPlacement: function(error, element) {
                     if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
-                        error.appendTo(element.parent());
+                        jQuery(element).parents('.form-group').find('.radio-checkbox-error').show();
+                        jQuery(element).parents('.form-group').find('.radio-checkbox-error').html(error);
                     }
                     else {
                         error.insertAfter(element);
                     }
                 }
+            });
+
+            jQuery('.date-picker').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                endDate: '+0d'
             });
         });
     //]]>

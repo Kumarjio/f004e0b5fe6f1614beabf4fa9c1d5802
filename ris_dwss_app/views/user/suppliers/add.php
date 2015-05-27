@@ -5,20 +5,19 @@
             jQuery('.radio-checkbox-error').hide();
             jQuery("#add").validate({
                 rules: {
-                    password : {passwordpattern: true},
-                    confirm_password: {passwordpattern: true, equalTo: '#password'},
+                    confirm_password: {equalTo: '#password'},
                     username: {nowhitespace: true, remote: '<?php echo USER_URL . "checkusername/0"; ?>'},
                     email: {remote: '<?php echo USER_URL . "checkemail/0"; ?>'},
                 },
                 messages: {
-                    cpassword: {passwordpattern: '* Must be at least 6 characters, At least 1 number, 1 lowercase, 1 uppercase letter, 1 special character', equalTo: '* Password does Not Match'},
+                    cpassword: {equalTo: '* Password does Not Match'},
                     username: {remote: '* Username already exit'},
                     email: {remote: '* Email already exit'},
                 },
                 errorPlacement: function(error, element) {
                     if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
-                        jQuery(element).parents().find('.radio-checkbox-error').show();
-                        jQuery(element).parents().find('.radio-checkbox-error').html(error);
+                        jQuery(element).parents('.form-group').find('.radio-checkbox-error').show();
+                        jQuery(element).parents('.form-group').find('.radio-checkbox-error').html(error);
                     }
                     else {
                         error.insertAfter(element);
@@ -182,9 +181,9 @@
             </div>
 
             <div class="form-group">
-                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('supplier_establishment_year'); ?><span class="text-danger">*</span></label>
+                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('supplier_establishment_year'); ?><span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control required" placeholder="<?php echo $this->lang->line('supplier_establishment_year'); ?>" name="estd_year">
+                    <input type="text" class="form-control" placeholder="<?php echo $this->lang->line('supplier_establishment_year'); ?>" name="estd_year">
                 </div>
             </div>
 

@@ -69,7 +69,7 @@ $route['user/' . $controller . '/getjson'] = "user/json/get" . ucwords(plural($c
 
 
 //Default
-$route['default_controller'] = "welcome/index";
+$route['default_controller'] = "user/authenticate/index";
 $route['404_override'] = '';
 
 /*

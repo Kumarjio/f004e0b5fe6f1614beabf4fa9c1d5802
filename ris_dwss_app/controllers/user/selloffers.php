@@ -21,11 +21,11 @@ class selloffers extends CI_Controller
     
     function viewSelloffer() {
         $obj_selloffer = new Selloffer();
-        if($this->session_data->role != 1 || $this->session_data->role != 2){
+        if($this->session_data->role == 1 || $this->session_data->role == 2){
+            $data['count'] = $obj_selloffer->count();
+        } else {
             $obj_selloffer->where('supplier_id', $this->session_data->supplier_id)->get();
             $data['count'] = $obj_selloffer->result_count();
-        } else {
-            $data['count'] = $obj_selloffer->count();
         }
 
         $this->layout->view('user/selloffers/view', $data);

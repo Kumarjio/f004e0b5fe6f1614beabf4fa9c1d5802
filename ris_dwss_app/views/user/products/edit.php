@@ -65,6 +65,20 @@
                 </div>
             <?php } ?>
 
+            <?php
+                $images = unserialize($product->images);
+                $image = $images[rand(0, count($images) - 1)];
+                if(!empty($image) && file_exists('assets/uploads/product_images/' . $image)){ ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo $this->lang->line('product_category_image'); ?>
+                    </label>
+                    <div class="col-lg-9">
+                        <img src="<?php echo ASSETS_URL .'uploads/product_images/' . $image; ?>" alt="" class="img-thumbnail col-md-3">
+                    </div>
+                </div>
+            <?php } ?>
+
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">
                     <?php echo $this->lang->line('product_image'); ?>
