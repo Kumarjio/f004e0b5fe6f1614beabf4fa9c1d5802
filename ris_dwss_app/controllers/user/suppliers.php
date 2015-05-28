@@ -120,8 +120,16 @@ class suppliers extends CI_Controller
 
             $supplier->save();
 
-            $message = 'Thank you for the registration in the APMC Portal.';
-            $check = sendSMS($this->input->post('mobile'), $message);
+            $message  = 'Hello '. $this->input->post('en_fullname') . "\n";
+            $message .= 'Your firm registerd in APMC web portal with your mention selling products.' . "\n";
+            $message .= 'The automated From number is : ' . $this->input->post('form_no');
+            if($this->input->post('market_id') == 1){
+                $sms_user = 'APMCHK';
+            } else {
+                $sms_user = 'APMCSP';
+            }
+
+            $check = sendSMS($this->input->post('mobile'), $message, $sms_user);
 
             $obj = new Communication();
             $obj->from_id = $this->session_data->id;

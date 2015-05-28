@@ -47,11 +47,11 @@ if (!function_exists('send_mail')) {
 
 if (!function_exists('sendSMS')) {
 
-    function sendSMS($mobile, $msg) {
+    function sendSMS($mobile, $msg, $user = 'WEBINQ') {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_NOBODY, true);
-        curl_setopt($curl, CURLOPT_URL, 'http://bhashsms.com/api/sendmsg.php?user=Daliaweb&pass=Dalia58&sender=WEBINQ&phone=' . $mobile . '&text=' . urlencode($msg) . '&priority=ndnd&stype=normal');
+        curl_setopt($curl, CURLOPT_URL, 'http://bhashsms.com/api/sendmsg.php?user=Daliaweb&pass=Dalia58&sender='. $user .'&phone=' . $mobile . '&text=' . urlencode($msg) . '&priority=ndnd&stype=normal');
         $check = curl_exec($curl);
         curl_close($curl);
 
