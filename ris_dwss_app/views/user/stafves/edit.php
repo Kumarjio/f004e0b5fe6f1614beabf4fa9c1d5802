@@ -26,33 +26,10 @@
     </div>
 </div>
 
-<?php if ($this->session->flashdata('file_errors') != '') { ?>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="auto-close alert alert-danger fade in alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <p class="text-center">
-                    <?php echo $this->session->flashdata('file_errors'); ?>
-                </p>
-            </div>
-        </div>
-    </div>
-<?php } ?>
 
 <div class="row">
     <div class="col-lg-12">
         <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'staff/edit/' . $staff->id; ?>" enctype="multipart/form-data">
-
-            <div class="form-group">
-                <label for="question" class="col-lg-2 control-label"><?php echo $this->lang->line('staff_select_market'); ?><span class="text-danger">*</span></label>
-                <div class="col-lg-9">
-                    <select name="market_id" class="form-control chosen-select">
-                        <?php foreach ($markets as $market) { ?>
-                            <option <?php echo($market->id == $staff->market_id) ? 'selected' : ''; ?> value="<?php echo $market->id; ?>"><?php echo ucwords($market->{$session->language.'_name'}); ?></option>
-                        <?php } ?>                        
-                    </select>
-                </div>
-            </div>
 
             <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                 <div class="form-group">
@@ -75,65 +52,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
-                        <?php echo ucwords($value), ' ', $this->lang->line('staff_number'); ?>
-                        <span class="text-danger">&nbsp;</span>
-                    </label>
-                    <div class="col-lg-9">
-                        <input type="text" name="<?php echo $key . '_number'; ?>"  class="form-control" placeholder="<?php echo $this->lang->line('staff_number'), ' ', ucwords($value); ?>"  value="<?php echo $staff->{$key . '_number'} ?>"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
-                        <?php echo ucwords($value), ' ', $this->lang->line('staff_address'); ?>
-                        <span class="text-danger">&nbsp;</span>
-                    </label>
-                    <div class="col-lg-9">
-                        <textarea name="<?php echo $key . '_address'; ?>"  class="form-control" placeholder="<?php echo $this->lang->line('staff_address'), ' ', ucwords($value); ?>" rows="5"><?php echo $staff->{$key . '_address'} ?></textarea>
-                    </div>
-                </div>
-
                 <hr /> 
             <?php } ?>
-
-            <?php if(!empty($staff->image) && file_exists('assets/uploads/staff_images/' . $staff->image)){ ?>
-                <div class="form-group">
-                    <label for="question" class="col-lg-2 control-label">
-                        <?php echo $this->lang->line('staff_current_image'); ?>
-                    </label>
-                    <div class="col-lg-9">
-                        <img src="<?php echo ASSETS_URL .'uploads/staff_images/' . $staff->image; ?>" alt="" class="img-thumbnail col-md-3">
-                    </div>
-                </div>
-            <?php } ?>
-
-            <div class="form-group">
-                <label for="question" class="col-lg-2 control-label">
-                    <?php echo $this->lang->line('staff_image'); ?>
-                </label>
-                <div class="col-lg-9">
-                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                        <div class="input-group">
-                            <div class="form-control uneditable-input">
-                                <i class="icon-file fileupload-exists"></i>
-                                <span class="fileupload-preview"></span>
-                            </div>
-                            <div class="input-group-btn">
-                                <div class="btn btn-light-grey btn-file">
-                                    <span class="fileupload-new"><i class="icon-folder-open-alt"></i> <?php echo $this->lang->line('select_image'); ?></span>
-                                    <span class="fileupload-exists"><i class="icon-folder-open-alt"></i> <?php echo $this->lang->line('change_image'); ?></span>
-                                    <input type="file" class="file-input" name="staff_image">
-                                </div>
-                                <a href="#" class="btn btn-light-grey fileupload-exists" data-dismiss="fileupload">
-                                    <i class="icon-remove"></i> <?php echo $this->lang->line('remove_image'); ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">

@@ -25,8 +25,7 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},
-                {"sClass": "text-center"},{"sClass": "text-center"},
+                {"sClass": ""},{"sClass": "text-center"},
                 {"sClass": "text-center"},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo USER_URL . 'staff/getjson?status='; ?>" + jQuery('#status').val() + '&market_id=' + jQuery('#market_id').val(),
@@ -113,26 +112,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group">
-                    <label class="control-label"><?php echo $this->lang->line('markets'); ?></label>
-                    <div>
-                        <select id="market_id" class="form-control chosen-select">
-                            <option value="null">All</option>
-                            <?php foreach ($markets as $market) { ?>
-                                <option value="<?php echo $market->id; ?>"><?php echo ucwords($market->{$session->language.'_name'}); ?></option>
-                            <?php } ?>                        
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4 text-right">
-                <?php foreach ($counts as $count) { ?>
-                    <button class="btn btn-default"><?php echo $count['name']; ?>&nbsp;&nbsp;<span class="badge badge-success"><?php echo $count['count']; ?><span></button>
-                <?php } ?>
-            </div>
         </div>
     </div>
 </div>
@@ -152,18 +131,15 @@
             <table class="table table-bordered table-hover" id="list_data">
                 <thead class="the-box dark full">
                     <tr align="left">
-                        <th width="125"><?php echo $this->lang->line('markets'); ?></th>
                         <th><?php echo $this->lang->line('staff_name'); ?></th>
-                        <th width="125"><?php echo $this->lang->line('staff_number'); ?></th>
                         <th width="150"><?php echo $this->lang->line('staff_position'); ?></th>
-                        <th width="150"><?php echo $this->lang->line('staff_image'); ?></th>
                         <th width="100"><?php echo $this->lang->line('staff_status'); ?></th>
                         <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="7"><i><?php echo $this->lang->line('loading'); ?></i></td>
+                        <td colspan="4"><i><?php echo $this->lang->line('loading'); ?></i></td>
                     </tr>
                 </tbody>
             </table>

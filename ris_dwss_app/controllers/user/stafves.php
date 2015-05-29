@@ -13,18 +13,8 @@ class stafves extends CI_Controller
     }
     
     function viewStaff() {
-        $obj_markert = new Market();
-        $data['markets'] = $obj_markert->where('status',1)->get();
-
         $staff = new Staff();
         $data['count'] = $staff->count();
-
-        foreach ($obj_markert as $market) {
-            $temp = array();
-            $temp['name'] = $market->{$this->session_data->language.'_name'};
-            $temp['count'] = $market->Staff->count();
-            $data['counts'][] = $temp;
-        }
 
         $this->layout->view('user/stafves/view', $data);
     }
@@ -49,33 +39,6 @@ class stafves extends CI_Controller
                 }
             }
 
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_address') != '') {
-                    $staff->{$key . '_address'} = $this->input->post($key . '_address');
-                } else {
-                    $staff->{$key . '_address'} = $this->input->post('en_address');
-                }
-            }
-
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_number') != '') {
-                    $staff->{$key . '_number'} = $this->input->post($key . '_number');
-                } else {
-                    $staff->{$key . '_number'} = $this->input->post('en_number');
-                }
-            }
-
-            if ($_FILES['staff_image']['name'] != '') {
-                $image = $this->uploadImage('staff_image');
-                if (isset($image['error'])) {
-                    $this->session->set_flashdata('file_errors', $image['error']);
-                    redirect(USER_URL . 'staff/add', 'refresh');
-                } else if (isset($image['upload_data'])) {
-                    $staff->image = $image['upload_data']['file_name'];
-                }
-            }
-
-            $staff->market_id = $this->input->post('market_id');
             $staff->status = $this->input->post('status');
             $staff->created_id = $this->session_data->id;
             $staff->created_datetime = get_current_date_time()->get_date_time_for_db();
@@ -87,10 +50,7 @@ class stafves extends CI_Controller
             redirect(USER_URL . 'staff', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('staff'));
-
-            $obj_markert = new Market();
-            $data['markets'] = $obj_markert->where('status',1)->get();
-            $this->layout->view('user/stafves/add', $data);
+            $this->layout->view('user/stafves/add');
         }
     }
     
@@ -108,24 +68,14 @@ class stafves extends CI_Controller
                     }
                 }
 
-                if ($_FILES['staff_image']['name'] != '') {
-                    $image = $this->uploadImage('staff_image');
-                    if (isset($image['error'])) {
-                        $this->session->set_flashdata('file_errors', $image['error']);
-                        redirect(USER_URL . 'staff/edit/'. $id, 'refresh');
-                    } else if (isset($image['upload_data'])) {
-                        if ($staff->image != 'no-avtar.png' && file_exists('assets/uploads/staff_images/' . $staff->image)) {
-                            unlink('assets/uploads/staff_images/' . $staff->image);
-                        }
-
-                        if ($staff->image != 'no-avtar.png' && file_exists('assets/uploads/staff_images/thumb/' . $staff->image)) {
-                            unlink('assets/uploads/staff_images/thumb/' . $staff->image);
-                        }
-                        $staff->image = $image['upload_data']['file_name'];
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    if ($this->input->post($key . '_position') != '') {
+                        $staff->{$key . '_position'} = $this->input->post($key . '_position');
+                    } else {
+                        $staff->{$key . '_position'} = $this->input->post('en_position');
                     }
                 }
 
-                $staff->market_id = $this->input->post('market_id');
                 $staff->status = $this->input->post('status');
                 $staff->updated_id = $this->session_data->id;
                 $staff->update_datetime = get_current_date_time()->get_date_time_for_db();
@@ -138,9 +88,6 @@ class stafves extends CI_Controller
 
                 $staff = new Staff();
                 $data['staff'] = $staff->where('id', $id)->get();
-
-                $obj_markert = new Market();
-                $data['markets'] = $obj_markert->where('status',1)->get();
 
                 $this->layout->view('user/stafves/edit', $data);
             }
@@ -155,13 +102,6 @@ class stafves extends CI_Controller
             $obj_staff = new Staff();
             $obj_staff->where('id', $id)->get();
             if ($obj_staff->result_count() == 1) {
-                if ($obj_staff->image != 'no-avtar.png' && file_exists('assets/uploads/staff_images/' . $obj_staff->image)) {
-                    unlink('assets/uploads/staff_images/' . $obj_staff->image);
-                }
-
-                if ($obj_staff->image != 'no-avtar.png' && file_exists('assets/uploads/staff_images/thumb/' . $obj_staff->image)) {
-                    unlink('assets/uploads/staff_images/thumb/' . $obj_staff->image);
-                }
                 $obj_staff->delete();
                 $data = array('status' => 'success', 'msg' => $this->lang->line('delete_data_success'));
             } else {

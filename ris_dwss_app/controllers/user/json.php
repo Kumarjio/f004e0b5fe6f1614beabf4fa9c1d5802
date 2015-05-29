@@ -269,33 +269,24 @@ class json extends CI_Controller
 
     public function getStafvesJsonData() {
         $status    = $this->input->get('status');
-        $market_id = $this->input->get('market_id');
 
         $where = '';
         if($status == '0' || $status == '1'){
             $where .= ' AND stafves.status=' . $status; 
         }
 
-        if(!empty($market_id) && strtolower($market_id) != 'null'){
-            $where .= ' AND stafves.market_id =' . $market_id; 
-        }
-
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('markets.' .$this->session_data->language . '_name AS market_name', 'stafves.' .$this->session_data->language . '_name AS staff_name', $this->session_data->language . '_number', $this->session_data->language . '_position', 'stafves.image', 'stafves.status');
+        $this->datatable->aColumns = array('stafves.' .$this->session_data->language . '_name AS staff_name', $this->session_data->language . '_position', 'stafves.status');
         $this->datatable->eColumns = array('stafves.id');
         $this->datatable->sIndexColumn = "stafves.id";
-        $this->datatable->sTable = " stafves, markets";
-        $this->datatable->myWhere = " WHERE stafves.market_id = markets.id $where";
+        $this->datatable->sTable = " stafves";
+        $this->datatable->myWhere = " WHERE 1=1 $where";
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['market_name'];
             $temp_arr[] = $aRow['staff_name'];
-            $temp_arr[] = $aRow[$this->session_data->language . '_number'];
             $temp_arr[] = $aRow[$this->session_data->language . '_position'];
-
-            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/staff_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
 
             if($aRow['status'] == 0){
                 $temp_arr[] = '<span class="label label-danger" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('in_active') .'">'. $this->lang->line('in_active') .'</span>';
