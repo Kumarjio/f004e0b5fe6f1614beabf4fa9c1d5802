@@ -546,8 +546,8 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['title'];
             $str = '';
-            if (hasPermission('productrate', 'editProductrate')) {
-                $str .= '<a href="' . USER_URL . 'productrate/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            if (hasPermission('pages', 'editPage')) {
+                $str .= '<a href="' . USER_URL . 'page/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
             $temp_arr[] = $str;
 
@@ -940,6 +940,57 @@ class json extends CI_Controller
             $str = '';
             if (hasPermission('bods', 'editBod')) {
                 $str .= '<a href="' . USER_URL . 'user/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getStatisticsJsonData() {
+        $where = NULL;
+        $from_year = $this->input->get('from_year');
+        $to_year   = $this->input->get('to_year');
+
+
+        if(!empty($from_year) && strtolower($from_year) != 'null'){
+            $where .= ' AND from_year >=' . $from_year; 
+        }
+
+        if(!empty($to_year) && strtolower($to_year) != 'null'){
+            $where .= ' AND to_year <=' . $to_year; 
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('from_year', 'to_year', 'market_fee', 'license_fee', 'other_income', 'total_income', 'total_expenses', 'fund_left');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable  = " statistics";
+        $this->datatable->myWhere = " WHERE 1=1 $where";
+        $this->datatable->sOrder  = " ORDER BY from_year DESC, to_year DESC";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['from_year'];
+            $temp_arr[] = $aRow['to_year'];
+            $temp_arr[] = $aRow['market_fee'];
+            $temp_arr[] = $aRow['license_fee'];
+            $temp_arr[] = $aRow['other_income'];
+            $temp_arr[] = $aRow['total_income'];
+            $temp_arr[] = $aRow['total_expenses'];
+            $temp_arr[] = $aRow['fund_left'];
+
+            $str = '';
+            if (hasPermission('statistics', 'editStatistic')) {
+                $str .= '<a href="' . USER_URL . 'statistic/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('statistics', 'deleteStatistics')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
             }
 
             $temp_arr[] = $str;

@@ -366,6 +366,22 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('statistics', 'viewStatistic')) { ?>
+                            <li class="<?php echo ($uri_1 == 'statistic') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'statistic'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('statistical_data'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('pages', 'viewPage')) { ?>
+                            <li class="<?php echo ($uri_1 == 'page') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'page'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('page'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($uri_1 == 'role') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'role'; ?>"><i class="icon-asterisk"></i>

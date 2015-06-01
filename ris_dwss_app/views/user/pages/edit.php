@@ -28,28 +28,46 @@
 </script>
 
 <div class="row">
+    <div class="col-sm-12">
+        <div class="page-header">
+            <h1><?php echo $this->lang->line('edit') ,' ', $this->lang->line('page'); ?></h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-12">
-        <form id="edit" method="post" class="form-horizontal" action="<?php echo ADMIN_URL . 'page/edit/' . @$page->id; ?>" enctype="multipart/form-data">
+        <form id="edit" method="post" class="form-horizontal" action="<?php echo USER_URL . 'page/edit/' . @$page->id; ?>" enctype="multipart/form-data">
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Title <span class="text-danger">*</span></label>
-                <div class="col-lg-9">
-                    <input type="text" class="form-control required" name="title" value="<?php echo $page->title ?>"/>
+            <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo ucwords($value), ' ', $this->lang->line('page_content_title'); ?>
+                        <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" name="<?php echo $key . '_title'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('page_content_title'), ' ', ucwords($value); ?>" value="<?php echo $page->{$key .'_title'}; ?>"/>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Description <span class="text-danger">*</span></label>
-                <div class="col-lg-9">
-                    <textarea  class="required summernote-sm" name="description"><?php echo $page->description; ?></textarea>
+            <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                <div class="form-group">
+                    <label for="question" class="col-lg-2 control-label">
+                        <?php echo ucwords($value), ' ', $this->lang->line('page_content_description'); ?>
+                        <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                    </label>
+                    <div class="col-lg-9">
+                        <textarea name="<?php echo $key . '_description'; ?>"  class="summernote-sm <?php echo ($key == 'en') ? 'required' : ''; ?>"><?php echo $page->{$key .'_description'}; ?></textarea>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
             <div class="form-group">
                 <label class="col-lg-2 control-label">&nbsp;</label>
                 <div class="col-lg-9">
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="Update">Update</button>
-                    <a href="<?php echo ADMIN_URL . 'page' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="Cancel">Cancel</a>
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('update'); ?>"><?php echo $this->lang->line('update'); ?></button>
+                    <a href="<?php echo USER_URL . 'page' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
                 </div>
             </div>
 

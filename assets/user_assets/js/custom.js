@@ -272,3 +272,52 @@ function PositionFooter() {
     	$('#footer').css('position', 'relative');
     }
 }
+
+function isInt(value){
+    var er = /^[0-9]+$/;
+    return ( er.test(value) ) ? true : false;
+}
+
+function statisticalDataBalance(){
+	var market_fee = jQuery('#market_fee').val();
+	var license_fee = jQuery('#license_fee').val();
+	var other_income = jQuery('#other_income').val();
+	var total_income = 0;
+	var expenses = jQuery('#expenses').val();
+
+	if(!isInt(market_fee)){
+	    market_fee = parseFloat(market_fee);
+	} else {
+	    market_fee = parseInt(market_fee);
+	}
+
+	if(!isInt(license_fee)){
+	    license_fee = parseFloat(license_fee);
+	} else {
+	    license_fee = parseInt(license_fee);
+	}
+
+	if(!isInt(other_income)){
+	    other_income = parseFloat(other_income);
+	} else {
+	    other_income = parseInt(other_income);
+	}
+
+	total_income =  market_fee + license_fee + other_income;
+
+	if(!isInt(total_income)){
+	    total_income = parseFloat(total_income);
+	} else {
+	    total_income = parseInt(total_income);
+	}
+
+	jQuery('#total_income').val(total_income);
+
+	if(!isInt(expenses)){
+	    expenses = parseFloat(expenses);
+	} else {
+	    expenses = parseInt(expenses);
+	}
+
+	jQuery('#balance').val(total_income - expenses);
+}

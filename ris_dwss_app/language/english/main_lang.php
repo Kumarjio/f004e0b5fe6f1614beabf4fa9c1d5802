@@ -328,4 +328,21 @@
 	$lang['user_status_inactive'] = 'Inactive';
 	$lang['user_status_banned'] = 'Banned';
 
+//Statistical Data
+	$lang['statistical_data'] = 'Statistical Data';
+	$lang['statistics'] = 'Statistics';
+	$lang['statistics_from_year'] = 'From year';
+	$lang['statistics_to_year'] = 'To year';
+	$lang['statistics_market_fee'] = 'Market Fee';
+	$lang['statistics_license_fee'] = 'License Fee';
+	$lang['statistics_other_income'] = 'Other Income';
+	$lang['statistics_total_income'] = 'Total Income';
+	$lang['statistics_total_expenses'] = 'Total Expenses';
+	$lang['statistics_fund_left'] = 'Permanent fund';
+
+//Page
+	$lang['page'] = 'Page';
+	$lang['page_templates'] = 'Page Templates';
+	$lang['page_content_title'] = 'Title';
+	$lang['page_content_description'] = 'Description';
 ?>
