@@ -366,6 +366,15 @@
                             </li>
                         <?php } ?>
 
+                        <?php if (hasPermission('galleries', 'viewGallery')) { ?>
+                            <li class="<?php echo ($uri_1 == 'gallery') ? 'active open' : ''; ?>">
+                                <a href="<?php echo USER_URL .'gallery'; ?>"><i class="icon-asterisk"></i>
+                                    <span class="title"><?php echo $this->lang->line('gallery'); ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+
                         <?php if (hasPermission('statistics', 'viewStatistic')) { ?>
                             <li class="<?php echo ($uri_1 == 'statistic') ? 'active open' : ''; ?>">
                                 <a href="<?php echo USER_URL .'statistic'; ?>"><i class="icon-asterisk"></i>

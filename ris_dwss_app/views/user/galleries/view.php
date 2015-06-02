@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <?php if (hasPermission('galleries', 'addMarket')) { ?>
+    <?php if (hasPermission('galleries', 'addGallery')) { ?>
         <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
             <div class="page-header text-right">
                 <h1><a class="btn btn-green" href="<?php echo USER_URL . 'gallery/add'; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('gallery'); ?></a></h1>

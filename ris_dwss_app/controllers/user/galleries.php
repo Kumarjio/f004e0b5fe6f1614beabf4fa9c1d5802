@@ -176,6 +176,55 @@ class galleries extends CI_Controller
         }
     }
 
+    function editGalleryImages($gallery_id, $image_id){
+        $gallery = new Gallery();
+        $gallery->where('id', $gallery_id)->get();
+
+        $obj_gallery_image = new Galleryimage();
+        $obj_gallery_image->where(array('id' => $image_id, 'gallery_id' => $gallery_id))->get();
+
+        if($gallery->result_count() == 1 && $obj_gallery_image->result_count() == 1){
+            if ($this->input->post() !== false) {    
+                $obj_gallery_image = new Galleryimage();
+                $obj_gallery_image->where(array('id' => $image_id, 'gallery_id' => $gallery_id))->get();
+
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    if ($key.'_image_title' != '') {
+                        $obj_gallery_image->{$key . '_name'} = $this->input->post($key.'_image_title');
+                    } else {
+                        $obj_gallery_image->{$key . '_name'} = $this->input->post('en_image_title');
+                    }
+                }
+
+                if ($_FILES['image_file']['name'] != '') {
+                    $image = $this->uploadImage('image_file');
+                    if (isset($image['error'])) {
+                        $this->session->set_flashdata('file_errors', $image['error']);
+                        redirect(USER_URL . 'gallery/edit/image/'. $gallery_id .'/'. $image_id, 'refresh');
+                    } else if (isset($image['upload_data'])) {
+                        if (!is_null($obj_gallery_image->image) && file_exists('assets/uploads/gallery_images/' . $obj_gallery_image->image)) {
+                            unlink('assets/uploads/gallery_images/' . $obj_gallery_image->image);
+                        }
+                        $obj_gallery_image->image = $image['upload_data']['file_name'];
+                    }
+                }
+
+                $obj_gallery_image->updated_id = $this->session_data->id;
+                $obj_gallery_image->update_datetime = get_current_date_time()->get_date_time_for_db();
+                $obj_gallery_image->save();
+                redirect(USER_URL . 'gallery/view/' . $gallery_id, 'refresh');
+            } else {
+                $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('gallery_image'));
+                
+                $data['gallery_details'] = $gallery->stored;
+                $data['gallery_image_details'] = $obj_gallery_image->stored;
+                $this->layout->view('user/galleries/edit_gallery_images', $data);
+            }
+        } else {
+            redirect(USER_URL . 'gallery', 'refresh');
+        }
+    }
+
     function uploadImage($field) {
         $this->upload->initialize(
             array(

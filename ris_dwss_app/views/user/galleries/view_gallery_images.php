@@ -67,14 +67,14 @@
 <div class="row">
     <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
         <div class="page-header">
-            <h1><?php echo $this->lang->line('list') ,' ', $this->lang->line('gallery_images'), ' ('. @$count .')'; ?></h1>
+            <h2><?php echo $this->lang->line('list') ,' ', $this->lang->line('gallery_images'), ' : ', $gallery_details->{$session->language .'_name'}, ' ('. @$count .')'; ?></h2>
         </div>
     </div>
 
     <?php if (hasPermission('galleries', 'addMarket')) { ?>
         <div class="col-sm-12 col-sm-6 col-md-6 col-lg-6">
             <div class="page-header text-right">
-                <h1><a class="btn btn-green" href="<?php echo USER_URL . 'gallery/add/image/' . $gallery_details->id; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('gallery_image'); ?></a></h1>
+                <h2><a class="btn btn-green" href="<?php echo USER_URL . 'gallery/add/image/' . $gallery_details->id; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('add'); ?>"><i class="clip-plus-circle"></i>&nbsp;<?php echo $this->lang->line('add') .' '. $this->lang->line('gallery_image'); ?></a></h2>
             </div>
         </div>
     <?php } ?>

@@ -373,6 +373,10 @@ class CI_Upload {
 	public function set_upload_path($path)
 	{
 		// Make sure it has a trailing slash
+		if(!is_dir($path)){
+			mkdir($path, 0777, true);
+		}
+		
 		$this->upload_path = rtrim($path, '/').'/';
 	}
 

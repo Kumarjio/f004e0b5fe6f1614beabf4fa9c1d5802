@@ -1054,7 +1054,7 @@ class json extends CI_Controller
             $str = '';
 
             if (hasPermission('galleries', 'editGallery')) {
-                $str .= '<a href="' . USER_URL . 'gallery/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+                $str .= '<a href="' . USER_URL . 'gallery/edit/image/' . $aRow['gallery_id'] .'/'. $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
             }
 
             if (hasPermission('galleries', 'deleteGallery')) {

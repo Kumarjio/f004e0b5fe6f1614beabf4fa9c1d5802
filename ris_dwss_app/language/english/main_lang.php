@@ -355,4 +355,6 @@
 	$lang['gallery_images'] = 'Images';
 	$lang['gallery_image'] = 'Image';
 	$lang['gallery_image_tile'] = 'Title';
+	$lang['add_gallery_image'] = "Add More Image";
+	$lang['remove_gallery_image'] = "Remove Image";
 ?>
