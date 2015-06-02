@@ -345,4 +345,14 @@
 	$lang['page_templates'] = 'Page Templates';
 	$lang['page_content_title'] = 'Title';
 	$lang['page_content_description'] = 'Description';
+
+//Gallery
+	$lang['gallery'] = 'Gallery';
+	$lang['gallery_name'] = 'Name';
+	$lang['gallery_image_count'] = 'Total Images';
+
+//Gallery Images
+	$lang['gallery_images'] = 'Images';
+	$lang['gallery_image'] = 'Image';
+	$lang['gallery_image_tile'] = 'Title';
 ?>

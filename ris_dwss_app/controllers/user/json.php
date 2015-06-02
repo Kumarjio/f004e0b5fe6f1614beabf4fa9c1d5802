@@ -1000,5 +1000,73 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getGalleriesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('galleries.'.$this->session_data->language . '_name AS name', '(SELECT COUNT(*) FROM galleryimages WHERE  galleryimages.gallery_id=galleries.id)AS total');
+        $this->datatable->eColumns = array('galleries.id');
+        $this->datatable->sIndexColumn = "galleries.id";
+        $this->datatable->sTable = " galleries";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['name'];
+            $temp_arr[] = $aRow['total'];
+            
+            $str = '';
+            if (hasPermission('galleries', 'viewGalleryImages')) {
+                $str .= '<a href="' . USER_URL . 'gallery/view/' . $aRow['id'] . '" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('add') .' ' . $this->lang->line('gallery_images') .'"><i class="clip-plus-circle"></i></a>&nbsp;';
+            }
+
+            if (hasPermission('galleries', 'editGallery')) {
+                $str .= '<a href="' . USER_URL . 'gallery/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('galleries', 'deleteGallery')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getGalleryImagesJsonData(){
+        $gallery_id = $this->input->get('id');
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_name AS name', 'image');
+        $this->datatable->eColumns = array('id', 'gallery_id');
+        $this->datatable->sIndexColumn = 'id';
+        $this->datatable->sTable = ' galleryimages';
+        $this->datatable->myWhere = ' WHERE gallery_id = '. $gallery_id; 
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['name'];
+            $temp_arr[] = '<img src="'. ASSETS_URL .'uploads/gallery_images/' . $aRow['image'] .'" alt="" class="img-thumbnail col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+            
+            $str = '';
+
+            if (hasPermission('galleries', 'editGallery')) {
+                $str .= '<a href="' . USER_URL . 'gallery/edit/' . $aRow['id'] . '" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="'. $this->lang->line('edit') .'"><i class="icon-edit"></i></a>';
+            }
+
+            if (hasPermission('galleries', 'deleteGallery')) {
+                $str .= '&nbsp;<a href="javascript:;" onclick="deletedata(this)" class="btn btn-bricky" gallery_id="'. $aRow['gallery_id'] .'" image_id="'. $aRow['id'] .'" data-toggle="tooltip" data-original-title="'. $this->lang->line('delete') .'" title="'. $this->lang->line('delete') .'"><i class="icon-remove icon-white"></i></i></a>';
+            }
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
 }

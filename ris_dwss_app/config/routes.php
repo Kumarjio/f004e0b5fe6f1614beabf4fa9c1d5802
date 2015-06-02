@@ -123,6 +123,13 @@ $route['user/advertisement/approve/(:num)'] = "user/advertisements/approveAdvert
 //Packets
 $route['user/packet/manage/(:num)'] = "user/packets/managePacket/$1";
 
+//Gallery Images
+$route['user/gallery/view/(:num)'] = "user/galleries/viewGalleryImages/$1";
+$route['user/gallery/images/getjson'] = "user/json/getGalleryImagesJsonData";
+$route['user/gallery/add/image/(:num)'] = "user/galleries/addGalleryImages/$1";
+$route['user/gallery/edit/image/(:num)/(:num)'] = "user/galleries/editGalleryImages/$1/$2";
+$route['user/gallery/delete/image/(:num)/(:num)'] = "user/galleries/delteGalleryImages/$1/$2";
+
 //System Setting
 $route['user/system_setting/(:any)'] = "user/systemsettings/viewSystemSetting/$1";
 
