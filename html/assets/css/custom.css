@@ -1,0 +1,262 @@
+#header{
+  	/*background: url(../img/header_bg.jpg) repeat;*/
+}
+
+#header .header-top-bar .header-logo {
+	text-align: left;
+}
+
+#header .header-top-bar .header-logo img{
+	width: 165px;
+	float: left;
+	clear: both;
+	padding-top: 10px;
+}
+
+#header .header-top-bar .header-logo {
+	width: 100%;
+}
+
+#header .header-top-bar .header-logo h3 {
+	margin-top: 5px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+#header .header-top-bar .header-logo h3 a{
+	color: #10D13D;
+}
+
+#header .header-nav-bar {
+    border-top: 3px solid #10D13D;
+}
+
+.all_border{
+	border: 1px solid black;
+}
+
+.rate-market-title{
+	font-size: 18px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.rate-marquee{
+	text-transform: capitalize;
+	padding: 5px 0 0 0;
+	margin-bottom: 5px;
+}
+
+.rate-marquee .rate-marquee-box{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.rate-marquee marquee {
+	width: 89%;
+} 
+
+.rate-marquee span {
+	padding: 5px;	
+}
+
+.tender-table th {
+	color: #fff;
+}
+
+.company-events .tag {
+	margin: 0 0 10px;
+	padding-bottom: 0;
+}
+
+.about-us .member-details .title {
+    padding: 10px 0 0px;
+}
+
+.about-us .member-details .title i.fa{
+    font-size: 30px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+#footer .main-footer .popular-categories ul li:last-child {
+  border-bottom: 0px solid #4d4d4d;
+}
+
+#page-content
+{
+    padding-bottom: 0px;
+}
+
+.text-muted{color:#999}
+.text-primary{color:#428bca}
+.text-warning{color:#c09853}
+.text-danger{color:#b94a48}
+.text-success{color:#468847}
+.text-info{color:#3a87ad}
+
+.sample-page .event-place {
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+}
+
+.sample-page .event-place a {
+  color: #919191;
+  font-size: 13px;
+  padding-right: 20px;
+}
+
+.sample-page .post-read-more {
+  padding: 10px 15px;
+  border: 1px solid #333333;
+  font-weight: bold;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.sample-page .post-read-more .fa {
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.latest-news li {
+	margin-bottom: 20px;
+	border-bottom: 1px dashed #000;
+	padding-bottom: 10px;
+}
+
+.post-sidebar .single-product {
+	border-bottom: 1px dashed #000;
+	padding: 20px 0 10px;	
+}
+
+/* MARGIN HACKS */
+	.margin-killer {
+		margin: 0px !important;
+	}
+
+	.margin-top-killer {
+		margin: 0px !important;
+	}
+
+	.margin-right-killer {
+		margin-right: 0px !important;
+	}
+
+	.margin-bottom-killer {
+		margin-bottom: 0px !important;
+	}
+
+	.margin-left-killer {
+		margin-left: 0px !important;
+	}
+
+	.margin-top-10 {
+		margin-top: 10px;
+	}
+
+	.margin-right-10 {
+		margin-right: 10px;
+	}
+
+	.margin-bottom-10 {
+		margin-bottom: 10px;
+	}
+
+	.margin-left-10 {
+		margin-left: 10px;
+	}
+/* ****************************** */
+
+/* PADDING HACKS */
+	.padding-killer {
+		padding: 0px !important;
+	}
+
+	.padding-top-killer {
+		padding: 0px !important;
+	}
+
+	.padding-right-killer {
+		padding-right: 0px !important;
+	}
+
+	.padding-bottom-killer {
+		padding-bottom: 0px !important;
+	}
+
+	.padding-left-killer {
+		padding-left: 0px !important;
+	}
+
+	.padding-top-10 {
+		padding-top: 10px;
+	}
+
+	.padding-right-10 {
+		padding-right: 10px;
+	}
+
+	.padding-bottom-10 {
+		padding-bottom: 10px;
+	}
+
+	.padding-left-10 {
+		padding-left: 10px;
+	}
+/* ****************************** */
+
+/* SIDEBAR */
+	.featured {
+		padding-bottom: 0px !important;
+	}
+
+	.latest-news {
+		list-style-type: none;
+		margin-bottom: 10px;	
+	}
+
+	.latest-news marquee{
+		max-height: 250px;
+	}
+/* ****************************** */
+
+/* Media Queries */
+@media only screen and (min-width: 40.063em) and (max-width: 75em) {
+}
+
+@media only screen and (max-width: 40em) {
+    #header .header-top-bar .header-logo {
+        left: 0;
+        position: relative;
+    }
+
+    #header .header-top-bar .header-logo img{
+        display: block;
+        margin: 0 auto;
+        float: none;
+    }
+
+    .rate-marquee {
+        left: 6%;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: inherit;      
+    }
+
+    .rate-market-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .rate-marquee marquee {
+        width: 100%;
+    }
+
+    .rate-market-title {
+        padding: 5px 0;
+    }
+}
+/* ****************************** */

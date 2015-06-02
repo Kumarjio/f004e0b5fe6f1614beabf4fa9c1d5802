@@ -1,0 +1,63 @@
+<?php include('header.php'); ?>
+	
+	<div class="col-md-8">
+		<h3>This Is Sample Page</h3>
+
+		<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.
+		Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam.
+		Quisque semper justo at risus.</strong>
+		</p>
+
+		<p>Donec venenatis, turpis vel hendrerit interdum,
+		dui ligula ultricies purus, sed posuere libero dui id orci.
+		Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu,
+		vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis.
+		Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat,
+		purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue.
+		Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
+		</p>
+
+		<div class="post-image">
+		<img src="assets/img/content/post-image.jpg" alt="">
+		</div>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a,
+		scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus.
+		Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis,
+		turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci.
+		Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est.
+		Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque.
+		</p>
+
+		<p>Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor,
+		et mollis pede metus eget nisi. Praesent sodales velit quis augue.
+		Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
+		</p>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.
+		Cras vel lorem. Etiam pellentesque aliquet tellus.
+		Phasellus pharetra nulla ac diam. Quisque semper justo at risus.
+		Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus,
+		sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet,
+		elit magna vulputate arcu, vel tempus metus leo non est.
+		Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque.
+		Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor,
+		et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit,
+		urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a,
+		scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus.
+		Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis,
+		turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci.
+		Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est.
+		Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare,
+		ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi.
+		Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi,
+		in interdum massa nibh nec erat.
+		</p>
+	</div>
+
+<?php include('sidebar.php'); ?>
+<?php include('product-rotator.php'); ?>
+<?php include('footer.php'); ?>
