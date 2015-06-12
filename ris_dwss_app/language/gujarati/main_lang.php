@@ -48,6 +48,15 @@
 	$lang['recommeded_image_size'] = 'Recommeded size %s (width x height)';
 	$lang['send_sms_success'] = 'SMS Sent Successfully';
 	$lang['send_sms_error'] = 'Not able to Send SMS';
+	$lang['webmail'] = 'Webmail';
+	$lang['no_record_exits'] = 'No Record Exits';
+	$lang['contact_details'] = 'Contact Details';
+	$lang['all_fields_are_compulsory'] = '* All fields are compulsory';
+
+	$lang['pending'] = 'બાકી';
+	$lang['approved'] = 'મંજૂર';
+	$lang['unapproved'] = 'અમાન્ય';
+	$lang['over'] = 'પૂરું';
 
 	$lang['sunday'] = 'Sunday';
 	$lang['monday'] = 'Monday';
@@ -74,6 +83,10 @@
 	$lang['sign_into_account'] = 'તમારા એકાઉન્ટમાં સાઇન ઇન કરો';
 	$lang['i_forgot_password'] = 'હું મારો પાસવર્ડ ભૂલી ગયા છો';
 	$lang['login_button'] = 'પ્રવેશ';
+
+	$lang['invalid_username_password'] = 'Invalid Username or password';
+	$lang['user_inactive'] = 'You are not an active member. Please contact administartor';
+	$lang['login_contact_admin'] = 'Something went wrong. Please contact administartor';
 
 //Forgot Password
 	$lang['send_mail'] = 'Send Mail';
@@ -116,13 +129,13 @@
 	$lang['email_short_code'] = 'Short codes';
 
 //Markets
-	$lang['markets'] = 'Market';
-	$lang['market_name'] = 'Name';
-	$lang['market_image'] = 'Market image';
-	$lang['current_market_image'] = 'Current Market image';
-	$lang['market_status'] = 'Status';
+	$lang['markets'] = 'બજાર';
+	$lang['market_name'] = 'બજાર નામ';
+	$lang['market_image'] = 'બજાર છબી';
+	$lang['current_market_image'] = 'વર્તમાન બજાર છબી';
+	$lang['market_status'] = 'સ્થિતિ';
 
-//Newss
+//News
 	$lang['news'] = 'News';
 	$lang['news_name'] = 'Title';
 	$lang['news_description'] = 'Description';
@@ -150,7 +163,7 @@
 	$lang['bod_current_image'] = 'Current Image';
 	$lang['bod_status'] = 'Status';
 
-//staff
+//Staff
 	$lang['staff'] = 'Staff directory';
 	$lang['staff_name'] = 'Name';
 	$lang['staff_position'] = 'Position';
@@ -237,7 +250,9 @@
 	$lang['supplier_confirm_password'] = 'Confirm Password';	
 
 //Supplier Products
-	$lang['supplier_prodcut'] = 'Supplier Prodcuts';
+	$lang['supplier_prodcu'] = 'Supplier Prodcuts';
+	$lang['no_product_in_category'] = 'No Products Found';
+	$lang['supplier_manage_product'] = 'Manage Products';
 
 //Sell Offer
 	$lang['selloffer'] = 'Sell Offer';
@@ -271,8 +286,75 @@
 	$lang['communication_from_id'] = 'From';
 	$lang['communication_to_id'] = 'To';
 	$lang['communication_mobile_no'] = 'Mobile No';
-	$lang['communication_description'] = 'Description';
+	$lang['communication_description'] = 'Message';
 	$lang['communication_status'] = 'Status';
+	$lang['communication_all_users'] = 'All';
 	
+//Advertisements
+	$lang['advertisement'] = 'Advertisement';
+	$lang['advertisement_place'] = 'Position';
+	$lang['advertisement_shop_name'] = 'Supplier';
+	$lang['advertisement_name'] = 'Title';
+	$lang['advertisement_url'] = 'URL';
+	$lang['advertisement_start_date'] = 'Start Date';
+	$lang['advertisement_end_date'] = 'End Date';
+	$lang['advertisement_image'] = 'Image';
+	$lang['advertisement_approve'] = 'Approve';
+	$lang['advertisement_remark'] = 'Remark';
 
+//Contact US
+	$lang['contact_us'] = 'Contact Us';
+
+//Packets
+	$lang['packet'] = 'Packet';
+	$lang['manage_packet'] = 'Manage Order Packing';
+	$lang['packet_weight'] = 'Weight';
+	$lang['add_packet'] = 'Add New Packet';
+	$lang['delete_packet'] = 'Delete Packet';
+	$lang['manage_add_new_packets'] = 'Add New Packets';
+	$lang['manage_old_packets'] = 'Manage Old Packets';
+
+//Users
+	$lang['users'] = 'Manage Users';
+	$lang['user'] = 'User';
+	$lang['user_image'] = 'Profile Pic';
+	$lang['user_name'] = 'Name';
+	$lang['user_username'] = 'Username';
+	$lang['user_role'] = 'Role';
+	$lang['user_mobile'] = 'Mobile';
+	$lang['user_status'] = 'Status';
+	$lang['user_password'] = 'Password';
+	$lang['user_status_active'] = 'Active';
+	$lang['user_status_inactive'] = 'Inactive';
+	$lang['user_status_banned'] = 'Banned';
+
+//Statistical Data
+	$lang['statistical_data'] = 'Statistical Data';
+	$lang['statistics'] = 'Statistics';
+	$lang['statistics_from_year'] = 'From year';
+	$lang['statistics_to_year'] = 'To year';
+	$lang['statistics_market_fee'] = 'Market Fee';
+	$lang['statistics_license_fee'] = 'License Fee';
+	$lang['statistics_other_income'] = 'Other Income';
+	$lang['statistics_total_income'] = 'Total Income';
+	$lang['statistics_total_expenses'] = 'Total Expenses';
+	$lang['statistics_fund_left'] = 'Permanent fund';
+
+//Page
+	$lang['page'] = 'Page';
+	$lang['page_templates'] = 'Page Templates';
+	$lang['page_content_title'] = 'Title';
+	$lang['page_content_description'] = 'Description';
+
+//Gallery
+	$lang['gallery'] = 'Gallery';
+	$lang['gallery_name'] = 'Name';
+	$lang['gallery_image_count'] = 'Total Images';
+
+//Gallery Images
+	$lang['gallery_images'] = 'Images';
+	$lang['gallery_image'] = 'Image';
+	$lang['gallery_image_tile'] = 'Title';
+	$lang['add_gallery_image'] = "Add More Image";
+	$lang['remove_gallery_image'] = "Remove Image";
 ?>

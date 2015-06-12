@@ -65,7 +65,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
-                        <select name="supplier_id" id="supplier_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('selloffer_supplier'); ?>" required>
+                        <select name="supplier_id" id="supplier_id" class="required form-control chosen-select" data-placeholder="<?php echo $this->lang->line('supplierrequriment_supplier'); ?>" required>
                             <option value=""></option>
                             <?php foreach ($supplier_details as $supplier) { ?>
                                 <option value="<?php echo $supplier->id; ?>"><?php echo $supplier->shop_no .' - '. $supplier->{$session->language.'_shop_name'} ?></option>
@@ -77,7 +77,7 @@
 
             <div class="form-group">
                     <label for="question" class="col-lg-2 control-label">
-                        <?php echo $this->lang->line('selloffer_product'); ?>
+                        <?php echo $this->lang->line('supplierrequriment_product'); ?>
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
@@ -102,7 +102,7 @@
                         <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                     </label>
                     <div class="col-lg-9">
-                        <input type="text" name="<?php echo $key . '_title'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('selloffer'), ' ', $this->lang->line('selloffer_title'), ' ', ucwords($value); ?>"/>
+                        <input type="text" name="<?php echo $key . '_title'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('supplierrequriment_title'), ' ', ucwords($value); ?>"/>
                     </div>
                 </div>
             <?php } ?>
