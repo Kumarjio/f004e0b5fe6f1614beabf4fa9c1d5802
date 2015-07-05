@@ -11,6 +11,11 @@
                     }
                 }
             });
+
+            jQuery('.date-picker').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+            });
         });
     //]]>
 </script>
@@ -52,6 +57,47 @@
 
             <div class="form-group">
                 <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('market_type'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-9">
+                    <input type="text" name="type" class="form-control required" placeholder="<?php echo $this->lang->line('market_type'); ?>" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('market_date_establishment'); ?>
+                    <span class="text-danger">&nbsp;</span>
+                </label>
+                <div class="col-lg-9">
+                    <input type="text" name="etsd" class="form-control date-picker" placeholder="<?php echo $this->lang->line('market_date_establishment'); ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('market_area_sq_mt'); ?>
+                    <span class="text-danger">&nbsp;</span>
+                </label>
+                <div class="col-lg-9">
+                    <input type="text" name="area_sq_mt" class="form-control" placeholder="<?php echo $this->lang->line('market_area_sq_mt'); ?>"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('market_area_acre'); ?>
+                    <span class="text-danger">&nbsp;</span>
+                </label>
+                <div class="col-lg-9">
+                    <input type="text" name="area_acre" class="form-control" placeholder="<?php echo $this->lang->line('market_area_acre'); ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
                     <?php echo $this->lang->line('market_image'); ?>
                 </label>
                 <div class="col-lg-9">
@@ -73,6 +119,16 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-2 control-label">
+                    <?php echo $this->lang->line('market_address'); ?>
+                    <span class="text-danger">&nbsp;</span>
+                </label>
+                <div class="col-lg-9">
+                    <textarea name="address" class="form-control" rows="8" placeholder="<?php echo $this->lang->line('market_address'); ?>"></textarea>
                 </div>
             </div>
 

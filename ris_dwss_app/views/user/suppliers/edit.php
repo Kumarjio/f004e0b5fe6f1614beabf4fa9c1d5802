@@ -6,8 +6,8 @@
             jQuery("#add").validate({
                 rules: {
                     confirm_password: {equalTo: '#password'},
-                    username: {nowhitespace: true, remote: '<?php echo USER_URL . "checkusername/0"; ?>'},
-                    email: {remote: '<?php echo USER_URL . "checkemail/0"; ?>'},
+                    /*username: {nowhitespace: true, remote: '<?php echo USER_URL . "checkusername/" . $supplier->id; ?>'}, */
+                    email: {remote: '<?php echo USER_URL . "checkemail/" . $supplier->id; ?>'},
                 },
                 messages: {
                     cpassword: {equalTo: '* Password does Not Match'},
@@ -326,7 +326,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-9">
-                    <input type="text" name="email"  class="form-control required" placeholder="<?php echo $this->lang->line('supplier_email'); ?>" value="<?php echo $user_details->email; ?>"/>
+                    <input type="text" name="email"  class="form-control" placeholder="<?php echo $this->lang->line('supplier_email'); ?>" value="<?php echo $user_details->email; ?>"/>
                 </div>
             </div>
 
