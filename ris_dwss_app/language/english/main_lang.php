@@ -7,6 +7,7 @@
 	$lang['add'] = 'Add';
 	$lang['ok'] = 'Ok';
 	$lang['save'] = 'Save';
+	$lang['save_add_new'] = 'Save & Add New';
 	$lang['edit'] = 'Edit';
 	$lang['update'] = 'Update';
 	$lang['delete'] = 'Delete';
@@ -52,6 +53,7 @@
 	$lang['no_record_exits'] = 'No Record Exits';
 	$lang['contact_details'] = 'Contact Details';
 	$lang['all_fields_are_compulsory'] = '* All fields are compulsory';
+	$lang['templates'] = 'Templates';
 
 	$lang['pending'] = 'Pending';
 	$lang['approved'] = 'Approved';
@@ -69,7 +71,8 @@
 //MENU
 	$lang['dashboard'] = 'Dashboard';
 	$lang['role'] = 'Role';
-	$lang['email_templates'] = 'Email Templates';
+	$lang['email_template'] = 'Email Template';
+	$lang['page_template'] = 'Page Template';
 	$lang['setting'] = 'Setting';
 	$lang['genral_setting'] = 'General Setting';
 	$lang['mail_setting'] = 'Mail Setting';
@@ -134,6 +137,11 @@
 	$lang['market_image'] = 'Market image';
 	$lang['current_market_image'] = 'Current Market image';
 	$lang['market_status'] = 'Status';
+	$lang['market_date_establishment'] = 'Date of Establishment';
+	$lang['market_area_sq_mt'] = 'Area (Sq. Mt.)';
+	$lang['market_area_acre'] = 'Area (Acre)';
+	$lang['market_type'] = 'Type';
+	$lang['market_address'] = 'Address';
 
 //News
 	$lang['news'] = 'News';
@@ -355,4 +363,47 @@
 	$lang['gallery_images'] = 'Images';
 	$lang['gallery_image'] = 'Image';
 	$lang['gallery_image_tile'] = 'Title';
+	$lang['add_gallery_image'] = "Add More Image";
+	$lang['remove_gallery_image'] = "Remove Image";
+
+//Villages
+	$lang['villages'] = 'Villages';
+	$lang['village'] = 'Village';
+	$lang['village_name'] = 'Name';
+
+//Commodities
+	$lang['commodities'] = 'Commodities';
+	$lang['commodity'] = 'Commodity';
+	$lang['commodity_name'] = 'Name';
+	$lang['commodity_desc'] = 'Details';
+
+//Market Fees
+	$lang['market_fee_structure'] = 'Market Fees Structure';
+	$lang['market_fees'] = 'Market Fees';
+	$lang['licence_fees'] = 'Licence Fees';
+	$lang['market_details'] = 'Details of Market Charges';
+	$lang['weight_charges'] = 'Weight Charges';
+	$lang['labour_fees'] = 'Hamali (Labour) Charges';
+
+	$lang['licence_saikut_fee'] = 'Saikut Varg';
+	$lang['licence_processor_fee'] = 'Processor Varg';
+	$lang['licence_a_fee'] = 'A Varg';
+	$lang['licence_a_1_fee'] = 'A/1 Varg';
+	$lang['licence_dalal_fee'] = 'Dalal Varg';
+	$lang['licence_vakrhai_fee'] = 'Vakrhai Varg';
+	$lang['licence_chutak_vapar_fee'] = 'Chutak Vapar Varg';
+
+	$lang['commission_100_unit_grain'] = 'Commission per 100 Unit :: Grains';
+	$lang['commission_100_unit_vegetable'] = 'Commission per 100 Unit :: Vegetables';
+
+	$lang['weight_charge_till_50_grain'] = 'Up to 50 Kg.';
+	$lang['weight_charge_till_50_vegetable'] = 'Up to 50 Kg.';
+	$lang['weight_charge_above_50_grain'] = 'Above 50 Kg.';
+	$lang['weight_charge_above_50_vegetable'] = 'Above 50 Kg.';
+
+	$lang['labour_charge_till_50_grain'] = 'Up to 50 Kg.';
+	$lang['labour_charge_till_50_vegetable'] = 'Up to 50 Kg.';
+	$lang['labour_charge_above_50_grain'] = 'Above 50 Kg.';
+	$lang['labour_charge_above_50_vegetable'] = 'Above 50 Kg.';
+	$lang['potato_oninon_per_bag'] = 'Potato / Onion per bag';
 ?>

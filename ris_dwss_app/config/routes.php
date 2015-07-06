@@ -113,6 +113,9 @@ $route['user/supplierrequriment/sms/send/(:num)'] = "user/supplierrequriments/se
 $route['user/supplierrequriment/sms/resend/(:num)'] = "user/supplierrequriments/resendSmsSupplierrequriment/$1";
 $route['user/supplierrequriment/sms/delete/(:num)'] = "user/supplierrequriments/deleteSmsSupplierrequriment/$1";
 
+//Market Fees
+$route['user/market/market_fee'] = "user/markets/updateMarketFees";
+
 //Communications
 $route['user/communication/send'] = "user/communications/sendCommunication";
 $route['user/communication/resend/(:num)'] = "user/communications/resendCommunication/$1";

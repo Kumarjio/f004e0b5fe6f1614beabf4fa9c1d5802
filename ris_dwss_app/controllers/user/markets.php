@@ -40,6 +40,11 @@ class markets extends CI_Controller
                 }
             }
 
+            $market->type = $this->input->post('type');
+            $market->etsd = date('Y-m-d', strtotime($this->input->post('etsd')));
+            $market->area_sq_mt = $this->input->post('area_sq_mt');
+            $market->area_acre = $this->input->post('area_acre');
+            $market->address = $this->input->post('address');
             $market->status = $this->input->post('status');
             $market->created_id = $this->session_data->id;
             $market->created_datetime = get_current_date_time()->get_date_time_for_db();
@@ -82,6 +87,11 @@ class markets extends CI_Controller
                     }
                 }
 
+                $market->type = $this->input->post('type');
+                $market->etsd = date('Y-m-d', strtotime($this->input->post('etsd')));
+                $market->area_sq_mt = $this->input->post('area_sq_mt');
+                $market->area_acre = $this->input->post('area_acre');
+                $market->address = $this->input->post('address');
                 $market->status = $this->input->post('status');
                 $market->updated_id = $this->session_data->id;
                 $market->update_datetime = get_current_date_time()->get_date_time_for_db();
@@ -142,5 +152,34 @@ class markets extends CI_Controller
         }
         
         return $data;
+    }
+
+    function updateMarketFees(){
+        if ($this->input->post() !== false) {
+            
+            $setting = new Systemsetting();
+            $setting->where('type', 'market_detail')->get();
+
+            foreach ($setting as $value) {
+                $setting->where('sys_key', $value->sys_key)->update('sys_value', $this->input->post($value->sys_key));
+            }
+
+            $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+            redirect(USER_URL . 'market/market_fee', 'refresh');
+        } else {
+            $this->layout->setField('page_title', $this->lang->line('market_fee_structure'));
+
+            $setting = new Systemsetting();
+             $setting->where('type', 'market_detail');
+
+            $temp = new stdClass();
+            foreach ($setting->get() as $value) {
+                $temp->{$value->sys_key} = $value->sys_value;
+            }
+
+            $data['market_fees'] = $temp;
+
+            $this->layout->view('user/markets/market_fee', $data);
+        }
     }
 }
